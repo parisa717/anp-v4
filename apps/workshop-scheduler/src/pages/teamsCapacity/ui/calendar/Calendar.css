@@ -1,0 +1,77 @@
+.custom-calendar {
+  & .rbc-date-cell div {
+    justify-content: flex-end;
+  }
+  & .rbc-event {
+    background-color: unset;
+    border-radius: 0;
+    color: var(--shade-700);
+  }
+  & .rbc-label {
+    padding: 0;
+  }
+  & .rbc-off-range-bg {
+    background-color: var(--shade-100);
+  }
+  & .rbc-header {
+    border-left: none;
+    background-color: var(--shade-100);
+  }
+  & .rbc-time-content {
+    display: none;
+  }
+  & .rbc-time-header-cell-single-day {
+    display: block;
+  }
+  & .rbc-time-header-content {
+    border: none;
+  }
+  & .rbc-month-header,
+  .rbc-time-header-cell {
+    background-color: var(--shade-000);
+  }
+  & .rbc-time-view {
+    border: 1px solid var(--shade-300);
+  }
+  & .rbc-today {
+    background-color: var(--teal-50);
+  }
+  & .week-view-out-of-work span {
+    color: var(--shade-300);
+  }
+}
+
+.custom-month-view {
+  & .rbc-today {
+    border-top: 1px solid var(--teal-700);
+  }
+}
+
+.custom-week-view {
+  & .capacities-wrapper {
+    gap: 12px;
+  }
+  & .rbc-header.rbc-today {
+    border-top: 1px solid var(--teal-700);
+    background-color: var(--teal-50);
+  }
+  & .rbc-header {
+    background-color: var(--shade-000);
+  }
+}
+
+.custom-day-view {
+  & .rbc-header.rbc-today {
+    border-top: 1px solid var(--teal-700);
+  }
+  & .rbc-allday-cell {
+    border-top: 1px solid var(--shade-300);
+    background-color: var(--shade-000);
+  }
+  & .capacities-wrapper {
+    gap: 12px;
+  }
+  & .rbc-off-range-bg {
+    color: var(--shade-300);
+  }
+}

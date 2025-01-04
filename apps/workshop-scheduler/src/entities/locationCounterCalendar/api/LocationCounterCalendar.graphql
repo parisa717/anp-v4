@@ -1,0 +1,19 @@
+query GetLocationCounterCalendar($locationId: UUID!) {
+  getLocationCounterCalendar(locationId: $locationId) {
+    workDays {
+      dayNumber
+      startTime
+      endTime
+      breaks {
+        startTime
+        endTime
+      }
+    }
+  }
+}
+
+mutation UpdateLocationCounterCalendar($locationId: UUID!, $workDays: [GqlUpdateLocationCounterCalendarInput!]!) {
+  updateLocationCounterCalendar(locationId: $locationId, workDays: $workDays) {
+    status
+  }
+}

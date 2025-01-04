@@ -1,0 +1,64 @@
+mutation CreateLocationWork($locationWorks: [GqlCreateWorkshopLocationWorkInput!]!) {
+  createWorkshopLocationWork(locationWorks: $locationWorks) {
+    locationWorks {
+      id
+    }
+  }
+}
+
+query GetLocationWorks($locationId: UUID!) {
+  getLocationWorks(locationId: $locationId) {
+    locationWorks {
+      id
+      locationId
+      name
+      isRecommended
+      workId
+      amountPerDayLimit
+      capacityPerDayLimit
+      isCapacityEditable
+      isDescriptionEditable
+      brands {
+        id
+        name
+        timeUnits
+      }
+      qualification {
+        id
+        name
+      }
+    }
+  }
+}
+
+mutation UpdateLocationWork($locationWork: GqlUpdateWorkshopLocationWorkInput!) {
+  updateWorkshopLocationWork(locationWork: $locationWork) {
+    status
+  }
+}
+
+mutation DeleteLocationWork($id: UUID!) {
+  deleteWorkshopLocationWork(id: $id) {
+    status
+  }
+}
+
+query GetLocationWork($id: UUID!) {
+  getWorkshopLocationWork(id: $id) {
+    id
+    workId
+    locationId
+    isRecommended
+    name
+    amountPerDayLimit
+    capacityPerDayLimit
+    brands {
+      id
+      name
+    }
+    qualification {
+      id
+      name
+    }
+  }
+}

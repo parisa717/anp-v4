@@ -1,0 +1,77 @@
+query GetLocations {
+  getLocations {
+    locations {
+      id
+      code
+      name
+      isActive
+      address {
+        country {
+          id
+          name
+        }
+        postCode
+        city
+        address
+      }
+      area {
+        id
+        code
+        name
+      }
+      brands {
+        id
+        code
+        isWorkshopDefault
+      }
+    }
+  }
+}
+
+query GetLocation($id: UUID!) {
+  getLocation(id: $id) {
+    id
+    code
+    name
+    isActive
+    address {
+      country {
+        id
+        name
+      }
+      postCode
+      city
+      address
+    }
+    area {
+      id
+      code
+      name
+    }
+    brands {
+      id
+      code
+      isWorkshopDefault
+    }
+  }
+}
+
+query GetWorkshopConnectedLocations($locationId: UUID!) {
+  getWorkshopConnectedLocations(locationId: $locationId) {
+    workshopConnectedLocations {
+      connectedLocationId
+    }
+  }
+}
+
+mutation CreateWorkshopConnectedLocations($locationId: UUID!, $connectedLocationId: UUID!) {
+  createWorkshopConnectedLocations(locationId: $locationId, connectedLocationId: $connectedLocationId) {
+    status
+  }
+}
+
+mutation DeleteWorkshopConnectedLocations($locationId: UUID!, $connectedLocationId: UUID!) {
+  deleteWorkshopConnectedLocations(locationId: $locationId, connectedLocationId: $connectedLocationId) {
+    status
+  }
+}

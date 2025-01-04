@@ -1,0 +1,43 @@
+extend type Query {
+  getWorkshopWorks(
+    filter: WorkshopWorksFilterInput
+    pagination: PaginationInput
+    sort: SortInput
+  ): GqlGetWorkshopWorksObjectType!
+  getWorkshopWork(id: UUID!): GqlGetWorkObjectType!
+}
+
+input WorkshopWorksFilterInput {
+  name: String
+  brand: [UUID]
+  qualification: [UUID]
+  isCapacityEditable: Boolean
+  isDescriptionEditable: Boolean
+  excludeServicesAssignedToTheLocation: UUID
+}
+
+type GqlGetWorkObjectType {
+  id: UUID!
+  name: String!
+  isCapacityEditable: Boolean!
+  isDescriptionEditable: Boolean!
+  isActive: Boolean!
+  qualification: GqlGetWorkQualificationObjectType!
+  brands: [GqlGetWorkBrandObjectType!]!
+}
+
+type GqlGetWorkQualificationObjectType {
+  id: UUID!
+  name: String!
+}
+
+type GqlGetWorkBrandObjectType {
+  id: UUID!
+  name: String!
+  timeUnits: Int!
+}
+
+type GqlGetWorkshopWorksObjectType implements PaginatedResponse {
+  works: [GqlGetWorkObjectType!]!
+  metadata: PaginationAndSortingMetadata!
+}

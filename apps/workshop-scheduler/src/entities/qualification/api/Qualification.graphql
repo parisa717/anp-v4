@@ -1,0 +1,9 @@
+query GetQualifications {
+  getQualifications {
+    qualifications {
+      id
+      code
+      name
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "back": "back",
+  "next": "next",
+  "minutes": "minutes",
+  "every": "every",
+  "monday": "monday",
+  "tuesday": "tuesday",
+  "wednesday": "wednesday",
+  "thursday": "thursday",
+  "friday": "friday",
+  "saturday": "saturday",
+  "sunday": "sunday",
+  "checked": "checked",
+  "unchecked": "unchecked",
+  "select": "select",
+  "loading": "loading",
+  "not found": "not found",
+  "main menu": "main menu",
+  "appointment": "appointment",
+  "dashboard": "dashboard",
+  "dates": "dates",
+  "settings": "settings",
+  "scheduled work": "scheduled work",
+  "status": "status",
+  "overbooking": "overbooking",
+  "service advisor": "service advisor",
+  "collapse": "collapse",
+  "expand": "expand",
+  "save": "save",
+  "skip and save": "Skip & save",
+  "confirm": "confirm",
+  "cancel": "cancel",
+  "active": "active",
+  "inactive": "inactive",
+  "details": "details",
+  "username": "username",
+  "password": "password",
+  "ok": "ok",
+  "validation": {
+    "required": "This field is required",
+    "minLength": "This field must be longer than {{length}} characters",
+    "maxLength": "This field must be shorter than {{length}} characters",
+    "multipleOfFive": "The number must be a multiple of 5",
+    "positiveNumber": "Number must be greater than 0",
+    "minimumNumber": "Number must be greater than or equal to {{minValue}}",
+    "maximumNumber": "Number must be less than or equal to {{maxValue}}",
+    "dateRequired": "Please select a date",
+    "dateValid": "The given string is not in date format"
+  },
+  "countries": {
+    "Germany": "Germany",
+    "Austria": "Austria",
+    "Poland": "Poland"
+  },
+  "sign out": "sign out",
+  "edit": "edit",
+  "delete": "delete",
+  "selectedValue": "selected value",
+  "error": "Error",
+  "calendar": {
+    "day": "Day",
+    "week": "Week",
+    "month": "Month",
+    "today": "Today",
+    "showMore": "show more",
+    "allDay": "all day"
+  },
+  "team": "team",
+  "serverSideErrors": {
+    "auth": {
+      "unauthorized": "Unauthorized"
+    },
+    "generic": {
+      "unexpectedError": "The operation could not be completed. Please try again."
+    }
+  }
+}

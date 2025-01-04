@@ -1,0 +1,28 @@
+interface PaginatedResponse {
+  metadata: PaginationAndSortingMetadata!
+}
+
+type PaginationAndSortingMetadata {
+  totalResults: Int!
+  sort: SortInfo!
+}
+
+type SortInfo {
+  field: String!
+  direction: SortDirection!
+}
+
+enum SortDirection {
+  ASC
+  DESC
+}
+
+input PaginationInput {
+  limit: Int = 10
+  offset: Int = 0
+}
+
+input SortInput {
+  field: String!
+  direction: SortDirection!
+}

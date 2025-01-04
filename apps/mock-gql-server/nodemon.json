@@ -1,0 +1,7 @@
+{
+  "execMap": {
+    "ts": "tsx --tsconfig ./tsconfig.json"
+  },
+  "watch": ["src/"],
+  "ext": "ts,js,json,graphql"
+}

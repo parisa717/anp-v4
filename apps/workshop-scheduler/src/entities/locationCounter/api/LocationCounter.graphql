@@ -1,0 +1,14 @@
+query GetLocationCounter($locationId: UUID!) {
+  getLocationCounter(locationId: $locationId) {
+    locationCounter {
+      id
+      receptionInterval
+    }
+  }
+}
+
+mutation UpdateLocationCounterReceptionInterval($locationId: UUID!, $receptionInterval: Int!) {
+  updateLocationCounterReceptionInterval(locationId: $locationId, receptionInterval: $receptionInterval) {
+    status
+  }
+}

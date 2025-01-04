@@ -1,0 +1,153 @@
+{
+  "widgets": {
+    "baseLayout": {
+      "menuItems": {
+        "areas": "Areas",
+        "locations": "Standorte",
+        "brands": "Marken",
+        "user": "Benutzer"
+      }
+    }
+  },
+  "pages": {
+    "brands": {
+      "brandsList": {
+        "title": "Marken",
+        "addBrandButton": "Marke hinzufügen",
+        "table": {
+          "columnHeaders": {
+            "name": "Markenname",
+            "status": "Status"
+          },
+          "statuses": {
+            "active": "Aktiv",
+            "inactive": "Inaktiv"
+          },
+          "empty": "Keine Marken gefunden"
+        }
+      },
+      "createBrand": {
+        "title": "Marke hinzufügen",
+        "form": {
+          "fields": {
+            "brandName": "Markenname",
+            "brandStatus": "Status"
+          }
+        }
+      },
+      "editBrand": {
+        "title": "Marke bearbeiten",
+        "form": {
+          "fields": {
+            "brandName": "Markenname",
+            "brandStatus": "Status"
+          }
+        },
+        "confirmModal": {
+          "title": "Warnung",
+          "message": {
+            "part1": "Die Änderung betrifft die Standorte und die durchzuführenden Arbeiten, für die die Marke gespeichert wird.",
+            "part2": "Bitte bestätigen Sie die Änderungen"
+          }
+        }
+      }
+    },
+    "areas": {
+      "areasList": {
+        "title": "Areas",
+        "addAreaButton": "Area hinzufügen",
+        "table": {
+          "columnHeaders": {
+            "id": "Area-ID",
+            "name": "Area-Name",
+            "country": "Land",
+            "dms": "DMS",
+            "crm": "CRM",
+            "postCode": "Postleitzahl",
+            "city": "Stadt",
+            "address": "Adresse",
+            "status": "Status"
+          },
+          "empty": "Keine Area gefunden"
+        }
+      },
+      "createArea": {
+        "title": "Area hinzufügen",
+        "steps": {
+          "general": {
+            "title": "Allgemeine Daten",
+            "form": {
+              "fields": {
+                "areaId": "Area-ID",
+                "areaName": "Area-Name",
+                "areaStatus": "Status",
+                "areaCountry": "Land",
+                "areaPostCode": "Postleitzahl",
+                "areaCity": "Stadt",
+                "areaAddress": "Adresse"
+              }
+            }
+          },
+          "DMS": {
+            "title": "DMS zuordnen"
+          },
+          "CRM": {
+            "title": "CRM zuordnen"
+          }
+        }
+      },
+      "areaDetail": {
+        "title": "Area details",
+        "EditAreaButton": "Bearbeiten",
+        "addLocationButton": "Standort hinzufügen",
+        "details": {
+          "areaId": "Area",
+          "areaName": "Area name",
+          "country": "Country",
+          "dms": "DMS",
+          "crm": "CRM",
+          "zipCode": "Zip-code:",
+          "city": "City",
+          "address": "Address",
+          "status": "Status"
+        },
+        "table": {
+          "title": "Zugeordnete Standorte",
+          "columnHeaders": {
+            "id": "Area-ID",
+            "locationId": "Standort-ID",
+            "locationName": "Standortname",
+            "brand": "Marke",
+            "zipCode": "Postleitzahl",
+            "city": "Stadt",
+            "address": "Adresse",
+            "status": "Status",
+            "country": "Land"
+          },
+          "empty": "Keine Area gefunden"
+        }
+      }
+    },
+    "locations": {
+      "createLocation": {
+        "title": "Standort hinzufügen",
+        "description": "Wählen Sie die Area aus, die Sie dem Standort zuweisen möchten.",
+        "form": {
+          "fields": {
+            "area": "Name der Area",
+            "locationId": "Standort-ID",
+            "locationName": "Standortname",
+            "zipCode": "Postleitzahl",
+            "city": "Stadt",
+            "address": "Adresse",
+            "brand": "Marke",
+            "status": "Status",
+            "addBrand": "Marke hinzufügen",
+            "copyNameFromArea": "Name der Area übernehmen",
+            "country": "Land"
+          }
+        }
+      }
+    }
+  }
+}

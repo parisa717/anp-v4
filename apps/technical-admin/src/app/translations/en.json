@@ -1,0 +1,153 @@
+{
+  "widgets": {
+    "baseLayout": {
+      "menuItems": {
+        "areas": "Areas",
+        "locations": "Locations",
+        "brands": "Brands",
+        "user": "User"
+      }
+    }
+  },
+  "pages": {
+    "brands": {
+      "brandsList": {
+        "title": "Brands",
+        "addBrandButton": "Add Brand",
+        "table": {
+          "columnHeaders": {
+            "name": "Name",
+            "status": "Status"
+          },
+          "statuses": {
+            "active": "Active",
+            "inactive": "Inactive"
+          },
+          "empty": "No brands found"
+        }
+      },
+      "createBrand": {
+        "title": "Add Brand",
+        "form": {
+          "fields": {
+            "brandName": "Name",
+            "brandStatus": "Status"
+          }
+        }
+      },
+      "editBrand": {
+        "title": "Edit Brand",
+        "form": {
+          "fields": {
+            "brandName": "Name",
+            "brandStatus": "Status"
+          }
+        },
+        "confirmModal": {
+          "title": "Warning",
+          "message": {
+            "part1": "The change affects the locations and the work to be carried out for which the mark is stored.",
+            "part2": "Please confirm the changes"
+          }
+        }
+      }
+    },
+    "areas": {
+      "areasList": {
+        "title": "Areas",
+        "addAreaButton": "Add Area",
+        "table": {
+          "columnHeaders": {
+            "id": "Area-ID",
+            "name": "Area-Name",
+            "country": "Country",
+            "dms": "DMS",
+            "crm": "CRM",
+            "postCode": "Postal code",
+            "city": "City",
+            "address": "Address",
+            "status": "Status"
+          },
+          "empty": "No areas found"
+        }
+      },
+      "createArea": {
+        "title": "Add Area",
+        "steps": {
+          "general": {
+            "title": "General Data",
+            "form": {
+              "fields": {
+                "areaId": "Area Id",
+                "areaName": "Area Name",
+                "areaStatus": "Status",
+                "areaCountry": "Country",
+                "areaPostCode": "Post code",
+                "areaCity": "City",
+                "areaAddress": "Address"
+              }
+            }
+          },
+          "DMS": {
+            "title": "Assign DMS"
+          },
+          "CRM": {
+            "title": "Assign CRM"
+          }
+        }
+      },
+      "areaDetail": {
+        "title": "Area details",
+        "EditAreaButton": "Edit",
+        "addLocationButton": "Add Location",
+        "details": {
+          "areaId": "Area",
+          "areaName": "Area name",
+          "country": "Country",
+          "dms": "DMS",
+          "crm": "CRM",
+          "zipCode": "Zip-code:",
+          "city": "City",
+          "address": "Address",
+          "status": "Status"
+        },
+        "table": {
+          "title": "Assigned locations",
+          "columnHeaders": {
+            "id": "Area-ID",
+            "locationId": "Location ID",
+            "locationName": "Location name",
+            "brand": "Brand",
+            "zipCode": "Zip code",
+            "city": "City",
+            "address": "Adresse",
+            "status": "Status",
+            "country": "Country"
+          },
+          "empty": "No area details found"
+        }
+      }
+    },
+    "locations": {
+      "createLocation": {
+        "title": "Add Location",
+        "description": "Choose Area to which you would like to assign the location",
+        "form": {
+          "fields": {
+            "area": "Area",
+            "locationId": "Location ID",
+            "locationName": "Location name",
+            "zipCode": "Zip code",
+            "city": "City",
+            "address": "Address",
+            "brand": "Brand",
+            "status": "Status",
+            "addBrand": "Add brand",
+            "copyNameFromArea": "Copy name from Area",
+            "country": "Country"
+          }
+        }
+      }
+    }
+  }
+}

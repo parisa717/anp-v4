@@ -1,0 +1,9 @@
+query GetUserPermissions($id: UUID!) {
+  getUserPermissions(id: $id) {
+    permissions {
+      id
+      name
+      access
+    }
+  }
+}

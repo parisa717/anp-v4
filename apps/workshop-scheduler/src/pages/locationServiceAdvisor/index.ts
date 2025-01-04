@@ -1,0 +1,1 @@
+export { locationServiceAdvisorRoutes } from './routes'

@@ -1,0 +1,77 @@
+{
+  "back": "Zurück",
+  "next": "Weiter",
+  "minutes": "Minuten",
+  "every": "alle",
+  "monday": "Montag",
+  "tuesday": "Dienstag",
+  "wednesday": "Mittwoch",
+  "thursday": "Donnerstag",
+  "friday": "Freitag",
+  "saturday": "Samstag",
+  "sunday": "Sonntag",
+  "checked": "überprüft",
+  "unchecked": "ungeprüft",
+  "select": "wählen",
+  "loading": "laden",
+  "not found": "nicht gefunden",
+  "main menu": "hauptmenü",
+  "appointment": "termine",
+  "dashboard": "dashboard",
+  "dates": "termine",
+  "settings": "einstellungen",
+  "scheduled work": "durchzuführende arbeiten",
+  "status": "status",
+  "overbooking": "überbuchung",
+  "service advisor": "serviceberater",
+  "collapse": "zusammenbruch",
+  "expand": "erweitern",
+  "save": "speichern",
+  "skip and save": "überspringen & speichern",
+  "confirm": "bestätigen",
+  "cancel": "abbrechen",
+  "active": "aktiv",
+  "inactive": "inaktiv",
+  "details": "details",
+  "username": "benutzername",
+  "password": "passwort",
+  "ok": "ok",
+  "validation": {
+    "required": "Das Feld ist Pflichtfeld",
+    "minLength": "Das Feld muss länger als {{length}} Zeichen sein",
+    "maxLength": "Das Feld muss kürzer als {{length}} Zeichen sein",
+    "multipleOfFive": "Die Zahl muss ein Vielfaches von 5 sein",
+    "positiveNumber": "Die Zahl muss größer als 0 sein",
+    "minimumNumber": "Die Zahl muss größer oder gleich {{minValue}} sein",
+    "maximumNumber": "Die Zahl muss kleiner oder gleich {{maxValue}} sein",
+    "dateRequired": "Bitte wählen Sie ein Datum aus",
+    "dateValid": "Die angegebene Zeichenfolge hat kein Datumsformat"
+  },
+  "sign out": "sign out",
+  "countries": {
+    "Germany": "Deutschland",
+    "Austria": "Österreich",
+    "Poland": "Polen"
+  },
+  "edit": "bearbeiten",
+  "delete": "entfernen",
+  "selectedValue": "ausgewählter Wert",
+  "error": "Fehler",
+  "calendar": {
+    "day": "Tag",
+    "week": "Woche",
+    "month": "Monat",
+    "today": "Heute",
+    "showMore": "mehr anzeigen",
+    "allDay": "all Tag"
+  },
+  "team": "Team",
+  "serverSideErrors": {
+    "auth": {
+      "unauthorized": "Nicht autorisiert"
+    },
+    "generic": {
+      "unexpectedError": "Der Vorgang konnte nicht durchgeführt werden. Bitte versuchen Sie es erneut."
+    }
+  }
+}

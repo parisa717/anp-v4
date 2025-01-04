@@ -1,0 +1,42 @@
+mutation CreateArea($area: GqlCreateAreaInputType!) {
+  createArea(area: $area) {
+    id
+  }
+}
+
+query GetAreas {
+  getAreas {
+    areas {
+      id
+      code
+      address {
+        city
+        postCode
+        address
+        country {
+          id
+          name
+        }
+      }
+      isActive
+      name
+    }
+  }
+}
+query GetArea($id: UUID!) {
+  getArea(id: $id) {
+    id
+    code
+    name
+    isActive
+    address {
+      country {
+        id
+        name
+      }
+      postCode
+      city
+      address
+    }
+  }
+}

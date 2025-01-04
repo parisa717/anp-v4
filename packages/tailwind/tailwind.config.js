@@ -1,0 +1,56 @@
+import {
+  backgroundColor,
+  borderColor,
+  borderRadius,
+  borderWidth,
+  boxShadow,
+  boxShadowColor,
+  colors,
+  fontSize,
+  fontWeight,
+  height,
+  lineHeight,
+  margin,
+  minWidth,
+  opacity,
+  padding,
+  sizing,
+  spacing,
+  textColor,
+  width,
+} from './tailwind.tokens.json'
+
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  theme: {
+    colors,
+    extend: {
+      backgroundColor,
+      borderColor,
+      borderRadius,
+      borderWidth,
+      boxShadow,
+      boxShadowColor,
+      fontFamily: {
+        default: 'var(--font-family)',
+        inter: 'var(--font-family)',
+      },
+      fontSize,
+      fontWeight,
+      height,
+      lineHeight,
+      margin,
+      minWidth,
+      opacity,
+      padding,
+      sizing,
+      spacing,
+      textColor,
+      width,
+    },
+  },
+  corePlugins: {
+    preflight: false,
+  },
+}

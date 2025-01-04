@@ -1,0 +1,45 @@
+query GetLocationServiceAdvisors($locationId: UUID!) {
+  getLocationServiceAdvisors(locationId: $locationId) {
+    serviceAdvisors {
+      id
+      name
+      surname
+      number
+      receptionInterval
+    }
+  }
+}
+
+query GetServiceAdvisor($id: UUID!) {
+  getServiceAdvisor(id: $id) {
+    id
+    name
+    surname
+    number
+    receptionInterval
+  }
+}
+
+query GetServiceAdvisorCalendar($id: UUID!, $startDate: String!, $endDate: String!) {
+  getServiceAdvisorCalendar(id: $id, startDate: $startDate, endDate: $endDate) {
+    workDays {
+      date
+      startTime
+      endTime
+    }
+    calendar {
+      entries {
+        id
+        type
+        isFullDay
+        startTime
+        endTime
+        startDate
+        endDate
+        period
+        periodicEnd
+        isEditable
+      }
+    }
+  }
+}

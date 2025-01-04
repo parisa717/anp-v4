@@ -1,0 +1,29 @@
+mutation CreateBrand($brand: GqlCreateBrandInputType!) {
+  createBrand(brand: $brand) {
+    status
+  }
+}
+
+mutation UpdateBrand($brand: GqlUpdateBrandInputType!) {
+  updateBrand(brand: $brand) {
+    status
+  }
+}
+
+query GetBrand($id: UUID!) {
+  getBrand(id: $id) {
+    id
+    code
+    isActive
+  }
+}
+
+query GetBrands {
+  getBrands {
+    brands {
+      id
+      code
+      isActive
+    }
+  }
+}

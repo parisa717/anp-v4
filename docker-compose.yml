@@ -1,0 +1,12 @@
+services:
+  microservice:
+    build: ./docker/node-fe/
+    volumes:
+      - ../.:/app/
+    env_file:
+      - ${ROOT_PATH:-}${ENV_FILE:-.env}
+      - ${ROOT_PATH:-}${ENV_FILE:-.env}.local
+    environment:
+      NX_REJECT_UNKNOWN_LOCAL_CACHE: 0
+      APP_TO_START: ${APP_TO_START}
+      STARTUP_COMMAND: ${STARTUP_COMMAND:-}

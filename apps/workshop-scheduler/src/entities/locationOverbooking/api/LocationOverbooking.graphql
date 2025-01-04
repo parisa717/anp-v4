@@ -1,0 +1,32 @@
+mutation UpdateLocationOverbooking(
+  $locationId: UUID!
+  $capacityOverbookingMultiplier: Float!
+  $maxCapacityMultiplier: Float!
+) {
+  updateLocationOverbooking(
+    locationId: $locationId
+    capacityOverbookingMultiplier: $capacityOverbookingMultiplier
+    maxCapacityMultiplier: $maxCapacityMultiplier
+  ) {
+    status
+  }
+}
+
+mutation UpdateLocationMinimalOverbooking($locationId: UUID!, $minimumOverbookingMultiplier: Float!) {
+  updateLocationMinimalOverbooking(
+    locationId: $locationId
+    minimumOverbookingMultiplier: $minimumOverbookingMultiplier
+  ) {
+    status
+  }
+}
+
+query GetLocationOverbooking($locationId: UUID!) {
+  getLocationOverbooking(locationId: $locationId) {
+    locationOverbooking {
+      minimumOverbookingMultiplier
+      capacityOverbookingMultiplier
+      maxCapacityMultiplier
+    }
+  }
+}

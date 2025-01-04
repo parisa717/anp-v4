@@ -1,0 +1,36 @@
+{
+  "name": "@nexus-ui/concept-car",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 4000 --strictPort",
+    "build": "tsc && vite build",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "nx": {
+    "targets": {
+      "dev": {
+        "dependsOn": [
+          {
+            "projects": [
+              "@nexus-ui/tailwind"
+            ],
+            "target": "build"
+          }
+        ]
+      },
+      "build": {
+        "dependsOn": [
+          {
+            "projects": [
+              "@nexus-ui/tailwind"
+            ],
+            "target": "build"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+mutation CreateWorkshopFollowUpWork($followUpWork: GqlCreateWorkshopFollowUpWorkInput!) {
+  createWorkshopFollowUpWork(followUpWork: $followUpWork) {
+    id
+  }
+}
+
+mutation UpdateWorkshopFollowUpWork($followUpWork: GqlUpdateWorkshopFollowUpWorkInput!) {
+  updateWorkshopFollowUpWork(followUpWork: $followUpWork) {
+    id
+  }
+}
+
+query GetWorkshopFollowUpWorks {
+  getWorkshopFollowUpWorks {
+    works {
+      id
+      name
+      timeUnits
+      isCapacityEditable
+      isDescriptionEditable
+      isActive
+      qualification {
+        id
+        name
+      }
+    }
+  }
+}

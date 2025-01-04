@@ -1,0 +1,30 @@
+query GetCustomerVehicles($filter: GqlGetCustomerVehiclesFilterInputType, $offset: Float, $limit: Float) {
+  getCustomerVehicles(filter: $filter, offset: $offset, limit: $limit) {
+    customerVehicles {
+      id
+      name
+      name2
+      name3
+      countryCode
+      postCode
+      city
+      address
+      address2
+      birthdate
+      phones {
+        contactType
+        deviceType
+        phone
+      }
+      vehicles {
+        id
+        vin
+        licencePlate
+        brand
+        model
+        nextMainInspection
+        nextEmissionsTest
+      }
+    }
+  }
+}

@@ -1,0 +1,530 @@
+{
+  "pages": {
+    "businessStatus": {
+      "businessStatusList": {
+        "title": "Statuses",
+        "appointmentStatus": "Appointment Status",
+        "additionalStatus": "Additional Status",
+        "addNewAppointmentStatus": "Add New Appointment Status",
+        "addNewAdditionalStatus": "Add New Additional Status",
+        "table": {
+          "columnHeaders": {
+            "name": "Name",
+            "isDefault": "Default",
+            "isActive": "Status",
+            "isHighlighted": "Highlighted in slots"
+          },
+          "statuses": {
+            "active": "Active",
+            "inactive": "Inactive"
+          },
+          "empty": "No statuses found"
+        },
+        "errors": {
+          "reorderDefaultStatus": {
+            "title": "Error",
+            "detail": "The default status is always first"
+          }
+        }
+      },
+      "createAndEditBusinessStatusForm": {
+        "createTitle": "Add appointment status",
+        "editTitle": "Edit appointment status",
+        "active": "Active",
+        "inactive": "Inactive",
+        "form": {
+          "fields": {
+            "name": "Status name",
+            "isDefault": {
+              "label": "Define as default",
+              "tooltip": "Please remove the default configuration at the current default status\n to be able to set another status as the default status."
+            },
+            "isActive": "Status",
+            "isHighlighted": "Highlighted in slots",
+            "addStatusButton": "Add status"
+          }
+        }
+      },
+      "unselectDefaultBusinessStatus": {
+        "title": "Unselect default status",
+        "header": {
+          "youUnselecting": "You unselecting",
+          "statusName": "Status name",
+          "asDefaultAppointmentStatus": "as default appointment status",
+          "asAdditionalStatus": "as additional status"
+        },
+        "form": {
+          "fields": {
+            "isDefault": "Define as default"
+          }
+        },
+        "instructions": "One status need to be setup as default.\nChoose from below statuses which of them gonna be defined as default."
+      },
+      "changeBusinessStatusConfirmation": {
+        "title": "Status Change",
+        "description": "Are you sure you want to change the status?"
+      }
+    },
+    "businessStatusByLocation": {
+      "businessStatusByLocationList": {
+        "title": "Setup Statuses and Overbooking",
+        "appointmentStatus": "Appointment Status",
+        "additionalStatus": "Additional Status",
+        "addNewAppointmentStatus": "Add New Appointment Status",
+        "addNewAdditionalStatus": "Add New Additional Status",
+        "table": {
+          "columnHeaders": {
+            "name": "Name",
+            "isDefault": "Default",
+            "isActive": "Status",
+            "isHighlighted": "Highlighted in slots"
+          },
+          "empty": "No statuses found"
+        }
+      },
+      "createBusinessStatusByLocationForm": {
+        "title": "Add appointment status",
+        "form": {
+          "fields": {
+            "businessStatus": "Business Status"
+          },
+          "buttons": {
+            "addStatusButton": "add another status",
+            "addAllStatusesButton": "add all statuses"
+          }
+        }
+      },
+      "createAdditionalBusinessStatusByLocationForm": {
+        "title": "Add additional status",
+        "form": {
+          "fields": {
+            "businessStatus": "Additional Status"
+          },
+          "buttons": {
+            "addStatusButton": "add another additional status",
+            "addAllStatusesButton": "add all additional statuses"
+          }
+        }
+      },
+      "locationOverbooking": {
+        "warning": {
+          "title": "Overbooking level - warning"
+        },
+        "maximumLevel": {
+          "title": "Overbooking level - no further appointments possible"
+        }
+      }
+    },
+    "location": {
+      "locationsList": {
+        "title": "Locations Configuration",
+        "message": "Information: Only active locations are displayed.",
+        "table": {
+          "columnHeaders": {
+            "areaId": "Area ID",
+            "locationId": "Location ID",
+            "locationName": "Location Name",
+            "brand": "Brand",
+            "zipCode": "Zip Code",
+            "city": "City",
+            "address": "Address"
+          },
+          "empty": "No locations found"
+        }
+      },
+      "locationDetails": {
+        "title": "Location Details",
+        "locationTable": {
+          "headers": {
+            "locationId": "Location ID",
+            "locationName": "Location Name",
+            "brands": "Brands",
+            "zipCode": "Zip Code",
+            "city": "City",
+            "address": "Address"
+          },
+          "empty": "No location details found"
+        },
+        "areaTable": {
+          "headers": {
+            "areaId": "Area ID",
+            "areaName": "Area Name",
+            "country": "Country",
+            "dms": "DMS",
+            "crm": "CRM",
+            "zipCode": "Zip Code",
+            "city": "City",
+            "address": "Address"
+          },
+          "empty": "No area details found"
+        },
+        "locationWorks": {
+          "tabTitle": "Services",
+          "header": "Services setup",
+          "buttons": {
+            "addLocationWork": "Add work to be done"
+          },
+          "create": {
+            "title": "Add service",
+            "copyFromBrand": "Copy services from brand",
+            "new": "Add single service",
+            "addService": "Add service",
+            "isRecommended": "Popular",
+            "capacityPerDayLimit": "Day limits [%]",
+            "amountPerDayLimit": "[amount]",
+            "table": {
+              "empty": "No work to be carried out found"
+            }
+          },
+          "edit": {
+            "title": "Edit service",
+            "isRecommended": "Popular",
+            "nameLabel": "Service name",
+            "capacityPerDayLimit": "Day limits [%]",
+            "amountPerDayLimit": "[amount]"
+          },
+          "remove": {
+            "title": "Remove service",
+            "description": "If you remove the service it wouldn't be available any more for future bookings, but it will stay for booked appointments."
+          },
+          "table": {
+            "headers": {
+              "name": "Name",
+              "brands": "Brand",
+              "timeunits": "Timeunits",
+              "qualification": "Qualification",
+              "isRecommended": "Popular",
+              "dayLimits": "Day limits"
+            },
+            "empty": "No services found"
+          }
+        },
+        "locationOverbooking": {
+          "title": "Overbooking Setup",
+          "description": "Overbooking lowest level",
+          "editMode": {
+            "confirmModal": {
+              "title": "Information",
+              "content": "The change has been automatically transferred to the setup of the admin user for this location. Please check this for correctness."
+            }
+          }
+        },
+        "connectedLocations": {
+          "title": "Connected Locations",
+          "description": "Choose locations which gonna be display in \"all locations\" section in booking process.",
+          "table": {
+            "headers": {
+              "locationId": "Location ID",
+              "locationName": "Location Name",
+              "brands": "Brands",
+              "zipCode": "Zip Code",
+              "city": "City",
+              "address": "Address",
+              "connected": "Connected"
+            },
+            "empty": "No location details found"
+          },
+          "dialog": {
+            "title": "Cancel location connection",
+            "description": "Are you sure you want to unselect the location?"
+          }
+        }
+      }
+    },
+    "colorSetup": {
+      "colorSetupList": {
+        "title": "Color Setup",
+        "addColor": "Add Color",
+        "editColors": "Edit",
+        "capacitiesColors": "Capacities Colors",
+        "table": {
+          "columnHeaders": {
+            "color": "Color",
+            "capacityValue": "Capacity Value [%]"
+          },
+          "empty": "No colors found"
+        }
+      },
+      "editColorSetup": {
+        "form": {
+          "validation": {
+            "firstCapacityMustStartWithZero": "The setup could not be saved because the first capacity level must start with 0.",
+            "capacityShouldHaveASpecifiedFormat": "The setup could not be saved because the values were entered in the wrong format. There must be no space between the value and the hyphen. The last capacity level must be entered in the format >Value. Examples: 0-50, >100.",
+            "lastCapacityShouldNotBeGreaterThan100": "The setup could not be saved because >100 is the highest value that can be entered.",
+            "lastCapacityShouldBeGreaterThanPrevious": "The setup could not be saved because the last capacity level > value of the previous gradation must be entered.",
+            "capacitiesShouldNotOverlap": "The setup could not be saved because the values entered overlap.",
+            "capacitiesShouldNotHaveGaps": "The setup could not be saved because there are gaps between the values."
+          }
+        }
+      }
+    },
+    "work": {
+      "title": "Work to be carried out",
+      "tabs": {
+        "worksList": {
+          "title": "List of work to be carried out"
+        },
+        "followUpWorks": {
+          "title": "Work to be done for follow-up appointments"
+        }
+      },
+      "worksList": {
+        "title": "List of work to be carried out",
+        "addWorkButton": "Add work to be done",
+        "table": {
+          "columnHeaders": {
+            "workName": "Name",
+            "workBrandNames": "Brands",
+            "workBrandTimeUnits": "Time Units",
+            "productiveTeam": "Productive Team",
+            "isDescriptionEditable": "Description Editable",
+            "isCapacityEditable": "Capacity Editable",
+            "isActive": "Status"
+          },
+          "empty": "No works to be carried out found"
+        },
+        "dialogs": {
+          "deactivateService": {
+            "title": "Warning",
+            "description": "If you set the status to inactive, the location assignments will be revoked, and the work to be done will no longer be available in the appointment scheduling process. Saved appointments are exempt from the status change."
+          },
+          "activateService": {
+            "title": "Status change",
+            "description": "Are you sure you want to change the status?"
+          },
+          "editWork": {
+            "title": "Edit service",
+            "nextButton": "Next"
+          },
+          "editWorkWarning": {
+            "title": "Warning",
+            "description": "You added new brand to the service",
+            "brandName": "Brand name",
+            "skipAndSave": "skip and save",
+            "assignLocations": "assign locations",
+            "question": "Would you like to assign locations to that service connected with brand?"
+          },
+          "assignLocations": {
+            "title": "Assign locations",
+            "subtitle": "For service"
+          }
+        }
+      },
+      "followUpWorksList": {
+        "title": "Work to be done for follow-up appointments",
+        "table": {
+          "columnHeaders": {
+            "followUpWorkName": "Name",
+            "followUpWorkBrandTimeUnits": "Time Units",
+            "productiveTeam": "Productive Team",
+            "isDescriptionEditable": "Description Editable",
+            "isCapacityEditable": "Capacity Editable",
+            "isActive": "Status"
+          },
+          "empty": "No follow up works to be carried out found"
+        },
+        "dialogs": {
+          "deactivateService": {
+            "title": "Warning",
+            "description": "If you set the status to inactive, the location assignments will be revoked, and the work to be done will no longer be available in the appointment scheduling process. Saved appointments are exempt from the status change."
+          },
+          "activateService": {
+            "title": "Status change",
+            "description": "Are you sure you want to change the status?"
+          }
+        }
+      },
+      "add": {
+        "title": "Add service",
+        "defineWorkSetup": "Define service setup",
+        "workSetupForm": {
+          "workName": "Service name",
+          "qualification": "Qualification",
+          "status": "Status",
+          "active": "Active",
+          "inactive": "Inactive",
+          "nameChangeable": "Name changeable",
+          "capacityChangeable": "Capacity changeable",
+          "brand": "Brand",
+          "timeUnits": "Timeunits",
+          "addBrandButton": "Add brand",
+          "addAllBrandsButton": "Add all brands",
+          "nextButton": "Next",
+          "cancelButton": "Cancel",
+          "skipAndSaveButton": "Skip & save",
+          "timeUnitsModal": {
+            "title": "Time units",
+            "subtitle": "Define time units for all brands",
+            "permission": "Overwrite time units for previously chosen brands",
+            "cancel": "Cancel",
+            "confirm": "Confirm"
+          }
+        },
+        "assignLocations": {
+          "title": "Assign locations",
+          "forWork": "For service",
+          "forBrand": "For brand",
+          "table": {
+            "locationId": "Location ID",
+            "locationName": "Location name",
+            "brand": "Brand",
+            "isRecommended": "Set the service as popular",
+            "empty": "No locations found"
+          },
+          "back": "Back",
+          "save": "Save"
+        }
+      }
+    },
+    "locationServiceAdvisor": {
+      "title": "Advisors configuration",
+      "serviceAdvisor": {
+        "name": "Service advisor",
+        "number": "Service advisor number",
+        "receptionInterval": "Slots",
+        "minutes": "min"
+      },
+      "details": {
+        "title": "Advisors configuration details",
+        "breadcrumbTitle": "Advisors configuration details",
+        "bufferAppointments": {
+          "weekly": "weekly",
+          "title": "Buffer appointments"
+        }
+      },
+      "calendar": {
+        "entryType": {
+          "advisorBreak": "Break",
+          "advisorBuffer": "Buffer",
+          "advisorAbsense": "Day off",
+          "publicHoliday": "Holiday"
+        }
+      }
+    },
+    "counterConfiguration": {
+      "title": "Counter Configuration",
+      "sections": {
+        "counterCalendar": {
+          "table": {
+            "columnHeaders": {
+              "dayNumber": "Day of the week",
+              "workingHours": "Define working hours",
+              "breaks": "Define break"
+            },
+            "empty": "Counter calendar configuration is not set!"
+          },
+          "preview": {},
+          "editForm": {
+            "validationMessages": {
+              "equalTime": "The end of the working time must be later than the start.",
+              "startTimeLaterThanEndTime": "The end of the working time must be later than the start.",
+              "breakDuringWorkingHours": "The break must be during working hours."
+            },
+            "modals": {
+              "removeBreak": {
+                "title": "Remove pause",
+                "description": "Are you sure you want to remove the pause?"
+              }
+            }
+          }
+        },
+        "counterReceptionInterval": {
+          "slotFrequency": "Define slots frequency"
+        }
+      }
+    },
+    "teamsCapacity": {
+      "title": "Teams capacities",
+      "capacity": "capacity",
+      "calendar": {
+        "workUnit": "TU",
+        "event": {
+          "overlayPanel": {
+            "title": "Team Capacity"
+          }
+        }
+      }
+    }
+  },
+  "widgets": {
+    "baseLayout": {
+      "topbar": {
+        "title": "Service appointment planner Admin",
+        "bookAppointment": "Book an appointment"
+      },
+      "menuItems": {
+        "mainMenu": "Main Menu",
+        "settings": "Settings",
+        "dashboard": "Dashboard",
+        "appointments": "Appointments",
+        "status": "Statuses",
+        "statusAndOverbookingConfiguration": "Statuses and Overbooking Configuration",
+        "counterConfiguration": "Counter Configuration",
+        "serviceAdvisorConfiguration": "Service Advisor Configuration",
+        "teamsCapacity": "Teams Capacity",
+        "userConfiguration": "User Configuration",
+        "workToBeCarriedOut": "Work to be carried out",
+        "locationConfiguration": "Location Configuration",
+        "setupAlarmFunctionDepotList": "Setup Alarm Function Depot List",
+        "colorSetup": "Color Setup"
+      }
+    },
+    "createBooking": {
+      "title": "Book an appointment",
+      "buttons": {
+        "addDraft": "Add draft of customer"
+      },
+      "steps": {
+        "customerAndVehicle": {
+          "title": "Customer & vehicle",
+          "subtitle": "Find a Customer & vehicle or add the new one",
+          "searchForm": {
+            "customerName": "Customer",
+            "customerBirthDate": "Date of birth",
+            "customerPhone": "Mobile phone",
+            "vehicleLicencePlate": "Licence plate number",
+            "vehicleVin": "Chassis number / VIN"
+          },
+          "searchFilters": {
+            "searchingCriteria": "Searching criteria"
+          },
+          "resultsList": {
+            "found": "Found"
+          }
+        },
+        "chooseService": {
+          "title": "Choose the services"
+        },
+        "receptionAndPickUpDate": {
+          "title": "Reception & pick up date"
+        },
+        "summary": {
+          "title": "Summary"
+        }
+      }
+    }
+  },
+  "serverSideErrors": {
+    "businessStatuses": {
+      "statusExists": "Business status already exists.",
+      "onlyOneCouldBeMarkedAsDefault": "Exactly one active business status must be marked as default.",
+      "atLeastOneActive": "At least one business status must be active.",
+      "defaultCannotBeUnassigned": "The default status cannot be unassigned.",
+      "inactiveCannotBeDefault": "An inactive status cannot be set as default.",
+      "allMustBeProvidedForReordering": "All business statuses must be provided for reordering.",
+      "statusNotFound": "Business status not found."
+    },
+    "additionalBusinessStatuses": {
+      "statusExists": "Additional business status already exists."
+    },
+    "locations": {
+      "alreadyExists": "Location already exists.",
+      "notFound": "Location not found.",
+      "brandCannotBeDeassigned": "Location brand can't be deassigned.",
+      "brandCannotBeAssigned": "Location brand can't be assigned.",
+      "countryDoesNotExists": "Country does not exists.",
+      "couldNotBeActivated": "Location could not be activated.",
+      "brandIsNotAssigned": "Brand is not assigned to location."
+    }
+  }
+}

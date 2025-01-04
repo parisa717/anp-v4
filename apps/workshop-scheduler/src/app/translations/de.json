@@ -1,0 +1,529 @@
+{
+  "pages": {
+    "businessStatus": {
+      "businessStatusList": {
+        "title": "Status",
+        "appointmentStatus": "Terminstatus",
+        "additionalStatus": "Zusatzstatus",
+        "addNewAppointmentStatus": "Neuen Terminstatus hinzufügen",
+        "addNewAdditionalStatus": "Neuen Zusatzstatus hinzufügen",
+        "table": {
+          "columnHeaders": {
+            "name": "Beschreibung",
+            "isDefault": "Standard",
+            "isActive": "Status",
+            "isHighlighted": "Hervorgehoben in Annahmeterminen"
+          },
+          "statuses": {
+            "active": "Aktiv",
+            "inactive": "Inaktiv"
+          },
+          "empty": "Keine Status gefunden"
+        },
+        "errors": {
+          "reorderDefaultStatus": {
+            "title": "Fehler",
+            "detail": "Der Standardstatus ist immer an erster Stelle"
+          }
+        }
+      },
+      "createAndEditBusinessStatusForm": {
+        "createTitle": "Terminstatus hinzufügen",
+        "editTitle": "Zusatzstatus bearbeiten",
+        "active": "Aktiv",
+        "inactive": "Inaktiv",
+        "form": {
+          "fields": {
+            "name": "Beschreibung",
+            "isDefault": {
+              "label": "Als Standard festlegen",
+              "tooltip": "Bitte entfernen Sie die Standardkonfiguration beim aktuellen\n Standard-Status, um einen anderen Status als Standard-Status festlegen zu können."
+            },
+            "isActive": "Status",
+            "isHighlighted": "Hervorgehoben in Annahmeterminen",
+            "addStatusButton": "Einen weiteren Terminstatus hinzufügen"
+          }
+        }
+      },
+      "unselectDefaultBusinessStatus": {
+        "title": "Standardstatus abwählen",
+        "header": {
+          "youUnselecting": "Sie entfernen gerade die Standardkennung bei",
+          "statusName": "Beschreibung",
+          "asDefaultAppointmentStatus": "als Standardterminstatus",
+          "asAdditionalStatus": "als Zusatzstatus"
+        },
+        "form": {
+          "fields": {
+            "isDefault": "Als Standard festlegen"
+          }
+        },
+        "instructions": "Ein Status muss als Standard festgelegt werden.\nWählen Sie aus den unten stehenden Status aus, welcher als Standard definiert werden soll"
+      },
+      "changeBusinessStatusConfirmation": {
+        "title": "Statusänderung",
+        "description": "Sind Sie sicher, dass Sie den Status ändern möchten?"
+      }
+    },
+    "businessStatusByLocation": {
+      "businessStatusByLocationList": {
+        "title": "Einrichtung Status und Überbuchung",
+        "appointmentStatus": "Terminstatus",
+        "additionalStatus": "Zusatzstatus",
+        "addNewAppointmentStatus": "Neuen Terminstatus hinzufügen",
+        "addNewAdditionalStatus": "Neuen Zusatzstatus hinzufügen",
+        "table": {
+          "columnHeaders": {
+            "name": "Beschreibung",
+            "isDefault": "Standard",
+            "isHighlighted": "Hervorgehoben in Annahmeterminen"
+          },
+          "empty": "Keine Status gefunden"
+        }
+      },
+      "createBusinessStatusByLocationForm": {
+        "title": "Terminstatus hinzufügen",
+        "form": {
+          "fields": {
+            "businessStatus": "Terminstatus"
+          },
+          "buttons": {
+            "addStatusButton": "weiteren Terminstatus hinzufügen",
+            "addAllStatusesButton": "alle Terminstatus hinzufügen"
+          }
+        }
+      },
+      "createAdditionalBusinessStatusByLocationForm": {
+        "title": "Zusatzstatus hinzufügen",
+        "form": {
+          "fields": {
+            "businessStatus": "Zusatzstatus"
+          },
+          "buttons": {
+            "addStatusButton": "weiteren Zusatzstatus hinzufügen",
+            "addAllStatusesButton": "alle Zusatzstatus hinzufügen"
+          }
+        }
+      },
+      "locationOverbooking": {
+        "warning": {
+          "title": "Überbuchung - Warnung"
+        },
+        "maximumLevel": {
+          "title": "Überbuchung - keine weiteren Termine möglich"
+        }
+      }
+    },
+    "location": {
+      "locationsList": {
+        "title": "Standortkonfiguration",
+        "message": "Information: Es werden nur aktive Standorte angezeigt.",
+        "table": {
+          "columnHeaders": {
+            "areaId": "Area-ID",
+            "locationId": "Standort-ID",
+            "locationName": "Standortname",
+            "brand": "Marke",
+            "zipCode": "Postleitzahl",
+            "city": "Stadt",
+            "address": "Adresse"
+          },
+          "empty": "Keine Standorte gefunden"
+        }
+      },
+      "locationDetails": {
+        "title": "Standortkonfiguration Details",
+        "locationTable": {
+          "headers": {
+            "locationId": "Standort-ID",
+            "locationName": "Standortname",
+            "brands": "Marke",
+            "zipCode": "Postleitzahl",
+            "city": "Stadt",
+            "address": "Adresse"
+          },
+          "empty": "Keine Standortdetails gefunden"
+        },
+        "areaTable": {
+          "headers": {
+            "areaId": "Area-ID",
+            "areaName": "Area-Name",
+            "country": "Land",
+            "dms": "DMS",
+            "crm": "CRM",
+            "zipCode": "Postleitzahl",
+            "city": "Stadt",
+            "address": "Adresse"
+          },
+          "empty": "Keine Bereichsdetails gefunden"
+        },
+        "locationWorks": {
+          "tabTitle": "Durchzuführende Arbeiten",
+          "header": "Durchzuführende Arbeiten",
+          "buttons": {
+            "addLocationWork": "Durchzuführende Arbeiten hinzufügen"
+          },
+          "create": {
+            "title": "Durchzuführende Arbeit hinzufügen",
+            "copyFromBrand": "Durchzuführende Arbeiten von Marke kopieren",
+            "new": "Einzelne Durchzuführende Arbeit hinzufügen",
+            "addService": "Durchzuführende Arbeit hinzufügen",
+            "isRecommended": "Favorit",
+            "capacityPerDayLimit": "Tageslimit in Prozent",
+            "amountPerDayLimit": "Tageslimit Anzahl",
+            "table": {
+              "empty": "Keine durchzuführende Arbeite gefunden"
+            }
+          },
+          "edit": {
+            "title": "Durchzuführende Arbeit bearbeiten",
+            "isRecommended": "Favorit",
+            "nameLabel": "Name der durchzuführenden Arbeit",
+            "capacityPerDayLimit": "Tageslimit in Prozent",
+            "amountPerDayLimit": "Tageslimit Anzahl"
+          },
+          "remove": {
+            "title": "Durchzuführende Arbeit entfernen",
+            "description": "Wenn Sie die durchzuführende Arbeit entfernen, steht sie nicht mehr für zukünftige Buchungen zur Verfügung. Bereits vereinbarte Termine bleiben von der Änderung unberührt."
+          },
+          "table": {
+            "headers": {
+              "name": "Beschreibung",
+              "brands": "Marke",
+              "timeunits": "Zeiteinheiten",
+              "qualification": "Produktives Team",
+              "isRecommended": "Favorit",
+              "dayLimits": "Tagesgrenzen"
+            },
+            "empty": "Keine Dienste gefunden"
+          }
+        },
+        "locationOverbooking": {
+          "title": "Überbuchungseinrichtung",
+          "description": "Überbuchung niedrigste Stufe",
+          "editMode": {
+            "confirmModal": {
+              "title": "Information",
+              "content": "Die Änderung wurde automatisch in die Einrichtung des Admin-Benutzers für diesen Standort übernommen. Bitte überprüfen Sie dies auf Richtigkeit."
+            }
+          }
+        },
+        "connectedLocations": {
+          "title": "Verbundene Standorte",
+          "description": "Wählen Sie Standorte aus, die im Abschnitt \"automatische Terminvorschläge weiterer Standorte\" im Terminvereinbarungsprozess berücksichtigt werden. Es stehen nur aktive Standorte zur Auswahl.",
+          "table": {
+            "headers": {
+              "locationId": "Standort-ID",
+              "locationName": "Standortname",
+              "brands": "Marke",
+              "zipCode": "Postleitzahl",
+              "city": "Stadt",
+              "address": "Adresse",
+              "connected": "Verbunden"
+            },
+            "empty": "Keine Standortdetails gefunden"
+          },
+          "dialog": {
+            "title": "Standortverbindung aufheben",
+            "description": "Sind Sie sich sicher, dass Sie den Standort abwählen möchten?"
+          }
+        }
+      }
+    },
+    "colorSetup": {
+      "colorSetupList": {
+        "title": "Farbeinstellung",
+        "addColor": "Farbe hinzufügen",
+        "editColors": "Bearbeiten",
+        "capacitiesColors": "Farben für Kapazitätsstufen",
+        "table": {
+          "columnHeaders": {
+            "color": "Farbe",
+            "capacityValue": "Wert der Kapazität [%]"
+          },
+          "empty": "Keine Farben gefunden"
+        }
+      },
+      "editColorSetup": {
+        "form": {
+          "validation": {
+            "firstCapacityMustStartWithZero": "Das Setup konnte nicht gespeichert werden, da die erste Kapazitätsstufe mit 0 beginnen muss.",
+            "capacityShouldHaveASpecifiedFormat": "Das Setup konnte nicht gespeichert werden, da die Werte im falschen Format eingetragen wurden. Zwischen dem Wert und dem Bindestrich darf kein Leerzeichen sein. Die letzte Kapazitätsstufe muss im Format >Wert eingegeben werden. Beispiele: 0-50, >100.",
+            "lastCapacityShouldNotBeGreaterThan100": "Das Setup konnte nicht gespeichert werden, da >100 der höchste Wert ist, der eingetragen werden kann.",
+            "lastCapacityShouldBeGreaterThanPrevious": "Das Setup konnte nicht gespeichert werden, da die letzte Kapazitätsstufe >Wert der vorherigen Abstufung eingetragen werden muss.",
+            "capacitiesShouldNotOverlap": "Das Setup konnte nicht gespeichert werden, da sich die eingetragenen Werte überschneiden.",
+            "capacitiesShouldNotHaveGaps": "Das Setup konnte nicht gespeichert werden, da es Lücken zwischen den Werten gibt."
+          }
+        }
+      }
+    },
+    "work": {
+      "title": "Durchzuführende Arbeiten",
+      "tabs": {
+        "worksList": {
+          "title": "Liste der durchzuführenden Arbeiten"
+        },
+        "followUpWorks": {
+          "title": "Durchzuführende Arbeiten für Follow-up-Termine"
+        }
+      },
+      "worksList": {
+        "title": "Liste der durchzuführenden Arbeiten",
+        "addWorkButton": "Durchzuführende Arbeit hinzufügen",
+        "table": {
+          "columnHeaders": {
+            "workName": "Beschreibung",
+            "workBrandNames": "Marke",
+            "workBrandTimeUnits": "Zeiteinheiten",
+            "productiveTeam": "Productives Team",
+            "isDescriptionEditable": "Beschreibung änderbar",
+            "isCapacityEditable": "Kapazität änderbar",
+            "isActive": "Status"
+          },
+          "empty": "Keine durchzuführenden Arbeiten gefunden"
+        },
+        "dialogs": {
+          "deactivateService": {
+            "title": "Warnung",
+            "description": "Wenn Sie den Status auf inaktiv setzen, werden die Standortzuweisungen entzogen und die durchzuführende Arbeit ist nicht mehr im Terminvereinbarungsprozess verfügbar. Bereits gespeicherte Termine sind von der Statusänderung ausgenommen."
+          },
+          "activateService": {
+            "title": "Statusänderung",
+            "description": "Sind Sie sicher, dass Sie den Status ändern möchten?"
+          },
+          "editWork": {
+            "title": "Durchzuführende Arbeit bearbeiten",
+            "nextButton": "Weiter"
+          },
+          "editWorkWarning": {
+            "title": "Warnung",
+            "description": "Sie fügen eine neue Marke zur durchzuführenden Arbeit hinzu.",
+            "brandName": "Markenbeschreibung",
+            "skipAndSave": "überspringen und speichern",
+            "assignLocations": "standort zuweisen",
+            "question": "Möchten Sie Standorte für diese Kombination (Marke/durchzuführende Arbeit) zuweisen?"
+          },
+          "assignLocations": {
+            "title": "Standorte zuweisen",
+            "subtitle": "Für durchzuführende Arbeit"
+          }
+        }
+      },
+      "followUpWorksList": {
+        "title": "Durchzuführende Arbeiten für Follow-up-Termine",
+        "table": {
+          "columnHeaders": {
+            "followUpWorkName": "Beschreibung",
+            "followUpWorkBrandTimeUnits": "Zeiteinheiten",
+            "productiveTeam": "Productives Team",
+            "isDescriptionEditable": "Beschreibung änderbar",
+            "isCapacityEditable": "Kapazität änderbar",
+            "isActive": "Status"
+          },
+          "empty": "Keine durchzuführenden Follow-up Arbeiten gefunden"
+        },
+        "dialogs": {
+          "deactivateService": {
+            "title": "Warnung",
+            "description": "Wenn Sie den Status auf inaktiv setzen, werden die Standortzuweisungen entzogen und die durchzuführende Arbeit ist nicht mehr im Terminvereinbarungsprozess verfügbar. Bereits gespeicherte Termine sind von der Statusänderung ausgenommen."
+          },
+          "activateService": {
+            "title": "Statusänderung",
+            "description": "Sind Sie sicher, dass Sie den Status ändern möchten?"
+          }
+        }
+      },
+      "add": {
+        "title": "Durchzuführende Arbeit hinzufügen",
+        "defineWorkSetup": "Durchzuführende Arbeit definieren",
+        "workSetupForm": {
+          "workName": "Beschreibung",
+          "qualification": "Produktives Team",
+          "status": "Status",
+          "active": "Aktiv",
+          "inactive": "Inaktiv",
+          "nameChangeable": "Beschreibung änderbar",
+          "capacityChangeable": "Kapazität änderbar",
+          "brand": "Marke",
+          "timeUnits": "Zeiteinheiten",
+          "addBrandButton": "Marke hinzufügen",
+          "addAllBrandsButton": "Alle Marken hinzufügen",
+          "nextButton": "Weiter",
+          "cancelButton": "Abbrechen",
+          "skipAndSaveButton": "Überspringen und speichern",
+          "timeUnitsModal": {
+            "title": "Zeiteinheiten",
+            "subtitle": "Definieren Sie Zeiteinheiten für alle Marken",
+            "permission": "Überschreiben Sie die Zeiteinheiten für zuvor ausgewählte Marken",
+            "cancel": "Abbrechen",
+            "confirm": "Bestätigen"
+          }
+        },
+        "assignLocations": {
+          "title": "Standorte zuweisen",
+          "forWork": "Für durchzuführende Arbeit",
+          "forBrand": "Für Marke",
+          "table": {
+            "locationId": "Standort-ID",
+            "locationName": "Beschreibung",
+            "brand": "Marke",
+            "isRecommended": "Als Favorit festlegen",
+            "empty": "Keine Standorte gefunden"
+          },
+          "back": "Abbrechen",
+          "save": "Speichern"
+        }
+      }
+    },
+    "locationServiceAdvisor": {
+      "title": "Serviceberater Konfiguration",
+      "serviceAdvisor": {
+        "name": "Serviceberater",
+        "number": "Mitarbeiternummer",
+        "receptionInterval": "Annahmetakt",
+        "minutes": "Minuten"
+      },
+      "details": {
+        "title": "Serviceberater Konfiguration",
+        "breadcrumbTitle": "Serviceberater Details",
+        "bufferAppointments": {
+          "weekly": "Wöchentlich",
+          "title": "Puffertermine"
+        }
+      },
+      "calendar": {
+        "entryType": {
+          "advisorBreak": "Pause",
+          "advisorBuffer": "Puffer",
+          "advisorAbsense": "Abwesend",
+          "publicHoliday": "Feiertage"
+        }
+      }
+    },
+    "counterConfiguration": {
+      "title": "Counter Konfiguration",
+      "sections": {
+        "counterCalendar": {
+          "table": {
+            "columnHeaders": {
+              "dayNumber": "Wochentag",
+              "workingHours": "Arbeitszeiten definieren",
+              "breaks": "Pause definieren"
+            },
+            "empty": "Die Konfiguration des Zählerkalenders ist nicht festgelegt!"
+          },
+          "preview": {},
+          "editForm": {
+            "validationMessages": {
+              "equalTime": "Das Ende der Arbeitszeit muss später als der Beginn der Arbeitszeit sein.",
+              "startTimeLaterThanEndTime": "Der Beginn der Arbeitszeit muss früher als das Ende der Arbeitszeit sein.",
+              "breakDuringWorkingHours": "Die Pause muss während der Arbeitszeit sein."
+            },
+            "modals": {
+              "removeBreak": {
+                "title": "Pause entfernen",
+                "description": "Sind Sie sich sicher, dass Sie die Pause entfernen möchten?"
+              }
+            }
+          }
+        },
+        "counterReceptionInterval": {
+          "slotFrequency": "Annahmetakt definieren"
+        }
+      }
+    },
+    "teamsCapacity": {
+      "title": "Team Konfiguration",
+      "capacity": "Kapazität",
+      "calendar": {
+        "workUnit": "ZE",
+        "event": {
+          "overlayPanel": {
+            "title": "Teamkapazität"
+          }
+        }
+      }
+    }
+  },
+  "widgets": {
+    "baseLayout": {
+      "topbar": {
+        "title": "Serviceterminplaner Admin",
+        "bookAppointment": "Termin vereinbaren"
+      },
+      "menuItems": {
+        "mainMenu": "Hauptmenü",
+        "settings": "Einstellungen",
+        "dashboard": "Dashboard",
+        "appointments": "Terminübersicht",
+        "status": "Status",
+        "statusAndOverbookingConfiguration": "Status & Überbuchung Konfiguration",
+        "counterConfiguration": "Counter Konfiguration",
+        "serviceAdvisorConfiguration": "Serviceberater Konfiguration",
+        "teamsCapacity": "Teams Capacity",
+        "userConfiguration": "Benutzer Konfiguration",
+        "workToBeCarriedOut": "Durchzuführende Arbeiten",
+        "locationConfiguration": "Standortkonfiguration",
+        "setupAlarmFunctionDepotList": "Einrichtung Alarmfunktion Depotliste",
+        "colorSetup": "Farbeinstellung"
+      }
+    },
+    "createBooking": {
+      "title": "Termin buchen",
+      "buttons": {
+        "addDraft": "Entwurf eines Kunden hinzufügen"
+      },
+      "steps": {
+        "customerAndVehicle": {
+          "title": "Kunde & Fahrzeug",
+          "subtitle": "Kunden und Fahrzeug suchen oder neu anlegen",
+          "searchForm": {
+            "customerName": "Kunde",
+            "customerBirthDate": "Geburtsdatum",
+            "customerPhone": "Telefonnummer",
+            "vehicleLicencePlate": "Kennzeichen",
+            "vehicleVin": "Fahrgestellnummer / VIN"
+          },
+          "searchFilters": {
+            "searchingCriteria": "Suchkriterien"
+          },
+          "resultsList": {
+            "found": "Gefunden"
+          }
+        },
+        "chooseService": {
+          "title": "Durchzuführende Arbeiten auswählen"
+        },
+        "receptionAndPickUpDate": {
+          "title": "Annahme- und Abholdatum"
+        },
+        "summary": {
+          "title": "Zusammenfassung"
+        }
+      }
+    }
+  },
+  "serverSideErrors": {
+    "businessStatuses": {
+      "statusExists": "Der Terminstatus existiert bereits. Bitte verwenden Sie eine andere Beschreibung.",
+      "onlyOneCouldBeMarkedAsDefault": "Es muss genau ein aktiver Geschäftsstatus als Standard markiert sein.",
+      "atLeastOneActive": "Mindestens ein Geschäftsstatus muss aktiv sein.",
+      "defaultCannotBeUnassigned": "Der Standardstatus kann nicht abgewählt werden.",
+      "inactiveCannotBeDefault": "Ein inaktiver Status kann nicht als Standard festgelegt werden.",
+      "allMustBeProvidedForReordering": "Alle Geschäftsstatus müssen für die Neuordnung angegeben werden.",
+      "statusNotFound": "Geschäftsstatus wurde nicht gefunden."
+    },
+    "additionalBusinessStatuses": {
+      "statusExists": "Der Zusatzstatus existiert bereits. Bitte verwenden Sie eine andere Beschreibung."
+    },
+    "locations": {
+      "alreadyExists": "Der Standort existiert bereits.",
+      "notFound": "Der Standort wurde nicht gefunden.",
+      "brandCannotBeDeassigned": "Die Standortmarke kann nicht abgewählt werden.",
+      "brandCannotBeAssigned": "Die Standortmarke kann nicht zugewiesen werden.",
+      "countryDoesNotExists": "Das Land existiert nicht.",
+      "couldNotBeActivated": "Der Standort konnte nicht aktiviert werden.",
+      "brandIsNotAssigned": "Die Marke ist dem Standort nicht zugeordnet."
+    }
+  }
+}

@@ -1,0 +1,77 @@
+query GetBusinessStatuses {
+  getWorkshopAppointmentBusinessStatuses {
+    businessStatuses {
+      id
+      name
+      isActive
+      isDefault
+    }
+  }
+}
+
+query GetBusinessStatus($id: UUID!) {
+  getWorkshopAppointmentBusinessStatus(id: $id) {
+    id
+    name
+    isActive
+    isDefault
+  }
+}
+
+query GetBusinessStatusesByLocation($id: UUID!) {
+  getLocationWorkshopAppointmentBusinessStatuses(id: $id) {
+    businessStatuses {
+      id
+      name
+      isActive
+      isDefault
+    }
+  }
+}
+
+mutation CreateBusinessStatuses($businessStatuses: [GqlCreateBusinessStatusInputType!]!) {
+  createWorkshopAppointmentBusinessStatus(businessStatuses: $businessStatuses) {
+    businessStatuses {
+      id
+    }
+  }
+}
+
+mutation EditBusinessStatus($businessStatus: GqlUpdateBusinessStatusInputType!) {
+  updateWorkshopAppointmentBusinessStatus(businessStatus: $businessStatus) {
+    status
+  }
+}
+
+mutation DeactivateBusinessStatus($id: UUID!, $defaultBusinessStatusId: UUID) {
+  deactivateWorkshopAppointmentBusinessStatus(id: $id, defaultBusinessStatusId: $defaultBusinessStatusId) {
+    status
+  }
+}
+
+mutation ActivateBusinessStatus($id: UUID!) {
+  activateWorkshopAppointmentBusinessStatus(id: $id) {
+    status
+  }
+}
+
+mutation AssignBusinessStatusesToLocation(
+  $locationId: UUID!
+  $businessStatuses: [GqlAssignLocationWorkshopAppointmentBusinessStatusInputType!]!
+) {
+  assignLocationWorkshopAppointmentBusinessStatus(id: $locationId, businessStatuses: $businessStatuses) {
+    status
+  }
+}
+
+mutation UnassignBusinessStatusFromLocation($locationId: UUID!, $businessStatusId: UUID!) {
+  unassignLocationWorkshopAppointmentBusinessStatus(locationId: $locationId, businessStatusId: $businessStatusId) {
+    status
+  }
+}
+
+mutation ReorderBusinessStatuses($businessStatuses: [GqlReorderBusinessStatusInputType!]!) {
+  reorderWorkshopAppointmentBusinessStatuses(businessStatuses: $businessStatuses) {
+    status
+  }
+}

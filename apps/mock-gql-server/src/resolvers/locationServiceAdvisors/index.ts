@@ -1,0 +1,1 @@
+export { locationServiceAdvisorsResolver } from './resolver'

@@ -1,0 +1,12 @@
+@import 'primereact/resources/themes/lara-light-cyan/theme.css';
+
+@import '@nexus-ui/tailwind/index.css';
+
+:root {
+  font-size: 14px;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

@@ -1,0 +1,5 @@
+mutation CreateLocation($location: GqlCreateLocationInputType!) {
+  createLocation(location: $location) {
+    id
+  }
+}

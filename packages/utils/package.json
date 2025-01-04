@@ -1,0 +1,11 @@
+{
+  "name": "@nexus-ui/utils",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "test:open": "cypress open",
+    "test": "cypress run --spec \"**/*.cy.tsx,**/*.cy.ts\" --browser chrome --component"
+  }
+}

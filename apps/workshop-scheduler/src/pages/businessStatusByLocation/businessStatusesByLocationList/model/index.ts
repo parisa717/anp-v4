@@ -1,0 +1,1 @@
+export { LocationOverbookingCapacity } from './locationOverbookingCapacityType'

@@ -1,0 +1,576 @@
+"""
+Indicates exactly one field must be supplied and this field must not be `null`.
+"""
+directive @oneOf on INPUT_OBJECT
+
+"""
+A UUID parser
+"""
+scalar UUID
+
+type Query {
+  """
+  This method lists Brands
+  """
+  getBrands: GqlGetBrandsObjectType!
+  """
+  This method returns list of Business Statuses
+  """
+  getWorkshopAppointmentBusinessStatuses: GqlGetBusinessStatusesObjectType!
+  """
+  This method returns Service Advisor
+  """
+  getCustomerVehicles(
+    """
+    Filter for customer vehicles
+    """
+    filter: GqlGetCustomerVehiclesFilterInputType
+    """
+    Limit for pagination
+    """
+    limit: Float
+    """
+    Offset for pagination
+    """
+    offset: Float
+  ): GqlGetCustomerVehiclesObjectType!
+
+  """
+  This method returns list of Business Statuses
+  """
+  getWorkshopAppointmentBusinessStatus(
+    """
+    Business Status ID
+    """
+    id: UUID!
+  ): GqlGetBusinessStatusObjectType!
+  """
+  This method lists Locations
+  """
+  getLocations(
+    """
+    Filters
+    """
+    filter: GqlGetLocationsFilterInputType
+  ): GqlGetLocationsObjectType!
+
+  """
+  This method returns Location based on its id
+  """
+  getLocation(
+    """
+    Location ID
+    """
+    id: UUID!
+  ): GqlGetLocationObjectType!
+}
+
+type Mutation {
+  """
+  This method updates workshop work
+  """
+  updateWorkshopWork(workshopWork: GqlUpdateWorkshopWorkInputType!): GqlUpdateWorkshopWorkObjectType!
+
+  """
+  This method creates new Business Status
+  """
+  createWorkshopAppointmentBusinessStatus(
+    """
+    Business Statuses collection
+    """
+    businessStatuses: [GqlCreateBusinessStatusInputType!]!
+  ): GqlCreateBusinessStatusesObjectType!
+
+  """
+  This method updates Business Status
+  """
+  updateWorkshopAppointmentBusinessStatus(
+    businessStatus: GqlUpdateBusinessStatusInputType!
+  ): GqlUpdateBusinessStatusObjectType!
+
+  """
+  This method activates Business Status
+  """
+  activateWorkshopAppointmentBusinessStatus(
+    """
+    Business Status ID
+    """
+    id: UUID!
+  ): GqlActivateBusinessStatusObjectType!
+
+  """
+  This method deactivates Business Status
+  """
+  deactivateWorkshopAppointmentBusinessStatus(
+    """
+    Business Status ID
+    """
+    id: UUID!
+
+    """
+    UUID of the other Business Status, which should be marked as active. Can be null if non-default Business Status is being deactivated.
+    """
+    defaultBusinessStatusId: UUID
+  ): GqlDeactivateBusinessStatusObjectType!
+
+  """
+  This method reorders Business Statuses
+  """
+  reorderWorkshopAppointmentBusinessStatuses(
+    """
+    Business Statuses ids collection
+    """
+    businessStatuses: [GqlReorderBusinessStatusInputType!]!
+  ): GqlReorderBusinessStatusesObjectType!
+}
+
+type GqlGetBrandsObjectType {
+  """
+  Brands collection
+  """
+  brands: [GqlBrandObjectType!]!
+}
+
+type GqlBrandObjectType {
+  """
+  Brand ID
+  """
+  id: UUID!
+
+  """
+  Brand code
+  """
+  code: String!
+
+  """
+  Is Brand active
+  """
+  isActive: Boolean!
+}
+
+type GqlGetBusinessStatusObjectType {
+  """
+  Business Status ID
+  """
+  id: UUID!
+
+  """
+  Business Status name
+  """
+  name: String!
+
+  """
+  Is Business Status default
+  """
+  isDefault: Boolean!
+
+  """
+  Is Business Status active
+  """
+  isActive: Boolean!
+}
+
+type GqlGetBusinessStatusesObjectType {
+  """
+  Business Statuses ids collection
+  """
+  businessStatuses: [GqlGetBusinessStatusObjectType!]!
+}
+
+type GqlUpdateWorkshopWorkObjectType {
+  """
+  Status of workshop work update
+  """
+  status: Boolean!
+}
+
+input GqlWorkshopWorkQualificationIdInputType {
+  """
+  Qualification id
+  """
+  id: UUID!
+}
+
+input GqlUpdateWorkshopWorkBrandInputType {
+  """
+  Brand id
+  """
+  id: UUID!
+}
+
+input GqlUpdateWorkshopWorkInputType {
+  """
+  Workshop work id
+  """
+  id: UUID!
+
+  """
+  Workshop work name
+  """
+  name: String!
+
+  """
+  Is workshop work capacity editable
+  """
+  isCapacityEditable: Boolean!
+
+  """
+  Is workshop work description editable
+  """
+  isDescriptionEditable: Boolean!
+
+  """
+  Workshop work qualifications
+  """
+  qualification: GqlWorkshopWorkQualificationIdInputType!
+
+  """
+  Workshop work brands
+  """
+  brands: [GqlUpdateWorkshopWorkBrandInputType!]!
+}
+
+input GqlCreateBusinessStatusInputType {
+  """
+  Business Status name
+  """
+  name: String!
+
+  """
+  Is Business Status default
+  """
+  isDefault: Boolean!
+
+  """
+  Is Business Status active
+  """
+  isActive: Boolean!
+}
+
+input GqlUpdateBusinessStatusInputType {
+  """
+  Business Status ID
+  """
+  id: UUID!
+
+  """
+  Business Status name
+  """
+  name: String!
+
+  """
+  Is Business Status default
+  """
+  isDefault: Boolean!
+}
+
+type GqlCreateBusinessStatusObjectType {
+  """
+  Business Status ID
+  """
+  id: UUID!
+}
+
+type GqlCreateBusinessStatusesObjectType {
+  """
+  Business Statuses ids collection
+  """
+  businessStatuses: [GqlCreateBusinessStatusObjectType!]!
+}
+
+type GqlGetCustomerVehiclesObjectType {
+  """
+  Customer Vehicles
+  """
+  customerVehicles: [GqlGetCustomerVehiclesCustomerVehiclesObjectType!]!
+  """
+  Metadata
+  """
+  metadata: GqlGetCustomerVehiclesCustomerVehiclesMetadataObjectType!
+}
+
+type GqlGetCustomerVehiclesCustomerVehiclesMetadataObjectType {
+  """
+  Total results
+  """
+  totalResults: Float!
+}
+
+type GqlGetCustomerVehiclesCustomerVehiclesObjectType {
+  """
+  Id
+  """
+  id: UUID!
+  """
+  Name
+  """
+  name: UUID!
+  """
+  Name 2
+  """
+  name2: UUID!
+  """
+  Name 3
+  """
+  name3: UUID!
+  """
+  Country code
+  """
+  countryCode: String!
+  """
+  Post code
+  """
+  postCode: String!
+  """
+  City
+  """
+  city: String!
+  """
+  Address
+  """
+  address: String!
+  """
+  Address2
+  """
+  address2: String!
+  """
+  Birth date
+  """
+  birthdate: String!
+  """
+  Phones
+  """
+  phones: [GqlGetCustomerVehiclesCustomerVehiclesPhoneObjectType!]!
+  """
+  Vehicles
+  """
+  vehicles: [GqlGetCustomerVehiclesCustomerVehiclesVehicleObjectType!]!
+}
+
+type GqlGetCustomerVehiclesCustomerVehiclesPhoneObjectType {
+  """
+  Contact type
+  """
+  contactType: String!
+  """
+  Device type
+  """
+  deviceType: String!
+  """
+  Phone number
+  """
+  phone: String!
+}
+
+type GqlGetCustomerVehiclesCustomerVehiclesVehicleObjectType {
+  """
+  Id
+  """
+  id: UUID!
+  """
+  Vin
+  """
+  vin: String!
+  """
+  Licence plate
+  """
+  licencePlate: String!
+  """
+  Brand
+  """
+  brand: String!
+  """
+  Model
+  """
+  model: String!
+  """
+  Next Main Inspection
+  """
+  nextMainInspection: String!
+  """
+  Next Emissions Test
+  """
+  nextEmissionsTest: String!
+}
+
+input GqlGetCustomerVehiclesFilterInputType {
+  """
+  Customer Name
+  """
+  customerName: String
+  """
+  Customer Name
+  """
+  customerBirthDate: String
+  """
+  Customer Name
+  """
+  customerPhone: String
+  """
+  Customer Name
+  """
+  vehicleLicencePlate: String
+  """
+  Customer Name
+  """
+  vehicleVin: String
+}
+
+type GqlUpdateBusinessStatusObjectType {
+  """
+  Status of Business Status update
+  """
+  status: Boolean!
+}
+
+type GqlActivateBusinessStatusObjectType {
+  """
+  Status of Business Status activation
+  """
+  status: Boolean!
+}
+
+type GqlDeactivateBusinessStatusObjectType {
+  """
+  Status of Business Status deactivation
+  """
+  status: Boolean!
+}
+
+input GqlReorderBusinessStatusInputType {
+  """
+  Business Status ID
+  """
+  id: UUID!
+}
+
+type GqlReorderBusinessStatusesObjectType {
+  """
+  Status of Reordering Business Status
+  """
+  status: Boolean!
+}
+
+type GqlGetLocationObjectType {
+  """
+  Location ID
+  """
+  id: UUID!
+
+  """
+  Location code
+  """
+  code: String!
+
+  """
+  Location name
+  """
+  name: String!
+
+  """
+  Is Location active
+  """
+  isActive: Boolean!
+
+  """
+  Address
+  """
+  address: GqlGetLocationAddressObjectType!
+
+  """
+  Area
+  """
+  area: GqlGetLocationAreaObjectType!
+
+  """
+  Brand
+  """
+  brands: [GqlGetLocationBrandObjectType!]!
+}
+
+type GqlGetLocationsObjectType {
+  """
+  Locations collection
+  """
+  locations: [GqlGetLocationObjectType!]!
+}
+
+input GqlGetLocationsFilterInputType {
+  """
+  Area ID
+  """
+  area: UUID
+
+  """
+  Brand ID
+  """
+  brand: [UUID!]
+}
+
+type GqlGetLocationAddressObjectType {
+  """
+  Country
+  """
+  country: GqlGetLocationCountryObjectType!
+
+  """
+  Postcode
+  """
+  postCode: String!
+
+  """
+  City
+  """
+  city: String!
+
+  """
+  Address (Street, house number/flat number)
+  """
+  address: String!
+}
+
+type GqlGetLocationAreaObjectType {
+  """
+  Location Area ID
+  """
+  id: UUID!
+
+  """
+  Location Area code
+  """
+  code: String!
+
+  """
+  Location Area name
+  """
+  name: String!
+}
+
+type GqlGetLocationBrandObjectType {
+  """
+  Location Brand ID
+  """
+  id: UUID!
+
+  """
+  Brand code
+  """
+  code: String!
+
+  """
+  Is Workshop Default
+  """
+  isWorkshopDefault: Boolean!
+}
+
+type GqlGetLocationCountryObjectType {
+  """
+  Country ID
+  """
+  id: UUID!
+
+  """
+  Country name
+  """
+  name: String!
+}

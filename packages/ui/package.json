@@ -1,0 +1,81 @@
+{
+  "name": "@nexus-ui/ui",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "build-storybook": "storybook build",
+    "storybook": "storybook dev",
+    "dev": "tsc && vite",
+    "build": "tsc && vite build",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "test:open": "cypress open",
+    "test:component": "cypress run --browser chrome --component",
+    "test": "cypress run --spec \"stories/**/*\" --browser chrome --component"
+  },
+  "nx": {
+    "targets": {
+      "build": {
+        "dependsOn": [
+          {
+            "projects": [
+              "@nexus-ui/tailwind"
+            ],
+            "target": "build"
+          }
+        ]
+      },
+      "build-storybook": {
+        "dependsOn": [
+          {
+            "projects": [
+              "@nexus-ui/tailwind"
+            ],
+            "target": "build"
+          }
+        ]
+      },
+      "storybook": {
+        "dependsOn": [
+          {
+            "projects": [
+              "@nexus-ui/tailwind"
+            ],
+            "target": "build"
+          }
+        ]
+      },
+      "test:open": {
+        "dependsOn": [
+          {
+            "projects": [
+              "@nexus-ui/tailwind"
+            ],
+            "target": "build"
+          }
+        ]
+      },
+      "test:component": {
+        "dependsOn": [
+          {
+            "projects": [
+              "@nexus-ui/tailwind"
+            ],
+            "target": "build"
+          }
+        ]
+      },
+      "test": {
+        "dependsOn": [
+          {
+            "projects": [
+              "@nexus-ui/tailwind"
+            ],
+            "target": "build"
+          }
+        ]
+      }
+    }
+  }
+}

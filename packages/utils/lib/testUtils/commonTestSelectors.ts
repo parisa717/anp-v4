@@ -1,0 +1,16 @@
+export const COMMON_TEST_SELECTORS = {
+  ROW: '[data-pc-section="bodyrow"]',
+  CELL: '[data-pc-section="bodycell"]',
+  SORT_BUTTON: '[data-pc-section="sort"]',
+  FILTER: '[data-cy="search-input"]',
+  DROPDOWN: '[data-pc-name="multiselect"]',
+  STATUS_DROPDOWN: '[data-pc-name="dropdown"]',
+  CHECKED_LABEL: 'li[role="option"][aria-label="checked"]',
+  UNCHECKED_LABEL: 'li[role="option"][aria-label="unchecked"]',
+  CLEAR: '[data-pc-section="clearicon"]',
+  ITEM: '[data-pc-section="item"]',
+  ROWS_PER_PAGE_DROPDOWN: '[data-pc-name="paginator"] [data-pc-name="dropdown"]',
+  ROWS_PER_PAGE_25: '[role="option"]:contains("25")',
+  ROWS_PER_PAGE_50: '[role="option"]:contains("50")',
+  APP_MESSAGE: '.p-message-detail',
+}

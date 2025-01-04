@@ -1,0 +1,57 @@
+schema {
+  query: Query
+}
+
+type Query {
+  getArea(id: UUID!): GqlAreaObjectType!
+}
+
+type GqlAddressObjectType {
+  id: UUID!
+  country: GqlSimplifiedCountryObjectType!
+  postCode: String!
+  city: String!
+  address: String!
+}
+
+type GqlSimplifiedCountryObjectType {
+  id: UUID!
+  name: String!
+}
+
+type GqlAreaObjectType {
+  id: UUID!
+  code: String!
+  name: String!
+  isActive: Boolean!
+  address: GqlAddressObjectType!
+  dms: GqlDmsObjectType!
+  crm: GqlCrmObjectType!
+}
+
+type GqlDmsObjectType {
+  id: UUID!
+  name: String!
+}
+
+type GqlCrmObjectType {
+  id: UUID!
+  name: String!
+}
+
+type GqlBrandObjectType {
+  """
+  Brand ID
+  """
+  id: UUID!
+
+  """
+  Brand code
+  """
+  code: String!
+
+  """
+  Is Brand active
+  """
+  isActive: Boolean!
+}

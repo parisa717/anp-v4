@@ -1,0 +1,28 @@
+{
+  "name": "@nexus-ui/tailwind",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "tailwind.config.js",
+  "exports": {
+    ".": "./tailwind.config.js",
+    "./index.css": "./index.css"
+  },
+  "scripts": {
+    "build": "node index.js"
+  },
+  "nx": {
+    "targets": {
+      "build": {
+        "dependsOn": [
+          {
+            "projects": [
+              "@nexus-ui/tokens"
+            ],
+            "target": "build"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,83 @@
+query GetAdditionalBusinessStatuses {
+  getWorkshopAppointmentAdditionalBusinessStatuses {
+    additionalBusinessStatuses {
+      id
+      name
+      isActive
+      isDefault
+      isHighlighted
+    }
+  }
+}
+
+query GetAdditionalBusinessStatus($id: UUID!) {
+  getWorkshopAppointmentAdditionalBusinessStatus(id: $id) {
+    id
+    name
+    isActive
+    isDefault
+    isHighlighted
+  }
+}
+
+mutation CreateAdditionalBusinessStatuses(
+  $additionalBusinessStatuses: [GqlCreateAdditionalBusinessStatusesInputType!]!
+) {
+  createAdditionalBusinessStatuses(additionalBusinessStatuses: $additionalBusinessStatuses) {
+    status
+  }
+}
+
+mutation EditAdditionalBusinessStatus($additionalBusinessStatus: GqlEditAdditionalBusinessStatusInputType!) {
+  updateWorkshopAppointmentAdditionalBusinessStatus(additionalBusinessStatus: $additionalBusinessStatus) {
+    status
+  }
+}
+
+mutation ActivateAdditionalBusinessStatus($id: UUID!) {
+  activateWorkshopAppointmentAdditionalBusinessStatus(id: $id) {
+    status
+  }
+}
+
+mutation DeactivateAdditionalBusinessStatus($id: UUID!, $defaultAdditionalBusinessStatusId: UUID) {
+  deactivateWorkshopAppointmentAdditionalBusinessStatus(
+    id: $id
+    defaultAdditionalBusinessStatusId: $defaultAdditionalBusinessStatusId
+  ) {
+    status
+  }
+}
+
+query GetAdditionalBusinessStatusesByLocation($id: UUID!) {
+  getLocationWorkshopAppointmentAdditionalBusinessStatuses(id: $id) {
+    additionalBusinessStatuses {
+      id
+      name
+      isActive
+      isDefault
+      isHighlighted
+    }
+  }
+}
+
+mutation AssignAdditionalBusinessStatusesToLocation(
+  $locationId: UUID!
+  $additionalBusinessStatuses: [GqlAssignLocationWorkshopAdditionalAppointmentBusinessStatusInputType!]!
+) {
+  assignLocationWorkshopAppointmentAdditionalBusinessStatus(
+    id: $locationId
+    additionalBusinessStatuses: $additionalBusinessStatuses
+  ) {
+    status
+  }
+}
+
+mutation UnassignAdditionalBusinessStatusFromLocation($locationId: UUID!, $businessStatusId: UUID!) {
+  unassignLocationWorkshopAppointmentAdditionalBusinessStatus(
+    locationId: $locationId
+    businessStatusId: $businessStatusId
+  ) {
+    status
+  }
+}

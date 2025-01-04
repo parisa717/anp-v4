@@ -1,0 +1,16 @@
+query GetAvailabilityColors {
+  getAvailabilityColors {
+    availabilityColors {
+      id
+      color
+      minimalCapacity
+      maximumCapacity
+    }
+  }
+}
+
+mutation UpdateAvailabilityColors($availabilityColors: [GqlAvailabilityColorWithoutIdInputType!]!) {
+  updateAvailabilityColors(availabilityColors: $availabilityColors) {
+    status
+  }
+}

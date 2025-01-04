@@ -1,0 +1,439 @@
+"""
+Indicates exactly one field must be supplied and this field must not be `null`.
+"""
+directive @oneOf on INPUT_OBJECT
+
+type GqlCreateAreaObjectType {
+  """
+  Area ID
+  """
+  id: UUID!
+}
+
+"""
+A UUID parser
+"""
+scalar UUID
+
+type GqlGetAreaCountryObjectType {
+  """
+  Country ID
+  """
+  id: UUID!
+
+  """
+  Country name
+  """
+  name: String!
+}
+
+type GqlGetAreaAddressObjectType {
+  """
+  Country
+  """
+  country: GqlGetAreaCountryObjectType!
+
+  """
+  Postcode
+  """
+  postCode: String!
+
+  """
+  City
+  """
+  city: String!
+
+  """
+  Address (Street, house number/flat number)
+  """
+  address: String!
+}
+
+type GqlGetAreaObjectType {
+  """
+  Area ID
+  """
+  id: UUID!
+
+  """
+  Area code
+  """
+  code: String!
+
+  """
+  Area name
+  """
+  name: String!
+
+  """
+  Is Area active
+  """
+  isActive: Boolean!
+
+  """
+  Address
+  """
+  address: GqlGetAreaAddressObjectType!
+}
+
+type GqlGetAreasObjectType {
+  """
+  Areas collection
+  """
+  areas: [GqlGetAreaObjectType!]!
+}
+
+type GqlCreateBrandObjectType {
+  """
+  Brand creation status
+  """
+  status: Boolean!
+}
+
+type GqlUpdateBrandObjectType {
+  """
+  Status of Brand update
+  """
+  status: Boolean!
+}
+
+type GqlGetBrandObjectType {
+  """
+  Brand ID
+  """
+  id: UUID!
+
+  """
+  Brand code
+  """
+  code: String!
+
+  """
+  Is Brand active
+  """
+  isActive: Boolean!
+}
+
+type GqlGetBrandsObjectType {
+  """
+  Brands collection
+  """
+  brands: [GqlBrandObjectType!]!
+}
+
+type GqlBrandObjectType {
+  """
+  Brand ID
+  """
+  id: UUID!
+
+  """
+  Brand code
+  """
+  code: String!
+
+  """
+  Is Brand active
+  """
+  isActive: Boolean!
+}
+
+type GqlGetCountriesObjectType {
+  """
+  Countries collection
+  """
+  countries: [GqlCountryObjectType!]!
+}
+
+type GqlCountryObjectType {
+  """
+  Country ID
+  """
+  id: UUID!
+
+  """
+  Country code (ISO 3166-1 alpha-2)
+  """
+  code: String!
+
+  """
+  Country name
+  """
+  name: String!
+}
+
+type GqlCreateLocationObjectType {
+  """
+  Location ID
+  """
+  id: UUID!
+}
+
+type GqlGetAreaObjectType {
+  """
+  Area ID
+  """
+  id: UUID!
+
+  """
+  Area code
+  """
+  code: String!
+
+  """
+  Area name
+  """
+  name: String!
+
+  """
+  Is Area active
+  """
+  isActive: Boolean!
+
+  """
+  Address
+  """
+  address: GqlGetAreaAddressObjectType!
+}
+
+type GqlGetAreaAddressObjectType {
+  """
+  Country
+  """
+  country: GqlGetAreaCountryObjectType!
+
+  """
+  Postcode
+  """
+  postCode: String!
+
+  """
+  City
+  """
+  city: String!
+
+  """
+  Address (Street, house number/flat number)
+  """
+  address: String!
+}
+
+type GqlGetAreaCountryObjectType {
+  """
+  Country ID
+  """
+  id: UUID!
+
+  """
+  Country name
+  """
+  name: String!
+}
+
+type Query {
+  """
+  This method lists Areas
+  """
+  getAreas: GqlGetAreasObjectType!
+
+  """
+  This method lists Brands
+  """
+  getBrands: GqlGetBrandsObjectType!
+
+  """
+  This method returns Brand based on its id
+  """
+  getBrand(
+    """
+    Brand ID
+    """
+    id: UUID!
+  ): GqlGetBrandObjectType
+
+  """
+  This method returns Area
+  """
+  getArea(
+    """
+    Area ID
+    """
+    id: UUID!
+  ): GqlGetAreaObjectType
+
+  """
+  This method lists Countries
+  """
+  getCountries: GqlGetCountriesObjectType!
+}
+
+type Mutation {
+  """
+  This method creates new Area
+  """
+  createArea(area: GqlCreateAreaInputType!): GqlCreateAreaObjectType!
+  """
+  This method creates new Brand
+  """
+  createBrand(brand: GqlCreateBrandInputType!): GqlCreateBrandObjectType!
+
+  """
+  This method updates Brand
+  """
+  updateBrand(brand: GqlUpdateBrandInputType!): GqlUpdateBrandObjectType!
+
+  """
+  This method creates new Location
+  """
+  createLocation(location: GqlCreateLocationInputType!): GqlCreateLocationObjectType!
+}
+
+input GqlCreateAreaInputType {
+  """
+  Area code
+  """
+  code: String!
+
+  """
+  Area name
+  """
+  name: String!
+
+  """
+  Is Area active
+  """
+  isActive: Boolean!
+
+  """
+  Address
+  """
+  address: GqlSetAreaAddressObjectType!
+}
+
+input GqlSetAreaAddressObjectType {
+  """
+  Country
+  """
+  country: GqlSetCountryObjectType!
+
+  """
+  Postcode
+  """
+  postCode: String!
+
+  """
+  City
+  """
+  city: String!
+
+  """
+  Address (Street, house number/flat number)
+  """
+  address: String!
+}
+
+input GqlSetCountryObjectType {
+  """
+  Country ID
+  """
+  id: UUID!
+}
+
+input GqlCreateBrandInputType {
+  """
+  Brand code
+  """
+  code: String!
+
+  """
+  Is Brand active
+  """
+  isActive: Boolean!
+}
+
+input GqlUpdateBrandInputType {
+  """
+  Brand ID
+  """
+  id: UUID!
+
+  """
+  Brand code
+  """
+  code: String!
+}
+
+input GqlCreateLocationInputType {
+  """
+  Location code
+  """
+  code: String!
+
+  """
+  Location name
+  """
+  name: String!
+
+  """
+  Is Location active
+  """
+  isActive: Boolean!
+
+  """
+  Address
+  """
+  address: GqlSetLocationAddressObjectType!
+
+  """
+  Area
+  """
+  area: GqlSetLocationAreaInputType!
+
+  """
+  Brand
+  """
+  brands: [GqlSetLocationBrandInputType!]!
+}
+
+input GqlSetLocationAddressObjectType {
+  """
+  Country
+  """
+  country: GqlSetLocationCountryObjectType!
+
+  """
+  Postcode
+  """
+  postCode: String!
+
+  """
+  City
+  """
+  city: String!
+
+  """
+  Address (Street, house number/flat number)
+  """
+  address: String!
+}
+
+input GqlSetLocationCountryObjectType {
+  """
+  Country ID
+  """
+  id: UUID!
+}
+
+input GqlSetLocationAreaInputType {
+  """
+  Area ID
+  """
+  id: UUID!
+}
+
+input GqlSetLocationBrandInputType {
+  """
+  Brand ID
+  """
+  id: UUID!
+}

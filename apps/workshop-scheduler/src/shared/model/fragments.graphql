@@ -1,0 +1,7 @@
+fragment MetadataFields on PaginationAndSortingMetadata {
+  totalResults
+  sort {
+    field
+    direction
+  }
+}

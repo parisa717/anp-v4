@@ -1,0 +1,9 @@
+query GetCountries {
+  getCountries {
+    countries {
+      id
+      name
+      code
+    }
+  }
+}

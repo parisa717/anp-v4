@@ -1,0 +1,5 @@
+export { areaApi, useCreateAreaMutation, useGetAreaQuery, useGetAreasQuery } from './api/areaApi'
+export { AREA_STATUSES } from './config/areaStatuses'
+export { areaSlice, selectAreas } from './model/slice'
+export type { AreaEntity, GqlAreaObjectTypeEntity } from './model/types'
+export { AreaStatus } from './model/types'

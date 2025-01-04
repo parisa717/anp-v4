@@ -1,0 +1,68 @@
+mutation CreateWorkshopWork($works: [GqlCreateWorkshopWorkInput!]!) {
+  createWorkshopWork(works: $works) {
+    works {
+      id
+    }
+  }
+}
+
+mutation ActivateWorkshopWork($id: UUID!) {
+  activateWorkshopWork(id: $id) {
+    status
+  }
+}
+
+mutation DeactivateWorkshopWork($id: UUID!) {
+  deactivateWorkshopWork(id: $id) {
+    status
+  }
+}
+
+mutation UpdateWorkshopWork($workshopWork: GqlUpdateWorkshopWorkInputType!) {
+  updateWorkshopWork(workshopWork: $workshopWork) {
+    status
+  }
+}
+
+query GetWorkshopWorks($filter: WorkshopWorksFilterInput, $pagination: PaginationInput, $sort: SortInput) {
+  getWorkshopWorks(filter: $filter, pagination: $pagination, sort: $sort) {
+    works {
+      id
+      name
+      isCapacityEditable
+      isDescriptionEditable
+      isActive
+      qualification {
+        id
+        name
+      }
+      brands {
+        id
+        name
+        timeUnits
+      }
+    }
+    metadata {
+      ...MetadataFields
+    }
+  }
+}
+
+query GetWorkshopWork($id: UUID!) {
+  getWorkshopWork(id: $id) {
+    id
+    name
+    isCapacityEditable
+    isDescriptionEditable
+    isActive
+    qualification {
+      id
+      name
+    }
+    brands {
+      id
+      name
+      timeUnits
+    }
+  }
+}

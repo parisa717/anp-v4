@@ -1,0 +1,22 @@
+extend type Query {
+  getWorkshopFollowUpWorks: GqlGetWorkshopFollowUpWorksObjectType!
+}
+
+type GqlGetFollowUpWorkObjectType {
+  id: UUID!
+  name: String!
+  timeUnits: Int!
+  isCapacityEditable: Boolean!
+  isDescriptionEditable: Boolean!
+  isActive: Boolean!
+  qualification: GqlGetFollowUpWorkQualificationObjectType!
+}
+
+type GqlGetFollowUpWorkQualificationObjectType {
+  id: UUID!
+  name: String!
+}
+
+type GqlGetWorkshopFollowUpWorksObjectType {
+  works: [GqlGetFollowUpWorkObjectType!]!
+}

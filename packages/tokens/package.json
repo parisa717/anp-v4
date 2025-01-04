@@ -1,0 +1,16 @@
+{
+  "name": "@nexus-ui/tokens",
+  "private": true,
+  "version": "0.0.11",
+  "files": [
+    "dist/**"
+  ],
+  "exports": {
+    ".": "./dist/js/tokens.js",
+    "./tokens.css": "./dist/css/tokens.css"
+  },
+  "type": "commonjs",
+  "scripts": {
+    "build": "node build.mjs"
+  }
+}

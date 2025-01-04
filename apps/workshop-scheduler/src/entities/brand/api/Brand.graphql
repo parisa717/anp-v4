@@ -1,0 +1,9 @@
+query GetBrands {
+  getBrands {
+    brands {
+      id
+      code
+      isActive
+    }
+  }
+}

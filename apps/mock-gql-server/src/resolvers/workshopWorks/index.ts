@@ -1,0 +1,1 @@
+export { workshopWorksResolver } from './resolver'

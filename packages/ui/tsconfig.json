@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "include": ["index.ts", "stories", "cypress"],
+  "compilerOptions": {
+    "paths": {
+      "@cypress-mocks/*": ["../cypress/mocks/*"],
+      "@cypress-utils/*": ["../cypress/utils/*"]
+    }
+  }
+}
