@@ -11,5 +11,6 @@
     }
   },
   "defaultBase": "main",
-  "useLegacyCache": true
+  "useLegacyCache": true,
+  "nxCloudId": "67796a1bab077340d9c2c159"
 }

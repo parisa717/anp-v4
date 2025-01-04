@@ -230,6 +230,72 @@ type GqlGetAreaCountryObjectType {
   name: String!
 }
 
+type GqlGetLocationCountryObjectType {
+  """Country ID"""
+  id: UUID!
+
+  """Country name"""
+  name: String!
+}
+
+type GqlGetLocationAddressObjectType {
+  """Country"""
+  country: GqlGetLocationCountryObjectType!
+
+  """Postcode"""
+  postCode: String!
+
+  """City"""
+  city: String!
+
+  """Address (Street, house number/flat number)"""
+  address: String!
+}
+type GqlGetLocationAreaObjectType {
+  """Location Area ID"""
+  id: UUID!
+
+  """Location Area code"""
+  code: String!
+
+  """Location Area name"""
+  name: String!
+}
+
+type GqlGetLocationBrandObjectType {
+  """Location Brand ID"""
+  id: UUID!
+
+  """Brand code"""
+  code: String!
+
+  """Is Workshop Default"""
+  isWorkshopDefault: Boolean!
+}
+
+type GqlGetLocationObjectType {
+  """Location ID"""
+  id: UUID!
+
+  """Location code"""
+  code: String!
+
+  """Location name"""
+  name: String!
+
+  """Is Location active"""
+  isActive: Boolean!
+
+  """Address"""
+  address: GqlGetLocationAddressObjectType!
+
+  """Area"""
+  area: GqlGetLocationAreaObjectType!
+
+  """Brand"""
+  brands: [GqlGetLocationBrandObjectType!]!
+}
+
 type Query {
   """
   This method lists Areas
