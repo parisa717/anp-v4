@@ -2,10 +2,9 @@ import { cacher } from '@nexus-ui/utils'
 import { type ApiWithTransformResponse } from '@nexus-ui/utils'
 
 import { LocationEntity } from '../model/types'
-import { api, GetLocationQuery, GetLocationsQuery } from './Location.generated'
+import { api, GetLocationQuery } from './Location.generated'
 
-type LocationApi = ApiWithTransformResponse<typeof api,['GetLocations', 'GetLocation'],  {
-  GetLocations: LocationEntity[],
+type LocationApi = ApiWithTransformResponse<typeof api,['GetLocation'],  {
   GetLocation: LocationEntity 
 }>
 type TagTypes = LocationApi['TagTypes']
