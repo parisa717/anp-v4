@@ -25,6 +25,9 @@ export const areaApi = api.enhanceEndpoints<TagTypes, ApiEndpointDefinitions>({
     CreateArea: {
       invalidatesTags: cacher.invalidatesList(AREA_TAG),
     },
+    UpdateArea: {
+      invalidatesTags: cacher.invalidatesList(AREA_TAG),
+    },
     GetArea: {
       transformResponse: (response: GetAreaQuery) => response.getArea,
       providesTags: cacher.cacheByIdArgProperty(AREA_TAG),
@@ -32,4 +35,4 @@ export const areaApi = api.enhanceEndpoints<TagTypes, ApiEndpointDefinitions>({
   },
 })
 
-export const { useGetAreasQuery, useCreateAreaMutation, useGetAreaQuery } = areaApi
+export const { useGetAreasQuery, useCreateAreaMutation, useGetAreaQuery , useUpdateAreaMutation} = areaApi

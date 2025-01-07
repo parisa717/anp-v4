@@ -231,69 +231,162 @@ type GqlGetAreaCountryObjectType {
 }
 
 type GqlGetLocationCountryObjectType {
-  """Country ID"""
+  """
+  Country ID
+  """
   id: UUID!
 
-  """Country name"""
+  """
+  Country name
+  """
   name: String!
 }
 
 type GqlGetLocationAddressObjectType {
-  """Country"""
+  """
+  Country
+  """
   country: GqlGetLocationCountryObjectType!
 
-  """Postcode"""
+  """
+  Postcode
+  """
   postCode: String!
 
-  """City"""
+  """
+  City
+  """
   city: String!
 
-  """Address (Street, house number/flat number)"""
+  """
+  Address (Street, house number/flat number)
+  """
   address: String!
 }
 type GqlGetLocationAreaObjectType {
-  """Location Area ID"""
+  """
+  Location Area ID
+  """
   id: UUID!
 
-  """Location Area code"""
+  """
+  Location Area code
+  """
   code: String!
 
-  """Location Area name"""
+  """
+  Location Area name
+  """
   name: String!
 }
 
 type GqlGetLocationBrandObjectType {
-  """Location Brand ID"""
+  """
+  Location Brand ID
+  """
   id: UUID!
 
-  """Brand code"""
+  """
+  Brand code
+  """
   code: String!
 
-  """Is Workshop Default"""
+  """
+  Is Workshop Default
+  """
   isWorkshopDefault: Boolean!
 }
 
 type GqlGetLocationObjectType {
-  """Location ID"""
+  """
+  Location ID
+  """
   id: UUID!
 
-  """Location code"""
+  """
+  Location code
+  """
   code: String!
 
-  """Location name"""
+  """
+  Location name
+  """
   name: String!
 
-  """Is Location active"""
+  """
+  Is Location active
+  """
   isActive: Boolean!
 
-  """Address"""
+  """
+  Address
+  """
   address: GqlGetLocationAddressObjectType!
 
-  """Area"""
+  """
+  Area
+  """
   area: GqlGetLocationAreaObjectType!
 
-  """Brand"""
+  """
+  Brand
+  """
   brands: [GqlGetLocationBrandObjectType!]!
+}
+type GqlUpdateAreaObjectType {
+  """
+  Status of Area update
+  """
+  status: Boolean!
+}
+input GqlUpdateAreaInputType {
+  """
+  Area ID
+  """
+  id: UUID!
+
+  """
+  Area code
+  """
+  code: String!
+
+  """
+  Area name
+  """
+  name: String!
+
+  """
+  Address
+  """
+  address: GqlSetAreaAddressObjectType!
+}
+input GqlSetAreaAddressObjectType {
+  """
+  Country
+  """
+  country: GqlSetCountryObjectType!
+
+  """
+  Postcode
+  """
+  postCode: String!
+
+  """
+  City
+  """
+  city: String!
+
+  """
+  Address (Street, house number/flat number)
+  """
+  address: String!
+}
+
+input GqlSetCountryObjectType {
+  """
+  Country ID
+  """
+  id: UUID!
 }
 
 type Query {
@@ -333,7 +426,9 @@ type Query {
   getCountries: GqlGetCountriesObjectType!
 
   getLocation(
-    """Location ID"""
+    """
+    Location ID
+    """
     id: UUID!
   ): GqlGetLocationObjectType
 }
@@ -357,6 +452,11 @@ type Mutation {
   This method creates new Location
   """
   createLocation(location: GqlCreateLocationInputType!): GqlCreateLocationObjectType!
+
+  """
+  This method updates Area
+  """
+  updateArea(area: GqlUpdateAreaInputType!): GqlUpdateAreaObjectType!
 }
 
 input GqlCreateAreaInputType {

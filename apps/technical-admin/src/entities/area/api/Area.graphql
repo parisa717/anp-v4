@@ -4,6 +4,12 @@ mutation CreateArea($area: GqlCreateAreaInputType!) {
   }
 }
 
+mutation UpdateArea($area: GqlUpdateAreaInputType!) {
+  updateArea(area: $area) {
+    status
+  }
+}
+
 query GetAreas {
   getAreas {
     areas {
@@ -23,6 +29,7 @@ query GetAreas {
     }
   }
 }
+
 query GetArea($id: UUID!) {
   getArea(id: $id) {
     id

@@ -5,6 +5,11 @@ export const CREATE_LOCATION_OPERATION_DEFAULT_RESPONSE = {
   id: '123',
 }
 
+export const UPDATE_AREA_OPERATION_DEFAULT_RESPONSE = {
+  id: 'mocked_area_1',
+  code: 'Test Area',
+}
+
 export const GET_AREAS_OPERATION_DEFAULT_RESPONSE: GetAreasQuery = {
   getAreas: {
     areas: [
