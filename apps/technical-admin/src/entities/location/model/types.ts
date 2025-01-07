@@ -1,4 +1,3 @@
-//TODO: Update to location type once it's implemented
-import { GqlGetLocationObjectType } from '@/shared/api/types.generated'
+import { GetLocationQuery } from "../api/Location.generated"
 
-export type LocationEntity = GqlGetLocationObjectType
+export type LocationEntity = GetLocationQuery['getLocation']

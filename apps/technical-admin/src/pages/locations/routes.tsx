@@ -2,8 +2,8 @@ import { Route } from 'react-router'
 
 import { ROUTE_PATHS } from '@/shared/lib'
 
-import { CreateLocationPage } from './lazyComponents'
 import EditLocationList from './editLocation/ui/Page'
+import { CreateLocationPage } from './lazyComponents'
 
 export const locationsRoutes = (
   <>

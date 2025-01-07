@@ -15,10 +15,9 @@ const LOCATION_TAG = 'LOCATION'
 export const locationApi = api.enhanceEndpoints<TagTypes, ApiEndpointDefinitions>({
   endpoints: {
     GetLocation: {
-      transformResponse: (response: GetLocationQuery) => response.getLocation as LocationEntity,
+      transformResponse: (response: GetLocationQuery) => response.getLocation,
       providesTags: cacher.cacheByIdArgProperty(LOCATION_TAG),
     },
-
   },
 
 })
