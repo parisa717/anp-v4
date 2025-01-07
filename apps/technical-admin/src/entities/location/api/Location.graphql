@@ -3,9 +3,9 @@ mutation CreateLocation($location: GqlCreateLocationInputType!) {
     id
   }
 }
-query GetLocations {
-  getLocations {
-    locations {
+query GetLocation($id: ID!) {
+  getLocation(id: $id) {
+  
       id
       code
       name
@@ -29,6 +29,6 @@ query GetLocations {
         code
         isWorkshopDefault
       }
-    }
+    
   }
 }

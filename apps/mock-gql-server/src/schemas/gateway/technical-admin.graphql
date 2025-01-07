@@ -331,6 +331,11 @@ type Query {
   This method lists Countries
   """
   getCountries: GqlGetCountriesObjectType!
+
+  getLocation(
+    """Location ID"""
+    id: UUID!
+  ): GqlGetLocationObjectType
 }
 
 type Mutation {
