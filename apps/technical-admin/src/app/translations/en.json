@@ -96,6 +96,31 @@
           }
         }
       },
+      "editArea": {
+        "title": "Edit Area",
+        "steps": {
+          "general": {
+            "title": "General Data",
+            "form": {
+              "fields": {
+                "areaId": "Area Id",
+                "areaName": "Area Name",
+                "areaStatus": "Status",
+                "areaCountry": "Country",
+                "areaPostCode": "Post code",
+                "areaCity": "City",
+                "areaAddress": "Address"
+              }
+            }
+          },
+          "DMS": {
+            "title": "Assign DMS"
+          },
+          "CRM": {
+            "title": "Assign CRM"
+          }
+        }
+      },
       "areaDetail": {
         "title": "Area details",
         "EditAreaButton": "Edit",

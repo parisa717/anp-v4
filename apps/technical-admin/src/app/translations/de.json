@@ -96,6 +96,31 @@
           }
         }
       },
+      "editArea": {
+        "title": "Area bearbeiten",
+        "steps": {
+          "general": {
+            "title": "Allgemeine Daten",
+            "form": {
+              "fields": {
+                "areaId": "Area-ID",
+                "areaName": "Area-Name",
+                "areaStatus": "Status",
+                "areaCountry": "Land",
+                "areaPostCode": "Postleitzahl",
+                "areaCity": "Stadt",
+                "areaAddress": "Adresse"
+              }
+            }
+          },
+          "DMS": {
+            "title": "DMS zuordnen"
+          },
+          "CRM": {
+            "title": "CRM zuordnen"
+          }
+        }
+          },
       "areaDetail": {
         "title": "Area details",
         "EditAreaButton": "Bearbeiten",
