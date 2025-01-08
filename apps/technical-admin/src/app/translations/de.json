@@ -129,6 +129,24 @@
       }
     },
     "locations": {
+      "locationsList": {
+        "title": "Standortkonfiguration",
+        "addLocationButton": "Standort hinzufügen",
+        "message": "Information: Es werden nur aktive Standorte angezeigt.",
+        "table": {
+          "columnHeaders": {
+            "areaId": "Area-ID",
+            "locationId": "Standort-ID",
+            "locationName": "Standortname",
+            "brand": "Marke",
+            "zipCode": "Postleitzahl",
+            "city": "Stadt",
+            "address": "Adresse",
+            "country": "Land"
+          },
+          "empty": "Keine Standorte gefunden"
+        }
+      },
       "createLocation": {
         "title": "Standort hinzufügen",
         "description": "Wählen Sie die Area aus, die Sie dem Standort zuweisen möchten.",

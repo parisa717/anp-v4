@@ -3,3 +3,33 @@ mutation CreateLocation($location: GqlCreateLocationInputType!) {
     id
   }
 }
+
+query GetLocations {
+  getLocations {
+    locations {
+      id
+      code
+      name
+      isActive
+      address {
+        country {
+          id
+          name
+        }
+        postCode
+        city
+        address
+      }
+      area {
+        id
+        code
+        name
+      }
+      brands {
+        id
+        code
+        isWorkshopDefault
+      }
+    }
+  }
+}

@@ -129,6 +129,24 @@
       }
     },
     "locations": {
+      "locationsList": {
+        "title": "Locations Configuration",
+        "addLocationButton": "Add Location",
+        "message": "Information: Only active locations are displayed.",
+        "table": {
+          "columnHeaders": {
+            "areaId": "Area ID",
+            "locationId": "Location ID",
+            "locationName": "Location Name",
+            "brand": "Brand",
+            "zipCode": "Zip Code",
+            "city": "City",
+            "address": "Address",
+            "country": "Country"
+          },
+          "empty": "No locations found"
+        }
+      },
       "createLocation": {
         "title": "Add Location",
         "description": "Choose Area to which you would like to assign the location",
