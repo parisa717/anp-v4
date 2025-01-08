@@ -78,7 +78,6 @@ describe('LocationsListPage', () => {
         aliasQuery(req, 'GetLocations')
         successResponse(req, GET_LOCATIONS_OPERATION_DEFAULT_RESPONSE)
       }
-
       if (hasOperationName(req, 'GetBrands')) {
         aliasQuery(req, 'GetBrands')
         successResponse(req, GET_BRANDS_OPERATION_DEFAULT_RESPONSE)

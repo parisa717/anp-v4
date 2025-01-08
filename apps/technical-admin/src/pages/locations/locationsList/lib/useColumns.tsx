@@ -16,10 +16,12 @@ FilterService.register('custom_brands', (brands: LocationEntity['brands'], filte
   return brands.some(({ id }) => filterValue.includes(id))
 })
 
+
 export const useColumns = () => {
   const { t } = useTranslation()
-
+  
   const { data: brands, isError, isLoading } = useGetBrandsQuery()
+
   const statusOptions = [
     {
       label: t('active'),
