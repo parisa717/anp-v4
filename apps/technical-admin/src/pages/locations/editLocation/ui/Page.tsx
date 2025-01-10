@@ -3,11 +3,12 @@ import { useTranslation } from '@nexus-ui/i18n'
 import { FormModal, InputTextFormField, SelectBoxFormField } from '@nexus-ui/ui'
 import { Button } from 'primereact/button'
 import {  useFieldArray, useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 
 import { useGetAreasQuery } from '@/entities/area'
 import { useGetBrandsQuery } from '@/entities/brand'
 import { useGetCountriesQuery } from '@/entities/country'
+import { useGetLocationQuery } from '@/entities/location'
 import { pageUrls } from '@/shared/lib'
 
 import { EditLocationFormSchema, editLocationFormSchema } from '../model/formSchema'
@@ -28,6 +29,9 @@ const EditLocationList = () => {
   })
   const { data: countries, isLoading: isLoadingCountries, isError: isCountriesError } = useGetCountriesQuery()
 
+  const { id = '' } = useParams<{ id: string }>()
+
+  const { data: locationData } = useGetLocationQuery({ id })
  
   const navigate = useNavigate()
 
@@ -39,13 +43,13 @@ const EditLocationList = () => {
   } = useForm<EditLocationFormSchema>({
     resolver: zodResolver(editLocationFormSchema(t)),
     defaultValues: {
-      area: '',
-      code: '',
-      name: '',
-      zipCode: '',
-      city: '',
-      address: '',
-      brands: [{ id: '' }],
+      area: locationData?.area.id,
+      code: locationData?.code ,
+      name: locationData?.name,
+      zipCode: locationData?.address?.postCode,
+      city: locationData?.address?.city,
+      address: locationData?.address?.address,
+      brands: [{ id: locationData?.brands[0].id }],
     },
   })
   const { fields, append } = useFieldArray<EditLocationFormSchema>({
