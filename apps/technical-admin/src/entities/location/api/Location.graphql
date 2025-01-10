@@ -3,6 +3,12 @@ mutation CreateLocation($location: GqlCreateLocationInputType!) {
     id
   }
 }
+
+mutation UpdateLocation($location: GqlUpdateLocationInputType!) {
+  updateLocation(location: $location) {
+    status
+  }
+}
 query GetLocation($id: UUID!) {
   getLocation(id: $id) {
       id

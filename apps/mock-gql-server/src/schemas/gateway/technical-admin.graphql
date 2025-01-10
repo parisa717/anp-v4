@@ -261,6 +261,10 @@ type GqlGetLocationAreaObjectType {
   """Location Area name"""
   name: String!
 }
+type GqlUpdateLocationObjectType {
+  """Status of Location update"""
+  status: Boolean!
+}
 
 type GqlGetLocationBrandObjectType {
   """Location Brand ID"""
@@ -357,6 +361,10 @@ type Mutation {
   This method creates new Location
   """
   createLocation(location: GqlCreateLocationInputType!): GqlCreateLocationObjectType!
+
+
+  """This method updates Location"""
+  updateLocation(location: GqlUpdateLocationInputType!): GqlUpdateLocationObjectType!
 }
 
 input GqlCreateAreaInputType {
@@ -507,4 +515,25 @@ input GqlSetLocationBrandInputType {
   Brand ID
   """
   id: UUID!
+}
+
+
+input GqlUpdateLocationInputType {
+  """Location ID"""
+  id: UUID!
+
+  """Location code"""
+  code: String!
+
+  """Location name"""
+  name: String!
+
+  """Address"""
+  address: GqlSetLocationAddressObjectType!
+
+  """Area"""
+  area: GqlSetLocationAreaInputType!
+
+  """Brand"""
+  brands: [GqlSetLocationBrandInputType!]!
 }

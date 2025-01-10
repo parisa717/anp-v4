@@ -18,8 +18,10 @@ export const locationApi = api.enhanceEndpoints<TagTypes, ApiEndpointDefinitions
       transformResponse: (response: GetLocationQuery) => response.getLocation,
       providesTags: cacher.cacheByIdArgProperty(LOCATION_TAG),
     },
+   
+
   },
 
 })
 
-export const { useCreateLocationMutation,useGetLocationQuery } = locationApi
+export const { useCreateLocationMutation,useGetLocationQuery,useUpdateLocationMutation } = locationApi

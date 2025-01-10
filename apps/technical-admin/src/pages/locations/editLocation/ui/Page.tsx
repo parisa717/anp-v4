@@ -8,7 +8,7 @@ import { useNavigate, useParams } from 'react-router'
 import { useGetAreasQuery } from '@/entities/area'
 import { useGetBrandsQuery } from '@/entities/brand'
 import { useGetCountriesQuery } from '@/entities/country'
-import { useGetLocationQuery } from '@/entities/location'
+import { useGetLocationQuery, useUpdateLocationMutation } from '@/entities/location'
 import { pageUrls } from '@/shared/lib'
 
 import { EditLocationFormSchema, editLocationFormSchema } from '../model/formSchema'
@@ -35,6 +35,9 @@ const EditLocationList = () => {
  
   const navigate = useNavigate()
 
+    const [updateLocation, { isLoading: isUpdating }] = useUpdateLocationMutation()
+  
+
   const {
     formState: { errors },
     handleSubmit,
@@ -59,10 +62,22 @@ const EditLocationList = () => {
   const watchBrandIds = watch('brands')
 
   const onSubmitHandler = async (data: EditLocationFormSchema) => {
-
-
-    console.log(data)
+    await updateLocation({
+      location: {
+        ...data,
+        id: id,
+        brands: data.brands.map(({ id }) => ({ id })),
+        address: {
+          address: data.address,
+          city: data.city,
+          country: { id: data.country },
+          postCode: data.zipCode,
+        },
+        area: { id: data.area },
+      },
+    })
     navigate(pageUrls.locations.root())
+
   }
 
   const handleCancelClick = () => {
@@ -87,7 +102,7 @@ const EditLocationList = () => {
       width="28%"
       minWidth={632}
       title={"Standort bearbeiten"}
-      isUpdating={false}
+      isUpdating={isUpdating}
     >
       <form className="mt-10 flex flex-col gap-8">
         <div className="flex flex-col gap-3 mb-6">
