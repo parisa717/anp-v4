@@ -3,7 +3,7 @@ import { aliasQuery, errorResponse, hasOperationName, successResponse } from '@n
 
 import { GqlAreaObjectTypeEntity } from '@/entities/area'
 
-import { AreaDetailPage } from './Page'
+import  AreaDetailPage  from './Page'
 
 const AREA_TABLE = '[data-cy="area-table"]'
 const CELL = '[data-pc-section="bodycell"]'

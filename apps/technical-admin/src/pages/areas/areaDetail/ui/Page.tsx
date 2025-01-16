@@ -30,7 +30,7 @@ const dataTablePt = {
   },
 }
 
-export const AreaDetailPage = () => {
+ const AreaDetailPage = () => {
   const { t } = useTranslation()
 
   const areaColumns = useAreaColumns()
@@ -65,3 +65,5 @@ export const AreaDetailPage = () => {
     </main>
   )
 }
+
+export default AreaDetailPage

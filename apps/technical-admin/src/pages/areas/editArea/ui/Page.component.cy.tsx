@@ -1,4 +1,4 @@
-import { GET_COUNTRIES_DEFAULT_RESPONSE,UPDATE_AREA_OPERATION_DEFAULT_RESPONSE } from '@cypress-fixtures'
+import { GET_AREA_OPERATION_DEFAULT_RESPONSE,GET_COUNTRIES_DEFAULT_RESPONSE,UPDATE_AREA_OPERATION_DEFAULT_RESPONSE } from '@cypress-fixtures'
 import { aliasMutation, aliasQuery, hasOperationName, successResponse } from '@nexus-ui/utils'
 
 import  EditAreaPage  from './Page'
@@ -7,14 +7,23 @@ import  EditAreaPage  from './Page'
 
 describe('EditAreaPage', () => {
   beforeEach(() => {
+
+    cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
+      if (hasOperationName(req, 'GetArea')) {
+        aliasQuery(req, 'GetArea')
+        successResponse(req, GET_AREA_OPERATION_DEFAULT_RESPONSE)
+      }
+    })
+
     cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
       if (hasOperationName(req, 'GetCountries')) {
         aliasQuery(req, 'GetCountries')
         successResponse(req, GET_COUNTRIES_DEFAULT_RESPONSE)
       }
     })
-
+   
     cy.mountWithProviders(<EditAreaPage />)
+    cy.wait('@gqlGetAreaQuery')
     cy.wait('@gqlGetCountriesQuery')
   })
 
