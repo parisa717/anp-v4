@@ -147,6 +147,24 @@
             "country": "Country"
           }
         }
+      },
+      "editLocation": {
+        "title": "Edit Location",
+        "description": "Choose Area to which you would like to assign the location",
+        "form": {
+          "fields": {
+            "area": "Area",
+            "locationId": "Location ID",
+            "locationName": "Location name",
+            "zipCode": "Zip code",
+            "city": "City",
+            "address": "Address",
+            "brand": "Brand",
+            "status": "Status",
+            "addBrand": "Add brand",
+            "country": "Country"
+          }
+        }
       }
     }
   }

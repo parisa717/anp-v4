@@ -147,6 +147,24 @@
             "country": "Land"
           }
         }
+      },
+      "editLocation": {
+        "title": "Standort bearbeiten",
+        "description": "Wählen Sie die Area aus, die Sie dem Standort zuweisen möchten.",
+        "form": {
+          "fields": {
+            "area": "Area",
+            "locationId": "Standort-ID",
+            "locationName": "Standortname",
+            "zipCode": "Postleitzahl",
+            "city": "Stadt",
+            "address": "Adresse",
+            "brand": "Marke",
+            "status": "Status",
+            "country": "Land",
+            "addBrand": "Marke hinzufügen"
+          }
+        }
       }
     }
   }

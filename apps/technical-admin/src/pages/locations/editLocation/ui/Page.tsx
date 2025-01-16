@@ -15,7 +15,7 @@ import { EditLocationFormSchema, editLocationFormSchema } from '../model/formSch
 
 const EditLocationList = () => {
   const { t } = useTranslation()
-
+  const translate = (key: string) => t(`pages.locations.editLocation.${key}`)
   const { data: areas, isLoading: isLoadingAreas, isError: isAreasError } = useGetAreasQuery()
   const {
     data: activeBrands,
@@ -108,7 +108,7 @@ const EditLocationList = () => {
         <div className="flex flex-col gap-3 mb-6">
           <SelectBoxFormField
             name="area"
-            label={"Name der Area"}
+            label={translate('form.fields.area')}
             hasFloatLabel
             options={areas?.map((area) => ({ value: area.id, label: `${area.code} | ${area.name}` }))}
             control={control}
@@ -124,7 +124,7 @@ const EditLocationList = () => {
           <InputTextFormField
             type="number"
             name="code"
-            label={"Standort-ID"}
+            label={translate('form.fields.locationId')}
             hasFloatLabel
             control={control}
             error={errors.code}
@@ -136,7 +136,7 @@ const EditLocationList = () => {
           <InputTextFormField
             type="text"
             name="name"
-            label={"Standortname"}
+            label={translate('form.fields.locationName')}
             hasFloatLabel
             control={control}
             error={errors.name}
@@ -150,7 +150,7 @@ const EditLocationList = () => {
           <InputTextFormField
             type="text"
             name="zipCode"
-            label={"Postleitzahl"}
+            label={translate('form.fields.zipCode')}
             hasFloatLabel
             control={control}
             error={errors.zipCode}
@@ -162,7 +162,7 @@ const EditLocationList = () => {
           <InputTextFormField
             type="text"
             name="city"
-            label={"Stadt"}
+            label={translate('form.fields.city')}
             hasFloatLabel
             control={control}
             error={errors.city}
@@ -175,7 +175,7 @@ const EditLocationList = () => {
         <InputTextFormField
           type="text"
           name="address"
-          label={"Adresse"}
+          label={translate('form.fields.address')}
           hasFloatLabel
           control={control}
           error={errors.address}
@@ -185,7 +185,7 @@ const EditLocationList = () => {
         />
         <SelectBoxFormField
           name="country"
-          label={"Land"}
+          label={translate('form.fields.country')}
           hasFloatLabel
           options={countries?.map((country) => ({ value: country.id, label: country.name }))}
           control={control}
@@ -201,7 +201,7 @@ const EditLocationList = () => {
               <SelectBoxFormField
                 key={field.id}
                 name={`brands.${index}.id`}
-                label={"Marke"}
+                label={translate('form.fields.brand')}
                 hasFloatLabel
                 options={activeBrands?.map((brand) => ({
                   value: brand.id,
@@ -222,7 +222,7 @@ const EditLocationList = () => {
             className="min-w-44 max-w-1/3 mt-4 mb-2"
             severity="secondary"
             outlined
-            label={"Marke hinzufügen"}
+            label={translate('form.actions.addBrand')}
             onClick={() => append({ id: '' })}
             loading={isLoadingBrands}
             disabled={activeBrands && watchBrandIds.length >= activeBrands.length}
