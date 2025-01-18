@@ -2,7 +2,10 @@ import { CodegenConfig } from '@graphql-codegen/cli'
 
 const config: CodegenConfig = {
   overwrite: true,
-  schema: ['../mock-gql-server/src/schemas/**/*.graphql', '!../mock-gql-server/src/schemas/**/technical-admin.graphql'],
+  schema: [
+    '../mock-gql-server/src/schemas/mocked/**/*.graphql',
+    '../mock-gql-server/src/schemas/gateway/workshop-scheduler.graphql',
+  ],
   documents: 'src/**/*.graphql',
   hooks: {
     // Fix for Windows (https://github.com/dotansimha/graphql-code-generator/issues/8887)

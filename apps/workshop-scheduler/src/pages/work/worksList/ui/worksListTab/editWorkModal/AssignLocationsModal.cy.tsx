@@ -1,4 +1,7 @@
-import { GET_LOCATIONS_OPERATION_DEFAULT_RESPONSE, GET_WORKSHOP_WORK_DEFAULT_RESPONSE } from '@cypress-fixtures'
+import {
+  GET_WORKSHOP_WORK_DEFAULT_RESPONSE,
+  GET_WORKSHOP_WORK_LOCATION_WORKS_DEFAULT_RESPONSE,
+} from '@cypress-fixtures'
 import { aliasQuery, hasOperationName, successResponse } from '@nexus-ui/utils'
 
 import { AssignLocationsModal } from './AssignLocationsModal'
@@ -6,7 +9,7 @@ import { AssignLocationsModal } from './AssignLocationsModal'
 const WORK = GET_WORKSHOP_WORK_DEFAULT_RESPONSE
 
 const BRAND_NAME = WORK.brands[0].name.toUpperCase()
-const LOCATIONS = GET_LOCATIONS_OPERATION_DEFAULT_RESPONSE.getLocations.locations
+const LOCATIONS = GET_WORKSHOP_WORK_LOCATION_WORKS_DEFAULT_RESPONSE.getWorkshopWorkLocationWorks.locationWorks
 
 const ACCORDION_HEADER = '.p-accordion-header'
 const ACTIVE_ACCORDION = '.p-accordion-tab-active'
@@ -16,9 +19,9 @@ const SAVE_BUTTON = 'button[aria-label="Save"]'
 describe('AssignLocationsModal', () => {
   beforeEach(() => {
     cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
-      if (hasOperationName(req, 'GetLocations')) {
-        aliasQuery(req, 'GetLocations')
-        successResponse(req, GET_LOCATIONS_OPERATION_DEFAULT_RESPONSE)
+      if (hasOperationName(req, 'GetWorkshopWorkLocationWorks')) {
+        aliasQuery(req, 'GetWorkshopWorkLocationWorks')
+        successResponse(req, GET_WORKSHOP_WORK_LOCATION_WORKS_DEFAULT_RESPONSE)
       }
     })
 
@@ -31,7 +34,7 @@ describe('AssignLocationsModal', () => {
       />,
     )
 
-    cy.wait('@gqlGetLocationsQuery')
+    cy.wait('@gqlGetWorkshopWorkLocationWorksQuery')
   })
 
   it('should render the component with correct data', () => {
@@ -45,7 +48,7 @@ describe('AssignLocationsModal', () => {
   it('should render LocationTable', () => {
     cy.get(ACTIVE_ACCORDION).within(() => {
       LOCATIONS.forEach((location) => {
-        cy.contains(location.name).should('be.visible')
+        cy.contains(location.location.name).should('be.visible')
       })
     })
   })

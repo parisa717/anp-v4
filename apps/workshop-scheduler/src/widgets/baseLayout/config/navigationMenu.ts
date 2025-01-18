@@ -24,25 +24,15 @@ export const getNavigationMenuConfig = (t: TFunction, hasPermissions: (permissio
           icon: 'pi pi-bookmark',
           url: pageUrls.businessStatus.root(),
         },
-        hasPermissions(CommonPermissionsConfig[ROUTE_PATHS.ColorSetup.Root]) && {
-          label: t('widgets.baseLayout.menuItems.colorSetup'),
-          icon: 'pi pi-palette',
-          url: pageUrls.colorSetup.root(),
-        },
-        {
-          label: t('widgets.baseLayout.menuItems.userConfiguration'),
-          icon: 'pi pi-user',
-          url: pageUrls.colorSetup.root(),
-        },
-        {
-          label: t('widgets.baseLayout.menuItems.setupAlarmFunctionDepotList'),
-          icon: 'pi pi-bell',
-          url: pageUrls.colorSetup.root(),
-        },
         hasPermissions(CommonPermissionsConfig[ROUTE_PATHS.BusinessStatusByLocation.Root]) && {
           label: t('widgets.baseLayout.menuItems.statusAndOverbookingConfiguration'),
           icon: 'pi pi-bookmark',
           url: pageUrls.businessStatusByLocation.root(),
+        },
+        hasPermissions(CommonPermissionsConfig[ROUTE_PATHS.ColorSetup.Root]) && {
+          label: t('widgets.baseLayout.menuItems.colorSetup'),
+          icon: 'pi pi-palette',
+          url: pageUrls.colorSetup.root(),
         },
         hasPermissions(CommonPermissionsConfig[ROUTE_PATHS.CounterConfiguration.Root]) && {
           label: t('widgets.baseLayout.menuItems.counterConfiguration'),
@@ -54,11 +44,10 @@ export const getNavigationMenuConfig = (t: TFunction, hasPermissions: (permissio
           icon: 'pi pi-calendar',
           url: pageUrls.locationServiceAdvisor.root(),
         },
-        //TODO: Remove this entry when there are other pages with the calendar being used
-        {
-          label: 'Calendar example',
-          icon: 'pi pi-calendar',
-          url: '/calendar',
+        hasPermissions(CommonPermissionsConfig[ROUTE_PATHS.LocationServiceAdvisor.Root]) && {
+          label: t('widgets.baseLayout.menuItems.teamsCapacity'),
+          icon: 'pi pi-users',
+          url: pageUrls.teamsCapacity.root(),
         },
       ].reduce<MenuItem[]>((acc, item) => {
         if (item) acc.push(item)

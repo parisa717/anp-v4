@@ -9,3 +9,5 @@ describe('CustomerAndVehicleStep component', () => {
     cy.contains('Find a Customer & vehicle or add the new one').should('be.visible')
   })
 })
+
+// TODO add tests regarding filtering and API request

@@ -1,3 +1,3 @@
-import { GqlAreaObjectType } from '@/shared/api/types.generated'
+import { GqlGetAreaObjectType } from '@/shared/api/types.generated'
 
-export type AreaEntity = GqlAreaObjectType
+export type AreaEntity = GqlGetAreaObjectType

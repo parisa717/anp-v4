@@ -1,7 +1,10 @@
 import { useTranslation } from '@nexus-ui/i18n'
 import { DataTable } from '@nexus-ui/ui'
+import { Button } from 'primereact/button'
+import { Link, useLocation } from 'react-router'
 
 import { useGetWorkshopFollowUpWorksQuery } from '@/entities/followUpWork'
+import { pageUrls } from '@/shared/lib'
 
 import { useFollowUpWorksListColumns } from '../../lib/useFollowUpWorksListColumns'
 
@@ -10,6 +13,8 @@ export const FollowUpWorksTab = () => {
 
   const { t } = useTranslation()
   const translate = (key: string) => t(`pages.work.followUpWorksList.${key}`)
+
+  const { search } = useLocation()
 
   const columns = useFollowUpWorksListColumns()
 
@@ -20,7 +25,12 @@ export const FollowUpWorksTab = () => {
 
   return (
     <section className="flex flex-col gap-9">
-      <h3 className="text-3xl text-bluegray-700 m-0 font-normal">{translate('title')}</h3>
+      <div className="flex flex-row items-center justify-between">
+        <h3 className="font-normal text-text-3xl-regular-lineheight-150 text-bluegray-700 m-0">{translate('title')}</h3>
+        <Link to={pageUrls.followUpWork.add() + search}>
+          <Button label={translate('addFollowUpWorkButton')} severity="secondary" outlined />
+        </Link>
+      </div>
 
       <DataTable
         removableSort

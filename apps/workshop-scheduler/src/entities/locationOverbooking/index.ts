@@ -1,3 +1,4 @@
+export { LOCATION_OVERBOOKING_ERROR_CODE_TO_MESSAGE_KEY, LocationOverbookingErrorCode } from './api/errors'
 export {
   locationOverbookingApi,
   useGetLocationOverbookingQuery,

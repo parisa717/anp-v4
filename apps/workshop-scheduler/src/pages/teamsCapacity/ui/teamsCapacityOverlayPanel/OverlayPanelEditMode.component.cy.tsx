@@ -1,9 +1,16 @@
-import { GET_TEAM_CAPACITY } from '@cypress-fixtures'
-import { aliasMutation, aliasQuery, errorResponse, hasOperationName, successResponse } from '@nexus-ui/utils'
+import { GET_TEAM_CAPACITY, UPDATE_TEAM_CAPACITY_SERVER_SIDE_ERROR_RESPONSE } from '@cypress-fixtures'
+import {
+  aliasMutation,
+  aliasQuery,
+  COMMON_TEST_SELECTORS,
+  errorResponse,
+  hasOperationName,
+  successResponse,
+} from '@nexus-ui/utils'
 
 import { OverlayPanelEditMode } from './OverlayPanelEditMode'
 
-const teamCapacity = GET_TEAM_CAPACITY.getTeamCapacity.teamCapacity
+const teamCapacity = GET_TEAM_CAPACITY.getTeamCapacity
 
 const NEW_DATE = new Date()
 
@@ -68,21 +75,23 @@ describe('OverlayPanelEditMode component', () => {
     cy.wait('@gqlUpdateTeamCapacityMutation')
   })
 
-  it('does not render team capacity overlay panel when GQL query errors', () => {
+  it('displays feature-specific server-side error', () => {
     cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
-      if (hasOperationName(req, 'GetTeamCapacity')) {
-        aliasQuery(req, 'GetTeamCapacity')
-        errorResponse(req, {
-          message: 'User not authenticated',
-          path: ['currentUser'],
-          extensions: { code: 'UNAUTHENTICATED' },
-        })
+      if (hasOperationName(req, 'UpdateTeamCapacity')) {
+        aliasMutation(req, 'UpdateTeamCapacity')
+        errorResponse(req, UPDATE_TEAM_CAPACITY_SERVER_SIDE_ERROR_RESPONSE)
       }
     })
 
-    cy.mountWithProviders(<OverlayPanelEditMode onClose={() => {}} onCancel={() => {}} id="" startDate={new Date()} />)
-    cy.wait('@gqlGetTeamCapacityQuery')
+    cy.mountWithProviders(<OverlayPanelEditMode onClose={cy.stub} onCancel={cy.stub} id="" startDate={NEW_DATE} />, {
+      initialRouteEntries: ['/teams-capacity'],
+      route: '/teams-capacity',
+    })
 
-    cy.contains('Error occured!').should('be.visible')
+    cy.get('form').submit()
+
+    cy.wait('@gqlUpdateTeamCapacityMutation')
+
+    cy.get(COMMON_TEST_SELECTORS.APP_MESSAGE).should('include.text', 'Team not found.')
   })
 })

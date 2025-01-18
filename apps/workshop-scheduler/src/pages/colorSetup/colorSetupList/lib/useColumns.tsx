@@ -12,7 +12,7 @@ export const useColorSetupListPageColumns = () => {
     return (
       <>
         <ColorPicker value={cellData.color} disabled />
-        <code className="uppercasetext-text-base-regular-lineheight-150 font-inter">#{cellData.color}</code>
+        <code className="uppercasetext-text-base-regular-lineheight-150 font-inter">{cellData.color}</code>
       </>
     )
   }

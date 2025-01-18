@@ -45,7 +45,7 @@ export const EditColorSetupForm = ({
             onChange={(e) => controllerField.onChange(e.value)}
             onBlur={controllerField.onBlur}
           />
-          <code className="uppercase text-text-base-regular-lineheight-150 font-inter">#{controllerField.value}</code>
+          <code className="uppercase text-text-base-regular-lineheight-150 font-inter">{controllerField.value}</code>
         </div>
       )}
     />

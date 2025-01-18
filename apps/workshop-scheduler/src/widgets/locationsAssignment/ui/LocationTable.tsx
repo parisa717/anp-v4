@@ -1,44 +1,29 @@
+import { useTranslation } from '@nexus-ui/i18n'
 import { DataTable } from '@nexus-ui/ui'
 import { ProgressSpinner } from 'primereact/progressspinner'
-import { useTranslation } from 'react-i18next'
-
-import { useGetLocationsQuery } from '@/entities/location'
+import { useState } from 'react'
 
 import { useColumns } from '../lib/useColumns'
-import { SelectedLocationEntity, WorkEntry } from '../model/types'
+import { LocationEntity, SelectedLocationEntity, WorkEntry } from '../model/types'
 
 interface LocationTableProps {
+  isLoadingLocations: boolean
+  locations: LocationEntity[]
   work: WorkEntry
   onChange: (updatedLocations: SelectedLocationEntity[]) => void
   selectedLocations: SelectedLocationEntity[]
 }
 
-export const LocationTable = ({ work, onChange, selectedLocations }: LocationTableProps) => {
+export const LocationTable = ({
+  isLoadingLocations,
+  locations,
+  work,
+  onChange,
+  selectedLocations,
+}: LocationTableProps) => {
   const { t } = useTranslation()
   const translate = (key: string) => t(`pages.work.add.assignLocations.${key}`)
-
-  const {
-    data: locations,
-    isLoading: isLoadingLocations,
-    isError: isLocationsError,
-  } = useGetLocationsQuery(undefined, {
-    selectFromResult: (result) => ({
-      ...result,
-      data: result.data
-        ?.filter((location) =>
-          location.brands.some((locationBrand) => work.brands?.some((workBrand) => workBrand.id === locationBrand.id)),
-        ) //TODO: update this query when getLocations operation is synced with GW
-        .map((location) => ({
-          ...location,
-          brands: location.brands.filter((locationBrand) =>
-            work.brands?.some((workBrand) => workBrand.id === locationBrand.id),
-          ),
-          isSelected: false,
-          isRecommended: false,
-          brandIds: [],
-        })),
-    }),
-  })
+  const [filteredLocations, setFilteredLocations] = useState<LocationEntity[]>([])
 
   const filteredBrands = locations
     ?.flatMap((location) => location.brands)
@@ -48,12 +33,7 @@ export const LocationTable = ({ work, onChange, selectedLocations }: LocationTab
         self.findIndex((b) => b.id === brand.id) === index,
     )
 
-  const columns = useColumns(filteredBrands ?? [], selectedLocations, onChange, locations ?? [])
-
-  if (isLocationsError) {
-    //TODO: Add proper error handling
-    return 'Error'
-  }
+  const columns = useColumns(filteredBrands ?? [], selectedLocations, onChange, filteredLocations)
 
   return isLoadingLocations ? (
     <ProgressSpinner
@@ -66,12 +46,21 @@ export const LocationTable = ({ work, onChange, selectedLocations }: LocationTab
     />
   ) : (
     <DataTable
+      scrollable
+      scrollHeight="calc(100vh - 279px)"
       columns={columns}
-      data={locations ?? []}
+      data={locations}
       loading={isLoadingLocations}
       filterDisplay="row"
       emptyMessage={translate('table.empty')}
       removableSort
+      paginator
+      rows={10}
+      rowsPerPageOptions={[10, 25, 50]}
+      totalRecords={filteredLocations.length ?? 0}
+      onValueChange={(value) => {
+        setFilteredLocations(value)
+      }}
     />
   )
 }

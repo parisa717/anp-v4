@@ -1,7 +1,7 @@
 import { GET_SERVICE_ADVISOR_CALENDAR_DEFAULT_RESPONSE, GET_SERVICE_ADVISOR_DEFAULT_RESPONSE } from '@cypress-fixtures'
 import { aliasQuery, errorResponse, hasOperationName, successResponse } from '@nexus-ui/utils'
 
-import { CalendarEntryType } from '@/shared/api/types.generated'
+import { CalendarEntryTypeEnum } from '@/shared/api/types.generated'
 
 import LocationServiceAdvisorDetailsPage from './Page'
 
@@ -34,7 +34,9 @@ describe('LocationServiceAdvisorDetailsPage', () => {
         cy.contains(value).should('exist')
       })
       const calendarData = GET_SERVICE_ADVISOR_CALENDAR_DEFAULT_RESPONSE.getServiceAdvisorCalendar
-      const bufferAppointments = calendarData.calendar.entries.filter((x) => x.type === CalendarEntryType.AdvisorBuffer)
+      const bufferAppointments = calendarData.calendar.entries.filter(
+        (x) => x.type === CalendarEntryTypeEnum.AdvisorBuffer,
+      )
       cy.contains('p', 'Buffer appointments').siblings().should('have.length', bufferAppointments.length)
     })
 

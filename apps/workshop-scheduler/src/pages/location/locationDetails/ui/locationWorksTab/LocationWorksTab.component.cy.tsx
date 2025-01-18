@@ -1,5 +1,16 @@
-import { GET_BRANDS_OPERATION_DEFAULT_RESPONSE, GET_LOCATION_WORKS_DEFAULT_RESPONSE } from '@cypress-fixtures'
-import { aliasMutation, aliasQuery, errorResponse, hasOperationName, successResponse } from '@nexus-ui/utils'
+import {
+  GET_BRANDS_OPERATION_DEFAULT_RESPONSE,
+  GET_LOCATION_WORKS_DEFAULT_RESPONSE,
+  GET_LOCATION_WORKS_SERVER_SIDE_ERROR_RESPONSE,
+} from '@cypress-fixtures'
+import {
+  aliasMutation,
+  aliasQuery,
+  COMMON_TEST_SELECTORS,
+  errorResponse,
+  hasOperationName,
+  successResponse,
+} from '@nexus-ui/utils'
 
 import { ListLocationWorkItemEntity } from '@/entities/locationWork'
 
@@ -169,7 +180,7 @@ const filterTableBySearch = ({
   cy.get('[data-pc-section="bodyrow"]').should('have.length', lengthBeforeQuery)
 }
 
-const locationWorks = GET_LOCATION_WORKS_DEFAULT_RESPONSE.getLocationWorks.locationWorks
+const locationWorks = GET_LOCATION_WORKS_DEFAULT_RESPONSE.getWorkshopLocationWorks.locationWorks
 
 describe('LocationWorksTab component', () => {
   beforeEach(() => {
@@ -192,7 +203,7 @@ describe('LocationWorksTab component', () => {
   it('renders the connected locations table with correct data', () => {
     const getLocationWorkFields = (work: ListLocationWorkItemEntity) => [
       work.name,
-      work.brands.map((brand) => brand?.name).join(''),
+      work.brands.map((brand) => brand?.code).join(''),
       work.brands.reduce((accumulator, currentValue) => accumulator + (currentValue?.timeUnits ?? 0), 0),
       work.qualification.name,
       '',
@@ -200,7 +211,7 @@ describe('LocationWorksTab component', () => {
       '',
     ]
 
-    GET_LOCATION_WORKS_DEFAULT_RESPONSE.getLocationWorks.locationWorks.forEach((work, index) => {
+    GET_LOCATION_WORKS_DEFAULT_RESPONSE.getWorkshopLocationWorks.locationWorks.forEach((work, index) => {
       getLocationWorkFields(work).forEach((field, fieldIndex) => {
         cy.get('[data-pc-section="bodyrow"]')
           .eq(index)
@@ -215,7 +226,7 @@ describe('LocationWorksTab component', () => {
     cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
       if (hasOperationName(req, 'GetLocationWorks')) {
         aliasQuery(req, 'GetLocationWorks')
-        successResponse(req, { getLocationWorks: { locationWorks: [] } })
+        successResponse(req, { getWorkshopLocationWorks: { locationWorks: [] } })
       }
     })
 
@@ -226,22 +237,23 @@ describe('LocationWorksTab component', () => {
     cy.contains('No services found').should('be.visible')
   })
 
-  it('does not render table rows when GQL query errors', () => {
+  it('displays feature-specific server-side error', () => {
     cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
       if (hasOperationName(req, 'GetLocationWorks')) {
         aliasQuery(req, 'GetLocationWorks')
-        errorResponse(req, {
-          message: 'User not authenticated',
-          path: ['currentUser'],
-          extensions: { code: 'UNAUTHENTICATED' },
-        })
+        errorResponse(req, GET_LOCATION_WORKS_SERVER_SIDE_ERROR_RESPONSE)
       }
     })
 
-    cy.mountWithProviders(<LocationWorksTab />)
-    cy.wait('@gqlGetLocationWorksQuery')
+    cy.mountWithProviders(<LocationWorksTab />, {
+      initialRouteEntries: [`/location/1/details`],
+      route: '/location/:id/details',
+    })
 
-    cy.contains('Error').should('be.visible')
+    cy.wait('@gqlGetLocationWorksQuery')
+    cy.wait('@gqlGetBrandsQuery')
+
+    cy.get(COMMON_TEST_SELECTORS.APP_MESSAGE).should('include.text', 'Location does not exist.')
   })
 
   it('filters the table on filterable fields', () => {
@@ -250,7 +262,7 @@ describe('LocationWorksTab component', () => {
 
     const OPEL_BRAND = 'Opel'
     const locationWorksWithOpelBrand = locationWorks.filter((work) =>
-      work.brands.some((brand) => brand.name === OPEL_BRAND),
+      work.brands.some((brand) => brand.code === OPEL_BRAND),
     )
 
     filterTableBySearch({
@@ -313,14 +325,14 @@ describe('LocationWorksTab component', () => {
       if (hasOperationName(req, 'UpdateLocationWork')) {
         aliasMutation(req, 'UpdateLocationWork')
 
-        expect(req.body.variables.locationWork).to.deep.equal({
+        expect(req.body.variables.workshopLocationWork).to.deep.equal({
           ...expectedPayload,
           brands: expectedPayload.brands.map((brand) => ({ id: brand.id })),
           isRecommended: !expectedPayload.isRecommended,
         })
 
         successResponse(req, {
-          updateLocationWork: {
+          updateWorkshopLocationWork: {
             status: true,
           },
         })

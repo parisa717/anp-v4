@@ -8,5 +8,5 @@ const defaultSliderPt = {
 }
 
 export const Slider = ({ pt: customSliderPt = {}, ...rest }: SliderProps) => {
-  return <PrimeReactSlider pt={merge({ ...defaultSliderPt, ...customSliderPt })} {...rest} />
+  return <PrimeReactSlider pt={merge({}, defaultSliderPt, customSliderPt)} {...rest} />
 }

@@ -3,7 +3,8 @@ import { ConfirmationModal } from '@nexus-ui/ui'
 import { useNavigate, useParams } from 'react-router'
 
 import { useDeactivateWorkshopWorkMutation } from '@/entities/work'
-import { pageUrls } from '@/shared/lib'
+import { pageUrls, ROUTE_PATHS } from '@/shared/lib'
+import { ServerSideErrorsMessagesList } from '@/shared/ui'
 
 const DeactivateServiceConfirmationPage = () => {
   const { t } = useTranslation()
@@ -11,20 +12,18 @@ const DeactivateServiceConfirmationPage = () => {
   const { id = '' } = useParams<{ id: string }>()
 
   const translate = (key: string) => t(`pages.work.worksList.dialogs.deactivateService.${key}`)
-  const [deactivateWorkshopWork, { isLoading, isError }] = useDeactivateWorkshopWorkMutation()
-
-  if (isError) {
-    //TODO: Add proper error handling
-    return 'Error'
-  }
+  const [deactivateWorkshopWork, { isLoading }] = useDeactivateWorkshopWorkMutation()
 
   if (!id) return null
 
   const onCancelClick = () => navigate(pageUrls.work.root())
 
   const onSaveClick = async () => {
-    await deactivateWorkshopWork({ id })
-    onCancelClick()
+    const result = await deactivateWorkshopWork({ id })
+
+    if (result.data && !result.error) {
+      onCancelClick()
+    }
   }
 
   return (
@@ -36,6 +35,7 @@ const DeactivateServiceConfirmationPage = () => {
       onSaveClick={onSaveClick}
       isUpdating={isLoading}
     >
+      <ServerSideErrorsMessagesList page={ROUTE_PATHS.Work.DeactivateService} className="mb-8" />
       <p className="leading-normal text-center font-semibold text-bluegray-700">{translate('description')}</p>
     </ConfirmationModal>
   )

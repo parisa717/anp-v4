@@ -6,6 +6,7 @@ import { ROUTE_PATHS } from '@/shared/lib'
 
 import { LocationServiceAdvisorDetailsPage, LocationServiceAdvisorListPage } from './lazyComponents'
 
+//TODO: check later if permissions are correct
 export const locationServiceAdvisorRoutes = (
   <Route
     element={

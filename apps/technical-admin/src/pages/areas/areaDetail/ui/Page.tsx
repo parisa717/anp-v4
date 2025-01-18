@@ -30,7 +30,7 @@ const dataTablePt = {
   },
 }
 
- const AreaDetailPage = () => {
+const AreaDetailPage = () => {
   const { t } = useTranslation()
 
   const areaColumns = useAreaColumns()

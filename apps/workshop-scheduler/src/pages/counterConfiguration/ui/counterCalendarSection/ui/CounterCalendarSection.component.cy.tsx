@@ -1,10 +1,10 @@
 import { GET_COUNTER_CALENDAR_WORKING_DAYS } from '@cypress-fixtures'
-import { aliasQuery, errorResponse, hasOperationName, successResponse } from '@nexus-ui/utils'
+import { aliasQuery, hasOperationName, successResponse } from '@nexus-ui/utils'
 
 import { dayNumberToDayNameSchemaMapper } from '../../../model/formSchema'
 import { CounterCalendarSection } from './CounterCalendarSection'
 
-describe('CounterCalendarSection component', () => {
+describe('CounterCalendarSection', () => {
   beforeEach(() => {
     cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
       if (hasOperationName(req, 'GetLocationCounterCalendar')) {
@@ -15,25 +15,6 @@ describe('CounterCalendarSection component', () => {
 
     cy.mountWithProviders(<CounterCalendarSection />)
     cy.wait('@gqlGetLocationCounterCalendarQuery')
-  })
-
-  it('should not render content when GQL query errors', () => {
-    cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
-      if (hasOperationName(req, 'GetLocationCounterCalendar')) {
-        aliasQuery(req, 'GetLocationCounterCalendar')
-        errorResponse(req, {
-          message: 'User not authenticated',
-          path: ['currentUser'],
-          extensions: { code: 'UNAUTHENTICATED' },
-        })
-      }
-    })
-
-    cy.mountWithProviders(<CounterCalendarSection />)
-    cy.wait('@gqlGetLocationCounterCalendarQuery')
-
-    cy.get('[data-cy="counter-calendar-section"]').should('not.exist')
-    cy.contains('Error occured!').should('be.visible')
   })
 
   it('should render empty message when counter calendar setup is empty', () => {

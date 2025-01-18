@@ -4,7 +4,8 @@ import { Button } from 'primereact/button'
 import { Link, useParams } from 'react-router'
 
 import { useGetLocationWorksQuery } from '@/entities/locationWork'
-import { IdParam, pageUrls } from '@/shared/lib'
+import { IdParam, pageUrls, ROUTE_PATHS } from '@/shared/lib'
+import { ServerSideErrorsMessagesList } from '@/shared/ui'
 
 import { useLocationWorkColumns } from '../../lib/useLocationWorkColumns'
 
@@ -12,20 +13,13 @@ export const LocationWorksTab = () => {
   const { t } = useTranslation()
   const { id: locationId = '' } = useParams<IdParam>()
   const locationWorkColumns = useLocationWorkColumns()
-  const {
-    data: locationWorksQueryData,
-    isLoading: isLocationWorksQueryDataLoading,
-    isError: hasLocationWorksDataQueryError,
-  } = useGetLocationWorksQuery({ locationId })
+  const { data: locationWorksQueryData, isLoading: isLocationWorksQueryDataLoading } = useGetLocationWorksQuery()
 
   const translate = (key: string) => t(`pages.location.locationDetails.locationWorks.${key}`)
 
-  //TODO: Add error/loading handling
-  if (isLocationWorksQueryDataLoading) return <div>Loading</div>
-  if (hasLocationWorksDataQueryError) return <div>Error occured!</div>
-
   return (
     <section className="flex flex-col gap-6">
+      <ServerSideErrorsMessagesList page={ROUTE_PATHS.Location.Details.Root} className="mb-8" />
       <div className="flex justify-between items-center">
         <h2 data-cy="overbooking-setup-title" className="text-3xl-regular-lineheight-150 text-bluegray-700">
           {translate('header')}

@@ -4,7 +4,7 @@ import { Button } from 'primereact/button'
 import { Divider } from 'primereact/divider'
 import { SelectItem } from 'primereact/selectitem'
 import { BaseSyntheticEvent, Fragment } from 'react'
-import { Control, FieldErrors, UseFieldArrayRemove } from 'react-hook-form'
+import { Control, FieldErrors, UseFieldArrayRemove, UseFormWatch } from 'react-hook-form'
 
 import { FORM_ID } from '../config/formId'
 import { CreateBusinessStatusByLocationFormSchema } from '../model/formSchema'
@@ -14,6 +14,7 @@ export type CreateBusinessStatusByLocationFormProps = {
   fields: Array<{ id: string }>
   control: Control<CreateBusinessStatusByLocationFormSchema>
   errors: FieldErrors<CreateBusinessStatusByLocationFormSchema>
+  watch: UseFormWatch<CreateBusinessStatusByLocationFormSchema>
   onRemove: UseFieldArrayRemove
   onAppend: () => void
   onAddAll: (statuses: SelectItem[]) => void
@@ -26,6 +27,7 @@ export const CreateBusinessStatusByLocationForm = ({
   fields,
   control,
   errors,
+  watch,
   onRemove,
   onAppend,
   onAddAll,
@@ -38,6 +40,13 @@ export const CreateBusinessStatusByLocationForm = ({
       ? t(`pages.businessStatusByLocation.createAdditionalBusinessStatusByLocationForm.${key}`)
       : t(`pages.businessStatusByLocation.createBusinessStatusByLocationForm.${key}`)
 
+  const currentlySelectedStatuses = watch('businessStatuses')
+
+  const filteredStatusesSelectBoxOptions = statusesSelectBoxOptions.map((status) => ({
+    ...status,
+    disabled: currentlySelectedStatuses.some((selectedStatus) => selectedStatus.id === status.value),
+  }))
+
   return (
     <form className="flex flex-col mt-6" id={FORM_ID} onSubmit={onSubmit}>
       <div className="flex flex-col mb-2">
@@ -48,7 +57,7 @@ export const CreateBusinessStatusByLocationForm = ({
                 name={`businessStatuses.${index}.id`}
                 label={translate('form.fields.businessStatus')}
                 hasFloatLabel
-                options={statusesSelectBoxOptions}
+                options={filteredStatusesSelectBoxOptions}
                 control={control}
                 className={{
                   container: 'grow',
@@ -66,7 +75,7 @@ export const CreateBusinessStatusByLocationForm = ({
                 />
               )}
             </div>
-            <Divider />
+            <Divider className="mt-5 mb-7" />
           </Fragment>
         ))}
       </div>
@@ -77,6 +86,7 @@ export const CreateBusinessStatusByLocationForm = ({
           severity="secondary"
           outlined
           label={translate('form.buttons.addStatusButton')}
+          disabled={currentlySelectedStatuses.length >= statusesSelectBoxOptions.length}
           onClick={onAppend}
         />
         <Button
@@ -84,6 +94,7 @@ export const CreateBusinessStatusByLocationForm = ({
           severity="secondary"
           outlined
           label={translate('form.buttons.addAllStatusesButton')}
+          disabled={currentlySelectedStatuses.length >= statusesSelectBoxOptions.length}
           onClick={() => onAddAll(statusesSelectBoxOptions)}
         />
       </div>

@@ -3,6 +3,7 @@ export {
   useGetAvailabilityColorsQuery,
   useUpdateAvailabilityColorsMutation,
 } from './api/availabilityColorApi'
+export { AVAILABILITY_COLOR_ERROR_CODE_TO_MESSAGE_KEY, AvailabilityColorErrorCode } from './api/errors'
 export type { QueryAvailabilityColors } from './api/types'
 export { AVAILABILITY_COLORS_CREATION_LIMIT } from './config/creationLimit'
 export { parseCapacityValue } from './lib/parseCapacityValue'

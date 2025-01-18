@@ -5,9 +5,11 @@ export const searchCustomerAndVehicleFormSchema = (t: TFunction) =>
   z
     .object({
       customerName: z.string(),
-      customerBirthDate: z.date({
-        invalid_type_error: t('validation.dateValid'),
-      }),
+      customerBirthDate: z
+        .date({
+          invalid_type_error: t('validation.dateValid'),
+        })
+        .or(z.string()),
       customerPhone: z.string(),
       vehicleLicencePlate: z.string(),
       vehicleVin: z.string(),

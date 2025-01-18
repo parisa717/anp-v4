@@ -12,7 +12,7 @@ import {
 
 type LocationOverbookingApi = ApiWithTransformResponse<
   typeof api,
-  ['GetLocationOverbooking', 'UpdateLocationOverbooking'],
+  ['GetLocationOverbooking', 'UpdateLocationOverbooking', 'UpdateLocationMinimalOverbooking'],
   {
     GetLocationOverbooking: LocationOverbookingEntity
     UpdateLocationOverbooking: UpdateLocationOverbookingMutation

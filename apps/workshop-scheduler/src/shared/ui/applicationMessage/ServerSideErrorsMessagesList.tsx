@@ -5,8 +5,15 @@ import { MessagesListOfType } from './MessagesListOfType'
 
 type ServerSideErrorsListProps = PrimeMessagesProps & {
   page: APPLICATION_MESSAGE_PAGE
+  type?: APPLICATION_MESSAGE_TYPE
 }
 
-export const ServerSideErrorsMessagesList = ({ page, ...otherProps }: ServerSideErrorsListProps) => {
-  return <MessagesListOfType {...otherProps} page={page} type={APPLICATION_MESSAGE_TYPE.SERVER_SIDE_FEATURE_SPECIFIC} />
+export const ServerSideErrorsMessagesList = ({ page, type, ...otherProps }: ServerSideErrorsListProps) => {
+  return (
+    <MessagesListOfType
+      {...otherProps}
+      page={page}
+      type={type ?? APPLICATION_MESSAGE_TYPE.SERVER_SIDE_FEATURE_SPECIFIC}
+    />
+  )
 }

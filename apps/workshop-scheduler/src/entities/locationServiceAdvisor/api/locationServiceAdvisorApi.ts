@@ -7,15 +7,17 @@ import {
   GetLocationServiceAdvisorsQuery,
   GetServiceAdvisorCalendarQuery,
   GetServiceAdvisorQuery,
+  UpdateServiceAdvisorCalendarEntryMutation,
 } from './LocationServiceAdvisor.generated'
 
 type LocationServiceAdvisorApi = ApiWithTransformResponse<
   typeof api,
-  ['GetLocationServiceAdvisors', 'GetServiceAdvisor', 'GetServiceAdvisorCalendar'],
+  ['GetLocationServiceAdvisors', 'GetServiceAdvisor', 'GetServiceAdvisorCalendar', 'UpdateServiceAdvisorCalendarEntry'],
   {
     GetLocationServiceAdvisors: ServiceAdvisorEntity[]
     GetServiceAdvisor: ServiceAdvisorEntity
     GetServiceAdvisorCalendar: ServiceAdvisorCalendar
+    UpdateServiceAdvisorCalendarEntry: UpdateServiceAdvisorCalendarEntryMutation
   }
 >
 
@@ -40,8 +42,16 @@ export const locationServiceAdvisorApi = api.enhanceEndpoints<TagTypes, ApiEndpo
       transformResponse: (response: GetServiceAdvisorCalendarQuery) => response.getServiceAdvisorCalendar,
       providesTags: cacher.cacheByIdArgProperty(LOCATION_SERVICE_ADVISOR_TAG),
     },
+    UpdateServiceAdvisorCalendarEntry: {
+      invalidatesTags: (result, error, arg) =>
+        cacher.cacheByIdArg(LOCATION_SERVICE_ADVISOR_TAG)(result, error, arg.advisorId),
+    },
   },
 })
 
-export const { useGetLocationServiceAdvisorsQuery, useGetServiceAdvisorQuery, useGetServiceAdvisorCalendarQuery } =
-  locationServiceAdvisorApi
+export const {
+  useGetLocationServiceAdvisorsQuery,
+  useGetServiceAdvisorQuery,
+  useGetServiceAdvisorCalendarQuery,
+  useUpdateServiceAdvisorCalendarEntryMutation,
+} = locationServiceAdvisorApi

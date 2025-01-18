@@ -5,6 +5,7 @@ import { replaceApplicationMessages } from '../slice'
 import { ApplicationMessage } from '../types'
 import { FeatureSpecificServerSideErrorHandler } from './handlers/FeatureSpecificServerSideErrorHandler'
 import { GenericServerSideErrorHandler } from './handlers/GenericServerSideErrorHandler'
+import { ValidationServerSideErrorHandler } from './handlers/ValidationServerSideErrorHandler'
 import { RejectedGraphQLAction, ServerSideErrorCodesConfig } from './types'
 import { isRejectedActionMeta } from './utils/guards'
 
@@ -39,8 +40,8 @@ export const createServerSideErrorListenerMiddleware = (
       const state = listenerApi.getState()
       const currentPage = state.router.currentRouterPageUrl || 'global'
 
-      // TODO we will add validation errors handler to this list in https://avag-it.atlassian.net/browse/NXWS-958
       const handlers = [
+        new ValidationServerSideErrorHandler(t, errorCodes, errorCodeToMessageKey),
         new FeatureSpecificServerSideErrorHandler(t, errorCodes, errorCodeToMessageKey),
         new GenericServerSideErrorHandler(t, errorCodes, errorCodeToMessageKey),
       ]

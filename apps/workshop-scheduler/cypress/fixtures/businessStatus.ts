@@ -36,6 +36,53 @@ export const CREATE_BUSINESS_STATUSES_OPERATION_SERVER_SIDE_ERROR_RESPONSE: Part
   },
 }
 
+export const CREATE_BUSINESS_STATUSES_OPERATION_SERVER_SIDE_VALIDATION_ERROR_RESPONSE: Partial<GraphQLError> = {
+  message: 'Invalid data',
+  locations: [
+    {
+      line: 2,
+      column: 3,
+    },
+  ],
+  path: ['createWorkshopAppointmentBusinessStatus'],
+  extensions: {
+    code: 1724067624,
+    message: 'Invalid data',
+    context: {
+      fields: {
+        'businessStatuses.0': {
+          children: {
+            name: {
+              errors: [
+                {
+                  messageKey: 'validation.minLength',
+                  context: {
+                    length: '2',
+                    value: 'A',
+                  },
+                  plurality: null,
+                },
+              ],
+            },
+          },
+        },
+        'businessStatuses.1.name': {
+          errors: [
+            {
+              messageKey: 'validation.maxLength',
+              context: {
+                length: '4',
+                value: 'ABCDEFGH',
+              },
+              plurality: null,
+            },
+          ],
+        },
+      },
+    },
+  },
+}
+
 export const EDIT_BUSINESS_STATUS_OPERATION_DEFAULT_RESPONSE: EditBusinessStatusMutation = {
   updateWorkshopAppointmentBusinessStatus: {
     status: true,
@@ -160,5 +207,20 @@ export const GET_BUSINESS_STATUSES_OPERATION_DEFAULT_RESPONSE: GetBusinessStatus
         isDefault: false,
       },
     ],
+  },
+}
+
+export const ASSIGN_BUSINESS_STATUSES_TO_LOCATION_OPERATION_SERVER_SIDE_ERROR_RESPONSE: Partial<GraphQLError> = {
+  message: 'At least one business status must be active.',
+  locations: [
+    {
+      line: 2,
+      column: 3,
+    },
+  ],
+  path: ['assignLocationWorkshopAppointmentBusinessStatus'],
+  extensions: {
+    code: BusinessStatusErrorCode.BUSINESS_STATUS_AT_LEAST_ONE_SHOULD_BE_ACTIVE,
+    message: 'At least one business status must be active.',
   },
 }

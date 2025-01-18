@@ -1,4 +1,4 @@
-import { GqlConnectedLocationIdObjectType, GqlGetLocationObjectType } from '@/shared/api/types.generated'
+import { GqlGetLocationObjectType, GqlGetWorkshopConnectedLocationObjectType } from '@/shared/api/types.generated'
 
 export type LocationEntity = GqlGetLocationObjectType
-export type WorkshopConnectedLocationsEntity = GqlConnectedLocationIdObjectType
+export type WorkshopConnectedLocationsEntity = GqlGetWorkshopConnectedLocationObjectType

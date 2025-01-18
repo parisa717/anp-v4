@@ -2,8 +2,7 @@ import { useTranslation } from '@nexus-ui/i18n'
 import { Modal } from '@nexus-ui/ui'
 import { useState } from 'react'
 
-import { useCreateLocationWorkMutation } from '@/entities/locationWork'
-import { WorkEntity } from '@/entities/work'
+import { useSetWorkshopWorkLocationWorksMutation, WorkEntity } from '@/entities/work'
 import { LocationsAssignment, SelectedLocationEntity } from '@/widgets/locationsAssignment'
 
 interface Props {
@@ -17,15 +16,19 @@ export const AssignLocationsModal = ({ isOpen, onClose, onSave, work }: Props) =
   const { t } = useTranslation()
   const translate = (key: string) => t(`pages.work.worksList.dialogs.assignLocations.${key}`)
   const [selectedLocations, setSelectedLocations] = useState<SelectedLocationEntity[]>([])
-  const [_, { isLoading: isCreateLocationLoading, isError: isCreateLocationError }] = useCreateLocationWorkMutation()
-
-  if (isCreateLocationError) {
-    //TODO: Add proper error handling
-    return 'Error'
-  }
+  const [setWorkLocations, { isLoading: isSetWorkLocationsLoading }] = useSetWorkshopWorkLocationWorksMutation()
 
   const handleSave = async () => {
-    // TODO: Handle saving locations when the issue of fetching locations will be resolved
+    await setWorkLocations({
+      id: work.id,
+      locationWorks: selectedLocations.map((location) => ({
+        locationId: location.id,
+        isRecommended: location.isRecommended,
+        brands: location.brandIds.map((id) => ({
+          id,
+        })),
+      })),
+    })
 
     onSave()
   }
@@ -57,7 +60,7 @@ export const AssignLocationsModal = ({ isOpen, onClose, onSave, work }: Props) =
       <LocationsAssignment
         className="pb-[40px]"
         selectedLocations={selectedLocations}
-        isUpdating={isCreateLocationLoading}
+        isUpdating={isSetWorkLocationsLoading}
         newBrandsNames={work?.brands.map((brand) => brand.name.toUpperCase()) ?? []}
         onBack={onClose}
         work={{ ...work, qualificationId: work?.qualification.id }}

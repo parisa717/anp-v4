@@ -6,4 +6,7 @@ export const workshopFollowUpWorksResolver = {
       works: workshopFollowUpWorks,
     }
   },
+  getWorkshopFollowUpWork: (_: unknown) => {
+    return workshopFollowUpWorks[0]
+  },
 }

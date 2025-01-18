@@ -3,8 +3,16 @@ import {
   GET_LOCATION_WORK_DEFAULT_RESPONSE,
   GET_WORKSHOP_WORK_DEFAULT_RESPONSE,
   UPDATE_LOCATION_WORK_OPERATION_DEFAULT_RESPONSE,
+  UPDATE_LOCATION_WORK_SERVER_SIDE_ERROR_RESPONSE,
 } from '@cypress-fixtures'
-import { aliasMutation, aliasQuery, hasOperationName, successResponse } from '@nexus-ui/utils'
+import {
+  aliasMutation,
+  aliasQuery,
+  COMMON_TEST_SELECTORS,
+  errorResponse,
+  hasOperationName,
+  successResponse,
+} from '@nexus-ui/utils'
 
 import EditLocationWorkPage from './Page'
 
@@ -57,7 +65,7 @@ describe('EditLocationWorkPage', () => {
       if (hasOperationName(req, 'UpdateLocationWork')) {
         aliasMutation(req, 'UpdateLocationWork')
 
-        expect(req.body.variables.locationWork).to.deep.equal({
+        expect(req.body.variables.workshopLocationWork).to.deep.equal({
           brands: [{ id: 'brand_2' }],
           id: LOCATION_WORK_ID,
           workId: GET_LOCATION_WORK_DEFAULT_RESPONSE.workId,
@@ -77,5 +85,29 @@ describe('EditLocationWorkPage', () => {
     cy.get('[data-pc-name="inputtext"]').first().type(capacityPerDayLimit.toString())
     cy.get('button[aria-label="save"]').click()
     cy.wait('@gqlUpdateLocationWorkMutation')
+  })
+
+  it('displays feature-specific server-side error', () => {
+    const capacityPerDayLimit = 50
+
+    cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
+      if (hasOperationName(req, 'UpdateLocationWork')) {
+        aliasMutation(req, 'UpdateLocationWork')
+        errorResponse(req, UPDATE_LOCATION_WORK_SERVER_SIDE_ERROR_RESPONSE)
+      }
+    })
+
+    cy.mountWithProviders(<EditLocationWorkPage />, {
+      initialRouteEntries: [`/location/${LOCATION_ID}/details/services/edit/${LOCATION_WORK_ID}`],
+      route: '/location/:id/details/services/edit/:locationWorkId',
+    })
+
+    cy.contains('label', 'OPEL').click()
+    cy.get('[data-pc-name="inputtext"]').eq(1).clear()
+    cy.get('[data-pc-name="inputtext"]').first().type(capacityPerDayLimit.toString())
+    cy.get('button[aria-label="save"]').click()
+    cy.wait('@gqlUpdateLocationWorkMutation')
+
+    cy.get(COMMON_TEST_SELECTORS.APP_MESSAGE).should('include.text', 'Location does not exist.')
   })
 })

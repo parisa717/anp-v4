@@ -1,8 +1,16 @@
 import {
   GET_AVAILABILITY_COLORS_DEFAULT_RESPONSE,
   UPDATE_AVAILABILITY_COLORS_OPERATION_DEFAULT_RESPONSE,
+  UPDATE_AVAILABILITY_COLORS_SERVER_SIDE_ERROR_RESPONSE,
 } from '@cypress-fixtures'
-import { aliasMutation, aliasQuery, hasOperationName, successResponse } from '@nexus-ui/utils'
+import {
+  aliasMutation,
+  aliasQuery,
+  COMMON_TEST_SELECTORS,
+  errorResponse,
+  hasOperationName,
+  successResponse,
+} from '@nexus-ui/utils'
 
 import enTranslations from '@/app/translations/en.json'
 
@@ -66,12 +74,12 @@ describe('EditColorSetupPage', () => {
           expect(req.body.variables.availabilityColors[0]).to.deep.equal({
             color: '000000',
             minimalCapacity: 0,
-            maximumCapacity: 60,
+            maximalCapacity: 60,
           })
           expect(req.body.variables.availabilityColors[1]).to.deep.equal({
             color: GET_AVAILABILITY_COLORS_DEFAULT_RESPONSE.getAvailabilityColors.availabilityColors[1].color,
             minimalCapacity: 61,
-            maximumCapacity: 70,
+            maximalCapacity: 70,
           })
 
           successResponse(req, UPDATE_AVAILABILITY_COLORS_OPERATION_DEFAULT_RESPONSE)
@@ -174,6 +182,40 @@ describe('EditColorSetupPage', () => {
       cy.get('button[aria-label="save"]').click()
 
       cy.wait('@gqlUpdateAvailabilityColorsMutation')
+    })
+
+    it('displays feature-specific server-side error', () => {
+      cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
+        if (hasOperationName(req, 'UpdateAvailabilityColors')) {
+          aliasMutation(req, 'UpdateAvailabilityColors')
+          errorResponse(req, UPDATE_AVAILABILITY_COLORS_SERVER_SIDE_ERROR_RESPONSE)
+        }
+      })
+
+      cy.mountWithProviders(<EditColorSetupPage />, {
+        initialRouteEntries: ['/color-setup/edit'],
+        route: '/color-setup/edit',
+      })
+
+      cy.get('.pi-trash').eq(0).click()
+
+      cy.contains('Add Color').should('be.visible')
+      cy.get('button[aria-label="Add Color"]').click()
+
+      // required to pass the validation
+      cy.get('#availabilityColors\\.0\\.capacityValueWithoutPercentages').clear().type('0-70')
+      cy.get('#availabilityColors\\.1\\.capacityValueWithoutPercentages').clear().type('71-80')
+      cy.get('#availabilityColors\\.2\\.capacityValueWithoutPercentages').clear().type('81-90')
+      cy.get('#availabilityColors\\.3\\.capacityValueWithoutPercentages').clear().type('>90')
+
+      cy.get('button[aria-label="save"]').click()
+
+      cy.wait('@gqlUpdateAvailabilityColorsMutation')
+
+      cy.get(COMMON_TEST_SELECTORS.APP_MESSAGE).should(
+        'include.text',
+        '“minimalCapacity” cannot be bigger than the “maximalCapacity”',
+      )
     })
   })
 

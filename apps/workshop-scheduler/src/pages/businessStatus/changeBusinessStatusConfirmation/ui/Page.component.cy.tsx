@@ -1,8 +1,10 @@
 import {
   ACTIVATE_ADDITIONAL_BUSINESS_STATUS_OPERATION_DEFAULT_RESPONSE,
+  ACTIVATE_ADDITIONAL_BUSINESS_STATUS_OPERATION_SERVER_SIDE_ERROR_RESPONSE,
   ACTIVATE_BUSINESS_STATUS_OPERATION_DEFAULT_RESPONSE,
   ACTIVATE_BUSINESS_STATUS_OPERATION_SERVER_SIDE_ERROR_RESPONSE,
   DEACTIVATE_ADDITIONAL_BUSINESS_STATUS_OPERATION_DEFAULT_RESPONSE,
+  DEACTIVATE_ADDITIONAL_BUSINESS_STATUS_OPERATION_SERVER_SIDE_ERROR_RESPONSE,
   DEACTIVATE_BUSINESS_STATUS_OPERATION_SERVER_SIDE_ERROR_RESPONSE,
 } from '@cypress-fixtures'
 import { aliasMutation, COMMON_TEST_SELECTORS, errorResponse, hasOperationName, successResponse } from '@nexus-ui/utils'
@@ -199,6 +201,60 @@ describe('ChangeBusinessStatusConfirmationPage', () => {
       cy.get('button[aria-label="confirm"]').click()
 
       cy.wait('@gqlDeactivateAdditionalBusinessStatusMutation')
+    })
+
+    it('displays feature-specific server-side error when activating', () => {
+      cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
+        if (hasOperationName(req, 'ActivateAdditionalBusinessStatus')) {
+          aliasMutation(req, 'ActivateAdditionalBusinessStatus')
+          errorResponse(req, ACTIVATE_ADDITIONAL_BUSINESS_STATUS_OPERATION_SERVER_SIDE_ERROR_RESPONSE)
+        }
+      })
+
+      cy.mountWithProviders(<ChangeBusinessStatusConfirmationPage />, {
+        initialRouteEntries: [
+          `/business-status/${BUSINESS_STATUS_ID}/change-status-confirmation?${getSearchParamsString({
+            type: 'activate',
+            isAdditionalBusinessStatus: 'true',
+          })}`,
+        ],
+        route: '/business-status/:id/change-status-confirmation',
+      })
+
+      cy.get('button[aria-label="confirm"]').click()
+      cy.wait('@gqlActivateAdditionalBusinessStatusMutation')
+
+      cy.get(COMMON_TEST_SELECTORS.APP_MESSAGE).should(
+        'include.text',
+        'At least one additional business status must be active.',
+      )
+    })
+
+    it('displays feature-specific server-side error when deactivating', () => {
+      cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
+        if (hasOperationName(req, 'DeactivateAdditionalBusinessStatus')) {
+          aliasMutation(req, 'DeactivateAdditionalBusinessStatus')
+          errorResponse(req, DEACTIVATE_ADDITIONAL_BUSINESS_STATUS_OPERATION_SERVER_SIDE_ERROR_RESPONSE)
+        }
+      })
+
+      cy.mountWithProviders(<ChangeBusinessStatusConfirmationPage />, {
+        initialRouteEntries: [
+          `/business-status/${BUSINESS_STATUS_ID}/change-status-confirmation?${getSearchParamsString({
+            type: 'deactivate',
+            isAdditionalBusinessStatus: 'true',
+          })}`,
+        ],
+        route: '/business-status/:id/change-status-confirmation',
+      })
+
+      cy.get('button[aria-label="confirm"]').click()
+      cy.wait('@gqlDeactivateAdditionalBusinessStatusMutation')
+
+      cy.get(COMMON_TEST_SELECTORS.APP_MESSAGE).should(
+        'include.text',
+        'At least one additional business status must be active.',
+      )
     })
   })
 })

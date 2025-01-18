@@ -59,7 +59,7 @@ describe('FollowUpWorksListTab component', () => {
 
     cy.mountWithProviders(<FollowUpWorksTab />)
     cy.wait('@gqlGetWorkshopFollowUpWorksQuery')
-    cy.contains('No follow up works to be carried out found').should('be.visible')
+    cy.contains('No follow-up works to be carried out found').should('be.visible')
   })
 
   it('does not render follow up works list table rows when GQL query errors', () => {

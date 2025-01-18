@@ -12,7 +12,9 @@ const dataDisplayClassName = 'text-xl text-bluegray-700 font-bold mt-0 mb-3 mx-0
 
 const LocationServiceAdvisorListPage = () => {
   const locationId = useGetCurrentLocation()
-  const { data, isSuccess, isError, isLoading } = useGetLocationServiceAdvisorsQuery({ locationId })
+  const { data, isSuccess, isError, isLoading } = useGetLocationServiceAdvisorsQuery({
+    locationId: locationId || '7b0f8d6c-4432-48d5-9e81-c3b6414708cd', //TODO: removed mocked locationId
+  })
 
   const { t } = useTranslation()
 

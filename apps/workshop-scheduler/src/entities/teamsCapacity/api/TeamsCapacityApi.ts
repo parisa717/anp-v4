@@ -31,10 +31,9 @@ export const teamsCapacityApi = api.enhanceEndpoints<TagTypes, ApiEndpointDefini
       invalidatesTags: cacher.cacheByIdArgProperty(TEAMS_CAPACITY_TAG),
     },
     GetLocationTeamsCalendar: {
-      transformResponse: (response: GetLocationTeamsCalendarQuery) =>
-        response.getLocationTeamsCalendar.locationTeamsCalendar,
+      transformResponse: (response: GetLocationTeamsCalendarQuery) => response.getLocationTeamsCalendar,
       providesTags: (result, error, arg) => {
-        return cacher.cacheByIdArg(TEAMS_CAPACITY_TAG)(result, error, arg.locationId)
+        return cacher.cacheByIdArg(TEAMS_CAPACITY_TAG)(result, error, arg.id)
       },
     },
     GetTeamCapacity: {

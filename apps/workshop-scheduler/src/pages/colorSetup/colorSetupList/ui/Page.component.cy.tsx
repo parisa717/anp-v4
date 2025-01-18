@@ -1,5 +1,8 @@
-import { GET_AVAILABILITY_COLORS_DEFAULT_RESPONSE } from '@cypress-fixtures'
-import { aliasQuery, errorResponse, hasOperationName, successResponse } from '@nexus-ui/utils'
+import {
+  GET_AVAILABILITY_COLORS_DEFAULT_RESPONSE,
+  GET_AVAILABILITY_COLORS_SERVER_SIDE_ERROR_RESPONSE,
+} from '@cypress-fixtures'
+import { aliasQuery, COMMON_TEST_SELECTORS, errorResponse, hasOperationName, successResponse } from '@nexus-ui/utils'
 
 import ColorSetupListPage from './Page'
 
@@ -38,17 +41,17 @@ describe('ColorSetupListPage', () => {
         // Capacity Value column
         const capacityValueCell = cy.wrap(row).find(CELL).eq(TABLE_COLUMN_INDEXES.CAPACITY_VALUE)
 
-        if (AVAILABILITY_COLORS_DATA[index].maximumCapacity) {
+        if (AVAILABILITY_COLORS_DATA[index].maximalCapacity) {
           capacityValueCell.should('contain.text', '%')
           capacityValueCell.should('contain.text', AVAILABILITY_COLORS_DATA[index].minimalCapacity)
-          capacityValueCell.should('contain.text', AVAILABILITY_COLORS_DATA[index].maximumCapacity)
+          capacityValueCell.should('contain.text', AVAILABILITY_COLORS_DATA[index].maximalCapacity)
         }
 
-        if (!AVAILABILITY_COLORS_DATA[index].maximumCapacity) {
+        if (!AVAILABILITY_COLORS_DATA[index].maximalCapacity) {
           capacityValueCell.should('contain.text', '%')
           capacityValueCell.should('contain.text', '>')
           capacityValueCell.should('contain.text', AVAILABILITY_COLORS_DATA[index].minimalCapacity)
-          capacityValueCell.should('not.contain.text', AVAILABILITY_COLORS_DATA[index].maximumCapacity)
+          capacityValueCell.should('not.contain.text', AVAILABILITY_COLORS_DATA[index].maximalCapacity)
         }
       })
     })
@@ -71,22 +74,25 @@ describe('ColorSetupListPage', () => {
       cy.contains('No colors found').should('exist')
     })
 
-    it('does not render table rows when GQL query errors', () => {
+    it('displays feature-specific server-side error', () => {
       cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
         if (hasOperationName(req, 'GetAvailabilityColors')) {
           aliasQuery(req, 'GetAvailabilityColors')
-          errorResponse(req, {
-            message: 'User not authenticated',
-            path: ['currentUser'],
-            extensions: { code: 'UNAUTHENTICATED' },
-          })
+          errorResponse(req, GET_AVAILABILITY_COLORS_SERVER_SIDE_ERROR_RESPONSE)
         }
       })
 
-      cy.mountWithProviders(<ColorSetupListPage />)
+      cy.mountWithProviders(<ColorSetupListPage />, {
+        initialRouteEntries: ['/color-setup'],
+        route: '/color-setup',
+      })
+
       cy.wait('@gqlGetAvailabilityColorsQuery')
 
-      cy.get(ROW).should('not.exist')
+      cy.get(COMMON_TEST_SELECTORS.APP_MESSAGE).should(
+        'include.text',
+        '“minimalCapacity” cannot be bigger than the “maximalCapacity”',
+      )
     })
   })
 })

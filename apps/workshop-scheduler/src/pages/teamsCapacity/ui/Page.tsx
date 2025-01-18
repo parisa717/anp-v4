@@ -1,10 +1,13 @@
 import { useTranslation } from '@nexus-ui/i18n'
 import { endOfMonth, endOfWeek, formatISO, startOfMonth, startOfWeek } from 'date-fns'
+import { ProgressSpinner } from 'primereact/progressspinner'
 import { useMemo, useState } from 'react'
 import { View } from 'react-big-calendar'
 
 import { useGetCurrentLocation } from '@/entities/location'
 import { useGetLocationTeamsCalendarQuery } from '@/entities/teamsCapacity'
+import { ROUTE_PATHS } from '@/shared/lib'
+import { ServerSideErrorsMessagesList } from '@/shared/ui'
 
 import { Calendar } from './calendar/Calendar'
 import { CalendarFilters } from './calendarFilters'
@@ -41,30 +44,23 @@ const TeamsCapacityPage = () => {
     }
   }, [selectedDate, currentView])
 
-  const {
-    data: locationTeamsCalendarQueryData,
-    isLoading: isLocationTeamsCalendarQueryLoading,
-    isError: hasLocationTeamsCalendarQueryError,
-  } = useGetLocationTeamsCalendarQuery(
-    { locationId, startDate: dateRange.startDateISOString, endDate: dateRange.endDateISOString },
-    {
-      selectFromResult: (result) => ({
-        ...result,
-        data: {
-          events:
-            result.data?.days.map((day) => ({
-              ...day,
-              start: new Date(day.date || Date.now()),
-              end: new Date(day.date || Date.now()),
-            })) || [],
-        },
-      }),
-    },
-  )
-
-  // TODO add error/loading handling
-  if (isLocationTeamsCalendarQueryLoading) return <div>Loading...</div>
-  if (hasLocationTeamsCalendarQueryError) return <div>Error occured!</div>
+  const { data: locationTeamsCalendarQueryData, isLoading: isLocationTeamsCalendarQueryLoading } =
+    useGetLocationTeamsCalendarQuery(
+      { id: locationId, startDate: dateRange.startDateISOString, endDate: dateRange.endDateISOString },
+      {
+        selectFromResult: (result) => ({
+          ...result,
+          data: {
+            events:
+              result.data?.days.map((day) => ({
+                ...day,
+                start: new Date(day.date || Date.now()),
+                end: new Date(day.date || Date.now()),
+              })) || [],
+          },
+        }),
+      },
+    )
 
   const filteredEvents = locationTeamsCalendarQueryData.events
     .filter((event) => event.capacities.some((capacity) => filters.includes(capacity.qualificationName)))
@@ -82,13 +78,26 @@ const TeamsCapacityPage = () => {
     <main>
       <h1 className="text-headline">{translate('title')}</h1>
       <CalendarFilters setFilters={setFilters} filters={filters} />
-      <Calendar
-        onChangeView={setCurrentView}
-        onChangeDate={setSelectedDate}
-        selectedDate={selectedDate}
-        events={filteredEvents}
-        view={currentView}
-      />
+      <ServerSideErrorsMessagesList page={ROUTE_PATHS.TeamsCapacity.Root} className="mb-8" />
+
+      {isLocationTeamsCalendarQueryLoading ? (
+        <ProgressSpinner
+          className="w-full overflow-hidden h-14"
+          pt={{
+            spinner: {
+              className: 'size-14',
+            },
+          }}
+        />
+      ) : (
+        <Calendar
+          onChangeView={setCurrentView}
+          onChangeDate={setSelectedDate}
+          selectedDate={selectedDate}
+          events={filteredEvents}
+          view={currentView}
+        />
+      )}
     </main>
   )
 }

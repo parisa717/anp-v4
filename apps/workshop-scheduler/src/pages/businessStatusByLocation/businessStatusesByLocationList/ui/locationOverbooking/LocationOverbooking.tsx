@@ -8,6 +8,8 @@ import {
   useGetLocationOverbookingQuery,
   useUpdateLocationOverbookingMutation,
 } from '@/entities/locationOverbooking'
+import { ROUTE_PATHS } from '@/shared/lib'
+import { ServerSideErrorsMessagesList } from '@/shared/ui'
 
 import { LocationOverbookingCapacity } from '../../model'
 
@@ -28,7 +30,6 @@ export const LocationOverbooking = ({ type, locationId, isEditingDisabled, onCha
   const { t } = useTranslation()
   const {
     data,
-    isError: isGetLocationOverbookingError,
     isLoading: isGetLocationOverbookingLoading,
     isSuccess: isGetLocationOverbookingSuccess,
   } = useGetLocationOverbookingQuery({ locationId })
@@ -46,8 +47,6 @@ export const LocationOverbooking = ({ type, locationId, isEditingDisabled, onCha
     onChangeEditedType(type)
   }
 
-  // "TODO: Add proper error/loading handling"
-  if (isGetLocationOverbookingError) return <div>{t('error')}</div>
   if (isGetLocationOverbookingLoading) return <div>{t('loading')}</div>
   if (!isGetLocationOverbookingSuccess) return null
 
@@ -58,24 +57,23 @@ export const LocationOverbooking = ({ type, locationId, isEditingDisabled, onCha
   }
 
   const handleSubmit = async (formData: LocationOverbookingForm) => {
-    try {
-      if (type === LocationOverbookingCapacity.Maximum) {
-        await updateLocationOverbooking({
-          locationId,
-          capacityOverbookingMultiplier: data.capacityOverbookingMultiplier,
-          maxCapacityMultiplier: formData.capacityOverbooking / 100,
-        })
-      }
-      if (type === LocationOverbookingCapacity.Warning) {
-        await updateLocationOverbooking({
-          locationId,
-          capacityOverbookingMultiplier: formData.capacityOverbooking / 100,
-          maxCapacityMultiplier: data.maxCapacityMultiplier,
-        })
-      }
-    } catch {
-      // TODO add error handling
-    } finally {
+    let result
+    if (type === LocationOverbookingCapacity.Maximum) {
+      result = await updateLocationOverbooking({
+        locationId,
+        capacityOverbookingMultiplier: data.capacityOverbookingMultiplier,
+        maxCapacityMultiplier: formData.capacityOverbooking / 100,
+      })
+    }
+    if (type === LocationOverbookingCapacity.Warning) {
+      result = await updateLocationOverbooking({
+        locationId,
+        capacityOverbookingMultiplier: formData.capacityOverbooking / 100,
+        maxCapacityMultiplier: data.maxCapacityMultiplier,
+      })
+    }
+
+    if (result?.data && !result.error) {
       handleCloseEditing()
     }
   }
@@ -92,6 +90,7 @@ export const LocationOverbooking = ({ type, locationId, isEditingDisabled, onCha
 
   return (
     <div className="flex flex-col gap-4  basis-1/2">
+      <ServerSideErrorsMessagesList page={ROUTE_PATHS.BusinessStatusByLocation.Root} className="mb-8" />
       <h3 className="text-3xl text-bluegray-700 m-0 font-normal">{t(headerTitle[type])}</h3>
       <div className="p-5 bg-surface-0 rounded-sm" data-cy="location-overbooking">
         {isEditing ? (

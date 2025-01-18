@@ -12,7 +12,10 @@ query GetLocationCounterCalendar($locationId: UUID!) {
   }
 }
 
-mutation UpdateLocationCounterCalendar($locationId: UUID!, $workDays: [GqlUpdateLocationCounterCalendarInput!]!) {
+mutation UpdateLocationCounterCalendar(
+  $locationId: UUID!
+  $workDays: [GqlUpdateLocationCounterCalendarWorkdayInputType!]!
+) {
   updateLocationCounterCalendar(locationId: $locationId, workDays: $workDays) {
     status
   }

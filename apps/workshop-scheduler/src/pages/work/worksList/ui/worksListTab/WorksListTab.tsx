@@ -1,13 +1,23 @@
 import { useTranslation } from '@nexus-ui/i18n'
 import { DataTable } from '@nexus-ui/ui'
+import { useServerSideTableQuery } from '@nexus-ui/utils'
+import { FilterMatchMode } from 'primereact/api'
 import { Button } from 'primereact/button'
 import { Link } from 'react-router'
 
 import { useGetWorkshopWorksQuery } from '@/entities/work'
-import { pageUrls } from '@/shared/lib'
+import { pageUrls, ROUTE_PATHS } from '@/shared/lib'
+import { ServerSideErrorsMessagesList } from '@/shared/ui'
 
-import { useServerSideTableQuery } from '../../lib/useServerSideTableQuery'
 import { useWorksListColumns } from '../../lib/useWorksListColumns'
+
+const initialFilters = {
+  name: { value: '', matchMode: FilterMatchMode.CONTAINS },
+  brand: { value: '', matchMode: FilterMatchMode.CONTAINS },
+  qualification: { value: '', matchMode: FilterMatchMode.CONTAINS },
+  isCapacityEditable: { value: null, matchMode: FilterMatchMode.EQUALS },
+  isDescriptionEditable: { value: null, matchMode: FilterMatchMode.EQUALS },
+}
 
 export const WorksListTab = () => {
   const { t } = useTranslation()
@@ -25,12 +35,13 @@ export const WorksListTab = () => {
     handleFilterChange,
     handlePageChange,
     handleSortChange,
-  } = useServerSideTableQuery()
+  } = useServerSideTableQuery({
+    initialFilters,
+  })
 
   const {
     data: { works, metadata },
     isLoading,
-    isError,
   } = useGetWorkshopWorksQuery(queryParams, {
     selectFromResult: (result) => ({
       ...result,
@@ -43,23 +54,17 @@ export const WorksListTab = () => {
     }),
   })
 
-  if (isError) {
-    //TODO: Add proper error handling
-    return 'Error'
-  }
-
   return (
     <section className="flex flex-col gap-9 basis-1/2">
       <div className="flex flex-row items-center justify-between">
-        <h3 className="text-3xl text-bluegray-700 m-0 font-normal">{translate('title')}</h3>
-        <div className="flex flex-row">
-          <Link to={pageUrls.work.add()}>
-            <Button label={translate('addWorkButton')} severity="secondary" outlined />
-          </Link>
-        </div>
+        <h3 className="font-normal text-text-3xl-regular-lineheight-150 text-bluegray-700 m-0">{translate('title')}</h3>
+        <Link to={pageUrls.work.add()}>
+          <Button label={translate('addWorkButton')} severity="secondary" outlined />
+        </Link>
       </div>
-
+      <ServerSideErrorsMessagesList page={ROUTE_PATHS.Work.Root} className="mb-8" />
       <DataTable
+        mode="server"
         columns={columns}
         data={works ?? []}
         loading={isLoading}
@@ -67,12 +72,9 @@ export const WorksListTab = () => {
         filterDisplay="row"
         scrollable
         scrollHeight="calc(100vh - 391px)"
-        lazy
-        paginator
-        rows={pageSize}
-        rowsPerPageOptions={[10, 25, 50]}
+        page={page}
+        pageSize={pageSize}
         totalRecords={metadata?.totalResults ?? 0}
-        first={page * pageSize}
         onPage={handlePageChange}
         sortField={sortField}
         sortOrder={sortOrder}

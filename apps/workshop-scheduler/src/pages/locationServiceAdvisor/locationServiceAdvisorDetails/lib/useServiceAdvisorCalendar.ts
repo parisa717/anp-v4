@@ -1,12 +1,14 @@
 import { useTranslation } from '@nexus-ui/i18n'
-import { addDays, endOfMonth, format, formatISO, startOfMonth, subMinutes } from 'date-fns'
+import { addDays, endOfMonth, startOfMonth, subMinutes } from 'date-fns'
 import { useMemo } from 'react'
 import { Event } from 'react-big-calendar'
 import { useParams } from 'react-router'
 
 import { ServiceAdvisorCalendarEntry, useGetServiceAdvisorCalendarQuery } from '@/entities/locationServiceAdvisor'
-import { CalendarEntryType } from '@/shared/api/types.generated'
+import { CalendarEntryTypeEnum } from '@/shared/api/types.generated'
 import { IdParam } from '@/shared/lib'
+
+import { toHours, toISODate } from './dateHelpers'
 
 type Props = {
   selectedDate: Date
@@ -17,8 +19,6 @@ export const useServiceAdvisorCalendar = ({ selectedDate }: Props) => {
   const { t } = useTranslation()
 
   const translate = (key: string) => t(`pages.locationServiceAdvisor.calendar.${key}`)
-  const toISODate = (date: Date) => formatISO(date, { representation: 'date' })
-  const toISOHours = (date: Date) => format(date, 'HH:mm')
 
   const timeZoneOffset = new Date().getTimezoneOffset()
 
@@ -37,11 +37,11 @@ export const useServiceAdvisorCalendar = ({ selectedDate }: Props) => {
     id: serviceAdvisorId,
   })
 
-  const entryTypeName: Record<CalendarEntryType, string> = {
-    [CalendarEntryType.AdvisorAbsence]: translate('entryType.advisorAbsense'),
-    [CalendarEntryType.AdvisorBreak]: translate('entryType.advisorBreak'),
-    [CalendarEntryType.AdvisorBuffer]: translate('entryType.advisorBuffer'),
-    [CalendarEntryType.PublicHoliday]: translate('entryType.publicHoliday'),
+  const entryTypeName: Record<CalendarEntryTypeEnum, string> = {
+    [CalendarEntryTypeEnum.AdvisorAbsence]: translate('entryType.advisorAbsense'),
+    [CalendarEntryTypeEnum.AdvisorBreak]: translate('entryType.advisorBreak'),
+    [CalendarEntryTypeEnum.AdvisorBuffer]: translate('entryType.advisorBuffer'),
+    [CalendarEntryTypeEnum.PublicHoliday]: translate('entryType.publicHoliday'),
   }
 
   const createCalendarEvent = (entry: ServiceAdvisorCalendarEntry, id?: string, addDaysNo: number = 0) => {
@@ -71,9 +71,12 @@ export const useServiceAdvisorCalendar = ({ selectedDate }: Props) => {
       title: '',
       resource: {
         id: id ?? entry.id,
-        timeFrom: startDate ? toISOHours(startDate) : undefined,
-        timeTo: endDate ? toISOHours(endDate) : undefined,
+        startTime: startDate ? toHours(startDate) : undefined,
+        endTime: endDate ? toHours(endDate) : undefined,
         eventTypeName: entryTypeName[entry.type],
+        eventType: entry.type,
+        period: entry.period,
+        periodicEnd: entry.periodicEnd,
       },
     }
   }
@@ -121,8 +124,8 @@ export const useServiceAdvisorCalendar = ({ selectedDate }: Props) => {
       endDate,
       date: new Date(workDay.date),
       dateString: workDay.date,
-      endTime: toISOHours(endDate),
-      startTime: toISOHours(startDate),
+      endTime: toHours(endDate),
+      startTime: toHours(startDate),
     }
   })
 

@@ -1,11 +1,14 @@
 import { GET_LOCATIONS_OPERATION_DEFAULT_RESPONSE } from '@cypress-fixtures'
-import { aliasQuery, errorResponse, hasOperationName, successResponse } from '@nexus-ui/utils'
+import { COMMON_TEST_SELECTORS } from '@nexus-ui/utils'
 import { useState } from 'react'
 
 import { SelectedLocationEntity } from '../model/types'
 import { LocationTable } from './LocationTable'
 
+const { CELL, ROW, ROWS_PER_PAGE_25, ROWS_PER_PAGE_50, ROWS_PER_PAGE_DROPDOWN, SORT_BUTTON } = COMMON_TEST_SELECTORS
+
 const WORK = {
+  id: 'work-id',
   name: 'Work 1',
   qualificationId: 'qual-123',
   isActive: true,
@@ -24,14 +27,13 @@ const WORK = {
 }
 
 const LOCATIONS = GET_LOCATIONS_OPERATION_DEFAULT_RESPONSE.getLocations.locations.map((location) => ({
+  ...location,
   isSelected: false,
   isRecommended: false,
   brandIds: ['brand_1'],
-  ...location,
+  brands: location.brands.map(({ id, code }) => ({ id, code })),
 }))
 
-const ROW = '[data-pc-section="bodyrow"]'
-const CELL = '[data-pc-section="bodycell"]'
 const SORT = '[data-pc-section="sort"]'
 const DROPDOWN = '[data-pc-name="multiselect"]'
 const INPUT = '[data-pc-section="input"]'
@@ -69,13 +71,6 @@ const sortTable = (colIndex: number, base: [string, string], sorted: [string, st
 
 describe('LocationTable', () => {
   beforeEach(() => {
-    cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
-      if (hasOperationName(req, 'GetLocations')) {
-        aliasQuery(req, 'GetLocations')
-        successResponse(req, GET_LOCATIONS_OPERATION_DEFAULT_RESPONSE)
-      }
-    })
-
     const TestComponent = () => {
       const [selectedLocations, setSelectedLocations] = useState<SelectedLocationEntity[]>([])
 
@@ -83,11 +78,18 @@ describe('LocationTable', () => {
         setSelectedLocations(locations)
       }
 
-      return <LocationTable work={WORK} selectedLocations={selectedLocations} onChange={handleChange} />
+      return (
+        <LocationTable
+          isLoadingLocations={false}
+          locations={LOCATIONS}
+          work={WORK}
+          selectedLocations={selectedLocations}
+          onChange={handleChange}
+        />
+      )
     }
 
     cy.mountWithProviders(<TestComponent />)
-    cy.wait('@gqlGetLocationsQuery')
   })
 
   it('renders the table with locations', () => {
@@ -122,10 +124,11 @@ describe('LocationTable', () => {
     cy.get(ROW).should('have.length', LOCATIONS.length)
 
     cy.get(DROPDOWN).click()
-    cy.get(ITEM).contains('Kia', { matchCase: false }).click()
+    cy.get(ITEM).contains('Opel', { matchCase: false }).click()
     cy.get(ROW).should('have.length', 1)
 
-    cy.get(DROPDOWN).find('[data-pc-section="clearicon"]').click()
+    cy.get(DROPDOWN).click()
+    cy.get(ITEM).contains('Opel', { matchCase: false }).click()
     cy.get(ROW).should('have.length', 4)
   })
 
@@ -168,38 +171,86 @@ describe('LocationTable', () => {
   })
 
   it('renders an empty message when there are no locations', () => {
-    cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
-      if (hasOperationName(req, 'GetLocations')) {
-        aliasQuery(req, 'GetLocations')
-        successResponse(req, {
-          getLocations: {
-            locations: [],
-          },
-        })
-      }
-    })
-
-    cy.mountWithProviders(<LocationTable work={WORK} selectedLocations={[]} onChange={cy.stub()} />)
-    cy.wait('@gqlGetLocationsQuery')
-
+    cy.mountWithProviders(
+      <LocationTable
+        isLoadingLocations={false}
+        locations={[]}
+        work={WORK}
+        selectedLocations={[]}
+        onChange={cy.stub()}
+      />,
+    )
     cy.contains('No locations found').should('be.visible')
   })
 
-  it('renders error state when query fails', () => {
-    cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
-      if (hasOperationName(req, 'GetLocations')) {
-        aliasQuery(req, 'GetLocations')
-        errorResponse(req, {
-          message: 'User not authenticated',
-          path: ['currentUser'],
-          extensions: { code: 'UNAUTHENTICATED' },
-        })
-      }
-    })
+  it('changes items per page to 25 and 50', () => {
+    const multipliedLocations = Array(25).fill(LOCATIONS).flat()
 
-    cy.mountWithProviders(<LocationTable work={WORK} selectedLocations={[]} onChange={cy.stub()} />)
-    cy.wait('@gqlGetLocationsQuery')
+    cy.mountWithProviders(
+      <LocationTable
+        isLoadingLocations={false}
+        locations={multipliedLocations}
+        work={WORK}
+        selectedLocations={[]}
+        onChange={cy.stub()}
+      />,
+    )
 
-    cy.contains('Error').should('be.visible')
+    cy.get(ROW).should('have.length', 10)
+
+    cy.get(ROWS_PER_PAGE_DROPDOWN).click()
+    cy.get(ROWS_PER_PAGE_25).click()
+
+    cy.get(ROW).should('have.length', 25)
+
+    cy.get(ROWS_PER_PAGE_DROPDOWN).click()
+    cy.get(ROWS_PER_PAGE_50).click()
+
+    cy.get(ROW).should('have.length', 50)
+  })
+
+  it('works with sorting when changing items per page', () => {
+    const multipliedLocations = Array(10).fill(LOCATIONS).flat()
+
+    cy.mountWithProviders(
+      <LocationTable
+        isLoadingLocations={false}
+        locations={multipliedLocations}
+        work={WORK}
+        selectedLocations={[]}
+        onChange={cy.stub()}
+      />,
+    )
+
+    cy.get(SORT_BUTTON).eq(0).click()
+
+    cy.get(ROWS_PER_PAGE_DROPDOWN).click()
+    cy.get(ROWS_PER_PAGE_25).click()
+
+    cy.get(ROW).first().find(CELL).eq(1).should('have.text', '001')
+    cy.get(ROW).last().find(CELL).eq(1).should('have.text', '011')
+  })
+
+  it('works with filtering when changing items per page', () => {
+    const multipliedLocations = Array(10).fill(LOCATIONS).flat()
+
+    cy.mountWithProviders(
+      <LocationTable
+        isLoadingLocations={false}
+        locations={multipliedLocations}
+        work={WORK}
+        selectedLocations={[]}
+        onChange={cy.stub()}
+      />,
+    )
+
+    cy.get(DROPDOWN).click()
+    cy.get('[data-pc-section="list"]').contains('Opel', { matchCase: false }).click()
+
+    cy.get(ROWS_PER_PAGE_DROPDOWN).click()
+    cy.get(ROWS_PER_PAGE_25).click()
+
+    cy.get(ROW).first().find(CELL).eq(3).should('have.text', 'Kia')
+    cy.get(ROW).last().find(CELL).eq(3).should('have.text', 'Kia')
   })
 })

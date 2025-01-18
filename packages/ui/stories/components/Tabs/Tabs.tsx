@@ -41,9 +41,13 @@ interface TabsProps extends TabViewProps {
 
 export const Tabs = ({ items, pt: customTabViewPt = {}, tabPanelPt: customGlobalTabPanelPt, ...rest }: TabsProps) => {
   return (
-    <TabView pt={merge(defaultTabViewPt, customTabViewPt)} {...rest}>
+    <TabView pt={merge({}, defaultTabViewPt, customTabViewPt)} {...rest}>
       {items.map(({ id, pt: customLocalTabPanelPt, ...tabProps }) => (
-        <TabPanel key={id} pt={merge(defaultTabPanelPt, customGlobalTabPanelPt, customLocalTabPanelPt)} {...tabProps} />
+        <TabPanel
+          key={id}
+          pt={merge({}, defaultTabPanelPt, customGlobalTabPanelPt, customLocalTabPanelPt)}
+          {...tabProps}
+        />
       ))}
     </TabView>
   )

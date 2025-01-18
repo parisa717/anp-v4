@@ -1,15 +1,17 @@
 import { cacher } from '@nexus-ui/utils'
 import { type ApiWithTransformResponse } from '@nexus-ui/utils'
 
-import { transformWorks } from '../lib/transformWorks'
-import { PaginatedWorkEntities, WorkEntity } from '../model/types'
+import { transformWorks, transformWorkshopWorkLocationWorks } from '../lib/transformWorks'
+import { PaginatedWorkEntities, WorkEntity, WorkshopWorkLocationWorkEntity } from '../model/types'
 import {
   ActivateWorkshopWorkMutation,
   api,
   CreateWorkshopWorkMutation,
   DeactivateWorkshopWorkMutation,
+  GetWorkshopWorkLocationWorksQuery,
   GetWorkshopWorkQuery,
   GetWorkshopWorksQuery,
+  SetWorkshopWorkLocationWorksMutation,
   UpdateWorkshopWorkMutation,
 } from './Work.generated'
 
@@ -22,6 +24,8 @@ type WorkApi = ApiWithTransformResponse<
     'DeactivateWorkshopWork',
     'ActivateWorkshopWork',
     'UpdateWorkshopWork',
+    'SetWorkshopWorkLocationWorks',
+    'GetWorkshopWorkLocationWorks',
   ],
   {
     CreateWorkshopWork: CreateWorkshopWorkMutation
@@ -30,6 +34,8 @@ type WorkApi = ApiWithTransformResponse<
     DeactivateWorkshopWork: DeactivateWorkshopWorkMutation
     ActivateWorkshopWork: ActivateWorkshopWorkMutation
     UpdateWorkshopWork: UpdateWorkshopWorkMutation
+    SetWorkshopWorkLocationWorks: SetWorkshopWorkLocationWorksMutation
+    GetWorkshopWorkLocationWorks: WorkshopWorkLocationWorkEntity[]
   }
 >
 type TagTypes = WorkApi['TagTypes']
@@ -63,6 +69,14 @@ export const workApi = api.enhanceEndpoints<TagTypes, ApiEndpointDefinitions>({
     UpdateWorkshopWork: {
       invalidatesTags: (result, error, arg) => cacher.cacheByIdArgProperty(WORK_TAG)(result, error, arg.workshopWork),
     },
+    GetWorkshopWorkLocationWorks: {
+      transformResponse: (response: GetWorkshopWorkLocationWorksQuery) =>
+        transformWorkshopWorkLocationWorks(response.getWorkshopWorkLocationWorks),
+      providesTags: cacher.cacheByIdArgProperty(WORK_TAG),
+    },
+    SetWorkshopWorkLocationWorks: {
+      invalidatesTags: cacher.cacheByIdArgProperty(WORK_TAG),
+    },
   },
 })
 
@@ -73,4 +87,6 @@ export const {
   useActivateWorkshopWorkMutation,
   useDeactivateWorkshopWorkMutation,
   useUpdateWorkshopWorkMutation,
+  useGetWorkshopWorkLocationWorksQuery,
+  useSetWorkshopWorkLocationWorksMutation,
 } = workApi

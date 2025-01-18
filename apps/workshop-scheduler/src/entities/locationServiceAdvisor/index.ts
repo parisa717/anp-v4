@@ -1,2 +1,7 @@
-export { useGetLocationServiceAdvisorsQuery, useGetServiceAdvisorCalendarQuery, useGetServiceAdvisorQuery } from './api'
+export {
+  useGetLocationServiceAdvisorsQuery,
+  useGetServiceAdvisorCalendarQuery,
+  useGetServiceAdvisorQuery,
+  useUpdateServiceAdvisorCalendarEntryMutation,
+} from './api'
 export type { ServiceAdvisorCalendarEntry } from './model'

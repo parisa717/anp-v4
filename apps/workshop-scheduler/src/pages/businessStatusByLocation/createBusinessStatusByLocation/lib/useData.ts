@@ -15,14 +15,12 @@ export const useCreateBusinessStatusByLocationPageData = ({
   const {
     data: businessStatuses,
     isLoading: isBusinessStatusesLoading,
-    isError: isBusinessStatusesError,
     isSuccess: isBusinessStatusesSuccess,
   } = useGetBusinessStatusesQuery(undefined, { skip: isAdditionalBusinessStatus })
 
   const {
     data: additionalBusinessStatuses,
     isLoading: isAdditionalBusinessStatusesLoading,
-    isError: isAdditionalBusinessStatusesError,
     isSuccess: isAdditionalBusinessStatusesSuccess,
   } = useGetAdditionalBusinessStatusesQuery(undefined, { skip: !isAdditionalBusinessStatus })
 
@@ -30,14 +28,12 @@ export const useCreateBusinessStatusByLocationPageData = ({
   const {
     data: businessStatusesByLocation,
     isLoading: isBusinessStatusesByLocationLoading,
-    isError: isBusinessStatusesByLocationError,
     isSuccess: isBusinessStatusesByLocationSuccess,
   } = useGetBusinessStatusesByLocationQuery({ id: locationId }, { skip: isAdditionalBusinessStatus })
 
   const {
     data: additionalBusinessStatusesByLocation,
     isLoading: isAdditionalBusinessStatusesByLocationLoading,
-    isError: isAdditionalBusinessStatusesByLocationError,
     isSuccess: isAdditionalBusinessStatusesByLocationSuccess,
   } = useGetAdditionalBusinessStatusesByLocationQuery({ id: locationId }, { skip: !isAdditionalBusinessStatus })
 
@@ -59,18 +55,6 @@ export const useCreateBusinessStatusByLocationPageData = ({
     notFound =
       (!isBusinessStatusesByLocationLoading && !isBusinessStatusesByLocationSuccess) ||
       (!isBusinessStatusesLoading && !isBusinessStatusesSuccess)
-  }
-
-  let isError
-
-  if (isAdditionalBusinessStatus) {
-    isError = isAdditionalBusinessStatusesByLocationError || isAdditionalBusinessStatusesError
-  } else {
-    isError = isBusinessStatusesByLocationError || isBusinessStatusesError
-  }
-
-  if (isError) {
-    //TODO: Add error handling
   }
 
   const statusesSelectBoxOptions = useMemo(() => {

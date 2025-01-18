@@ -13,7 +13,8 @@
     "test:open": "cypress open",
     "test:component": "cypress run --spec \"**/*.component.cy.tsx\" --browser chrome --component",
     "test:unit": "cypress run --spec \"**/*.unit.cy.ts\" --browser chrome --component",
-    "test": "cypress run --spec \"**/*.cy.tsx,**/*.cy.ts\" --browser chrome --component"
+    "test": "cypress run --spec \"**/*.cy.tsx,**/*.cy.ts\" --browser chrome --component",
+    "start": "vite preview --port 80"
   },
   "nx": {
     "targets": {

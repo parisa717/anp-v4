@@ -37,7 +37,7 @@
             "name": "Status name",
             "isDefault": {
               "label": "Define as default",
-              "tooltip": "Please remove the default configuration at the current default status\n to be able to set another status as the default status."
+              "tooltip": "You cannot unmark the default status. To change the default status, please go to edit the status\n you want to be the new default status and set it as the default."
             },
             "isActive": "Status",
             "isHighlighted": "Highlighted in slots",
@@ -312,6 +312,7 @@
       },
       "followUpWorksList": {
         "title": "Work to be done for follow-up appointments",
+        "addFollowUpWorkButton": "Add follow-up work to be done",
         "table": {
           "columnHeaders": {
             "followUpWorkName": "Name",
@@ -321,7 +322,7 @@
             "isCapacityEditable": "Capacity Editable",
             "isActive": "Status"
           },
-          "empty": "No follow up works to be carried out found"
+          "empty": "No follow-up works to be carried out found"
         },
         "dialogs": {
           "deactivateService": {
@@ -389,7 +390,28 @@
         "breadcrumbTitle": "Advisors configuration details",
         "bufferAppointments": {
           "weekly": "weekly",
-          "title": "Buffer appointments"
+          "title": "Buffer appointments",
+          "details": {
+            "title": "Absence",
+            "bufferDate": "Buffer date",
+            "date": "Date",
+            "time": "Time",
+            "endDate": "End date",
+            "delete": "Delete"
+          },
+          "edit": {
+            "title": "Edit buffer date",
+            "bufferDate": "Buffer date",
+            "periodic": "Weekly recurrence",
+            "date": "Date",
+            "startTime": "Start time",
+            "endTime": "End time",
+            "periodicEndDate": "End date",
+            "validation": {
+              "invalidPeriodicDate": "End date must be later than start date",
+              "invalidEndTime": "End time must be later than start time"
+            }
+          }
         }
       },
       "calendar": {
@@ -478,6 +500,11 @@
         "customerAndVehicle": {
           "title": "Customer & vehicle",
           "subtitle": "Find a Customer & vehicle or add the new one",
+          "messages": {
+            "warn": {
+              "unselectedVehicle": "You must make a selection in order to move on to the next step in the process"
+            }
+          },
           "searchForm": {
             "customerName": "Customer",
             "customerBirthDate": "Date of birth",
@@ -490,6 +517,77 @@
           },
           "resultsList": {
             "found": "Found"
+          },
+          "resultItem": {
+            "customerVehicles": "Customer vehicles",
+            "tables": {
+              "customerPersonalData": {
+                "name": "Customer",
+                "birthdate": "Date of birth",
+                "address": "Address",
+                "phone": "Mobile phone",
+                "city": "City",
+                "zipCode": "Zip code"
+              },
+              "customerVehicles": {
+                "vehicleLicencePlate": "Licence plate",
+                "vehicleVin": "Chassis number",
+                "brand": "Brand",
+                "model": "Model",
+                "type": "Type",
+                "inspectionStatus": "Inspection status",
+                "nextEmissionsTest": "Next emissions test",
+                "nextMainInspection": "Next main inspection"
+              }
+            },
+            "buttons": {
+              "addVehicleDraft": "Add draft of vehicle"
+            }
+          },
+          "detailsView": {
+            "customerAndVehicleDetails": "Customer & Vehicle details",
+            "customerInfoSection": {
+              "title": "Customer info",
+              "firstName": "First name",
+              "lastName": "Last name",
+              "name2": "Name 2",
+              "customerId": "Customer ID",
+              "birthDate": "Birth date",
+              "serviceAdvisorName": "Service advisor name",
+              "privateTelephone": "Private telephone",
+              "businessTelephone": "Business telephone",
+              "privateMobile": "Private mobile",
+              "businessMobile": "Business mobile",
+              "privateEmail": "Private email",
+              "businessEmail": "Business email",
+              "titleCode": "Title code",
+              "blocked": "Blocked",
+              "zipCode": "Zip-code",
+              "city": "City",
+              "address": "Address",
+              "address2": "Address 2",
+              "countryCode": "Country code",
+              "addressSalutationCode": "Address salutation code"
+            },
+            "vehicleInfoSection": {
+              "title": "Vehicle info",
+              "registrationNumber": "Registration number",
+              "brand": "Brand",
+              "model": "Model",
+              "type": "Type",
+              "vehicleStatus": "Vehicle status",
+              "firstRegistration": "First registration",
+              "customerRegistrationDate": "Customer registration date",
+              "mileage": "Mileage",
+              "nextMainInspectionDate": "Next main inspection date",
+              "nextEmissionsInspectionDate": "Next emissions inspection date",
+              "chassisNumber": "Chassis number",
+              "vehicleModelNumber": "Vehicle model number",
+              "tyreStorageStatus": "Tyre storage status"
+            },
+            "buttons": {
+              "editData": "Edit data"
+            }
           }
         },
         "chooseService": {
@@ -505,6 +603,12 @@
     }
   },
   "serverSideErrors": {
+    "customer": {
+      "notFound": "Customer not found"
+    },
+    "vehicle": {
+      "notFound": "Vehicle not found"
+    },
     "businessStatuses": {
       "statusExists": "Business status already exists.",
       "onlyOneCouldBeMarkedAsDefault": "Exactly one active business status must be marked as default.",
@@ -515,7 +619,12 @@
       "statusNotFound": "Business status not found."
     },
     "additionalBusinessStatuses": {
-      "statusExists": "Additional business status already exists."
+      "statusExists": "Additional business status already exists.",
+      "onlyOneCouldBeMarkedAsDefault": "Exactly one active additional business status must be marked as default.",
+      "atLeastOneActive": "At least one additional business status must be active.",
+      "defaultCannotBeUnassigned": "The default additional status cannot be unassigned from the location.",
+      "inactiveCannotBeDefault": "An inactive additional status cannot be set as default.",
+      "statusNotFound": "Additional business status not found."
     },
     "locations": {
       "alreadyExists": "Location already exists.",
@@ -525,6 +634,55 @@
       "countryDoesNotExists": "Country does not exists.",
       "couldNotBeActivated": "Location could not be activated.",
       "brandIsNotAssigned": "Brand is not assigned to location."
+    },
+    "areas": {
+      "alreadyExists": "Area already exists.",
+      "notFound": "Area not found.",
+      "couldNotBeActivated": "Area could not be activated.",
+      "countryDoesNotExists": "Country does not exists."
+    },
+    "locationWorks": {
+      "alreadyExists": "Location Work already exists.",
+      "notFound": "Location Work not found.",
+      "locationNotExist": "Location does not exist.",
+      "brandNotSupported": "Location does not support brand.",
+      "workshopWorkNotExist": "Workshop Work does not exist.",
+      "brandNotExist": "Brand does not exist."
+    },
+    "locationOverbookings": {
+      "multiplierBelowMinimum": "Warning multiplier below AVAG-defined minimum.",
+      "locationNotFound": "Location not found.",
+      "overbookingForLocationNotFound": "Overbooking for the location not found."
+    },
+    "availabilityColors": {
+      "capacityValues": "First availability color must have “minimalCapacity” value 0 and last availability color must have “maximalCapacity” value undefined.",
+      "colorsCannotOverlap": "Availability colors cannot overlap.",
+      "colorsCannotHaveGaps": "Availability colors cannot have gaps in between of different colors.",
+      "minHigherThanMax": "“minimalCapacity” cannot be bigger than the “maximalCapacity”",
+      "configurationNumber": "Minimum 2 and maximum 4 different colors can be configured."
+    },
+    "works": {
+      "alreadyExists": "Work already exists.",
+      "notFound": "Work not found.",
+      "qualificationNotExist": "Qualification does not exist.",
+      "brandNotExist": "Brand does not exist.",
+      "locationNotExist": "Location does not exist.",
+      "locationNotSupportBrand": "Location does not support brand."
+    },
+    "followUpWorks": {
+      "alreadyExists": "Follow Up Work already exists.",
+      "notFound": "Follow Up Work not found.",
+      "qualificationNotExist": "Qualification does not exist."
+    },
+    "counters": {
+      "notFound": "Counter not found.",
+      "locationNotFound": "Location not found."
+    },
+    "capacity": {
+      "teamNotFound": "Team not found.",
+      "teamsCapacityNotFound": "Team's capacity not found.",
+      "locationNotFound": "Location not found.",
+      "timeRangeTooBig": "Requested time range is too big."
     }
   }
 }

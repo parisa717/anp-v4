@@ -15,8 +15,6 @@ type StatusDataByLocationModeSectionProps = {
   isAdditionalBusinessStatus: boolean
 }
 
-//TODO: Add error handling for queries and mutations
-
 export const StatusDataByLocationModeSection = ({
   isAdditionalBusinessStatus,
 }: StatusDataByLocationModeSectionProps) => {
@@ -31,9 +29,11 @@ export const StatusDataByLocationModeSection = ({
   } = useGetBusinessStatusesByLocationQuery(
     { id: locationId },
     {
-      skip: isAdditionalBusinessStatus,
+      skip: isAdditionalBusinessStatus || !locationId,
     },
   )
+
+  console.log(locationId)
 
   const {
     data: additionalBusinessStatusesByLocation,
@@ -42,7 +42,7 @@ export const StatusDataByLocationModeSection = ({
   } = useGetAdditionalBusinessStatusesByLocationQuery(
     { id: locationId },
     {
-      skip: !isAdditionalBusinessStatus,
+      skip: !isAdditionalBusinessStatus || !locationId,
     },
   )
 

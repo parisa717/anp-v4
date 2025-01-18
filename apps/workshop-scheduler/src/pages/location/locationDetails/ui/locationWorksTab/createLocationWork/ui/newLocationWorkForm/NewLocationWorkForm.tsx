@@ -1,7 +1,7 @@
+import { useTranslation } from '@nexus-ui/i18n'
 import { Button } from 'primereact/button'
 import { Divider } from 'primereact/divider'
 import { useFieldArray, useFormContext, useWatch } from 'react-hook-form'
-import { useTranslation } from 'react-i18next'
 
 import {
   CreateLocationWorkFormSchema,

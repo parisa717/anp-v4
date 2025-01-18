@@ -5,7 +5,8 @@ import { Outlet, useParams } from 'react-router'
 
 import { useGetAreaQuery } from '@/entities/area'
 import { useGetLocationQuery } from '@/entities/location'
-import { IdParam } from '@/shared/lib'
+import { IdParam, ROUTE_PATHS } from '@/shared/lib'
+import { ServerSideErrorsMessagesList } from '@/shared/ui'
 
 import { useAreaColumns } from '../lib/useAreaColumns'
 import { useGetBreadcrumbItems } from '../lib/useGetBreadcrumbItems'
@@ -43,17 +44,11 @@ const LocationDetailsPage = () => {
   const locationColumns = useLocationColumns()
 
   const { id = '' } = useParams<IdParam>()
-  const { data: locationData, isLoading: isLocationDataLoading, isError: isErrorLocation } = useGetLocationQuery({ id })
-  const {
-    data: areaData,
-    isLoading: isAreaDataLoading,
-    isError: isErrorArea,
-  } = useGetAreaQuery({ id: locationData?.area?.id ?? '' }, { skip: !locationData?.area?.id })
-
-  if (isErrorLocation || isErrorArea) {
-    //TODO: Add proper error handling
-    return 'Error'
-  }
+  const { data: locationData, isLoading: isLocationDataLoading } = useGetLocationQuery({ id })
+  const { data: areaData, isLoading: isAreaDataLoading } = useGetAreaQuery(
+    { id: locationData?.area?.id ?? '' },
+    { skip: !locationData?.area?.id },
+  )
 
   return (
     <main>
@@ -66,6 +61,7 @@ const LocationDetailsPage = () => {
         }}
       />
       <h1 className="text-headline">{translate('title')}</h1>
+      <ServerSideErrorsMessagesList page={ROUTE_PATHS.Location.Details.Root} className="mb-8" />
       <DataTable
         columns={areaColumns}
         data={areaData ? [areaData] : []}

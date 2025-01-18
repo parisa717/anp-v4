@@ -1,6 +1,7 @@
 export { createServerSideErrorListenerMiddleware } from './applicationMessage/serverSideError/serverSideErrorMiddleware'
 export { applicationMessageSlice } from './applicationMessage/slice'
 export type { APPLICATION_MESSAGE_PAGE } from './applicationMessage/types'
+export { APPLICATION_MESSAGE_TYPE } from './applicationMessage/types'
 export { useAppDispatch, useAppSelector } from './hooks'
 export {
   routerSlice,

@@ -22,4 +22,5 @@ export type ApplicationMessage = PrimeMessage & {
   summary: PrimeMessage['summary']
   detail: PrimeMessage['detail']
   error?: ServerSideError
+  validationErrors?: Record<string, string[]>
 }

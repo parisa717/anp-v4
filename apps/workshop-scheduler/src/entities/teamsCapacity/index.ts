@@ -1,3 +1,4 @@
+export { CAPACITY_ERROR_CODE_TO_MESSAGE_KEY, CapacityErrorCode } from './api/errors'
 export {
   useGetLocationTeamsCalendarQuery,
   useGetTeamCapacityQuery,

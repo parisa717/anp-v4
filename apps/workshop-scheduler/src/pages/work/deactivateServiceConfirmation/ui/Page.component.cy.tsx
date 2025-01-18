@@ -1,4 +1,5 @@
-import { aliasMutation, hasOperationName, successResponse } from '@nexus-ui/utils'
+import { DEACTIVATE_WORKSHOP_WORK_SERVER_SIDE_ERROR_RESPONSE } from '@cypress-fixtures'
+import { aliasMutation, COMMON_TEST_SELECTORS, errorResponse, hasOperationName, successResponse } from '@nexus-ui/utils'
 
 import DeactivateServiceConfirmationPage from './Page'
 
@@ -48,5 +49,24 @@ describe('DeactivateServiceConfirmationPage component', () => {
     cy.get('[aria-label="confirm"]').click()
     cy.wait('@gqlDeactivateWorkshopWorkMutation')
     cy.get('Warning').should('not.exist')
+  })
+
+  it('displays feature-specific server-side error', () => {
+    cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
+      if (hasOperationName(req, 'DeactivateWorkshopWork')) {
+        aliasMutation(req, 'DeactivateWorkshopWork')
+        errorResponse(req, DEACTIVATE_WORKSHOP_WORK_SERVER_SIDE_ERROR_RESPONSE)
+      }
+    })
+
+    cy.mountWithProviders(<DeactivateServiceConfirmationPage />, {
+      initialRouteEntries: ['/work/:id/deactivate-service'],
+      route: '/work/:id/deactivate-service',
+    })
+
+    cy.get('[aria-label="confirm"]').click()
+    cy.wait('@gqlDeactivateWorkshopWorkMutation')
+
+    cy.get(COMMON_TEST_SELECTORS.APP_MESSAGE).should('include.text', 'Work not found.')
   })
 })

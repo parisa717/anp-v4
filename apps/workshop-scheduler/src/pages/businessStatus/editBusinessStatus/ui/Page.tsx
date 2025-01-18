@@ -12,6 +12,7 @@ import {
 } from '@/entities/additionalBusinessStatus'
 import { useEditBusinessStatusMutation, useGetBusinessStatusQuery } from '@/entities/businessStatus'
 import { pageUrls, ROUTE_PATHS } from '@/shared/lib'
+import { APPLICATION_MESSAGE_TYPE } from '@/shared/model'
 import { ServerSideErrorsMessagesList } from '@/shared/ui'
 
 import { EditBusinessStatusFormSchema, editBusinessStatusFormSchema } from '../model/formSchema'
@@ -106,6 +107,12 @@ const EditBusinessStatusPage = ({ isAdditionalBusinessStatus }: EditBusinessStat
     >
       <ServerSideErrorsMessagesList
         page={isAdditionalBusinessStatus ? ROUTE_PATHS.BusinessStatus.EditAdditional : ROUTE_PATHS.BusinessStatus.Edit}
+        type={APPLICATION_MESSAGE_TYPE.SERVER_SIDE_GENERIC}
+        className="mb-8"
+      />
+      <ServerSideErrorsMessagesList
+        page={isAdditionalBusinessStatus ? ROUTE_PATHS.BusinessStatus.EditAdditional : ROUTE_PATHS.BusinessStatus.Edit}
+        type={APPLICATION_MESSAGE_TYPE.SERVER_SIDE_FEATURE_SPECIFIC}
         className="mb-8"
       />
       {(isSuccessGetBusinessStatus || isSuccessGetAdditionalBusinessStatus) && (

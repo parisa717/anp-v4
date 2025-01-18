@@ -36,13 +36,9 @@ export const LocationWork = ({ field, idx, isRemovingDisabled, onRemove }: Props
     formState: { errors },
   } = useFormContext<CreateLocationWorkFormSchema>()
 
-  const { data: locationDetails, isError: isLocationDetailsError } = useGetLocationQuery({ id })
+  const { data: locationDetails } = useGetLocationQuery({ id })
 
-  const {
-    data: workshopWorks,
-    isError: isWorkshopWorksError,
-    refetch: refetchWorkshopWorks,
-  } = useGetWorkshopWorksQuery({
+  const { data: workshopWorks, refetch: refetchWorkshopWorks } = useGetWorkshopWorksQuery({
     filter: {
       excludeServicesAssignedToTheLocation: id,
       brand: locationDetails?.brands.map((brand) => brand.id),
@@ -55,9 +51,6 @@ export const LocationWork = ({ field, idx, isRemovingDisabled, onRemove }: Props
   })
 
   const watchWorks = useWatch({ control, name: 'works' })
-
-  //TODO: Add proper error handling
-  if (isLocationDetailsError || isWorkshopWorksError) return <div>Error...</div>
 
   const selectedWorkIds = watchWorks.map((work) => work?.id)
   const workshopWorkOptions = workshopWorks?.works.filter((work) => !selectedWorkIds.includes(work.id)) ?? []

@@ -1,3 +1,3 @@
-import { GqlQualificationObjectType } from '@/shared/api/types.generated'
+import { GqlGetQualificationsQualificationObjectType } from '@/shared/api/types.generated'
 
-export type QualificationEntity = GqlQualificationObjectType
+export type QualificationEntity = GqlGetQualificationsQualificationObjectType

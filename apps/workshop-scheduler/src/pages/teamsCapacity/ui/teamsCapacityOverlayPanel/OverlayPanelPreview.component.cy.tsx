@@ -1,9 +1,9 @@
-import { GET_TEAM_CAPACITY } from '@cypress-fixtures'
-import { aliasQuery, errorResponse, hasOperationName, successResponse } from '@nexus-ui/utils'
+import { GET_TEAM_CAPACITY, GET_TEAM_CAPACITY_SERVER_SIDE_ERROR_RESPONSE } from '@cypress-fixtures'
+import { aliasQuery, COMMON_TEST_SELECTORS, errorResponse, hasOperationName, successResponse } from '@nexus-ui/utils'
 
 import { OverlayPanelPreview } from './OverlayPanelPreview'
 
-const teamCapacity = GET_TEAM_CAPACITY.getTeamCapacity.teamCapacity
+const teamCapacity = GET_TEAM_CAPACITY.getTeamCapacity
 
 describe('OverlayPanelPreview component', () => {
   beforeEach(() => {
@@ -39,21 +39,20 @@ describe('OverlayPanelPreview component', () => {
     cy.get('@onCloseClickSpy').should('have.been.called')
   })
 
-  it('does not render team capacity overlay panel when GQL query errors', () => {
+  it('displays feature-specific server-side error', () => {
     cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
       if (hasOperationName(req, 'GetTeamCapacity')) {
         aliasQuery(req, 'GetTeamCapacity')
-        errorResponse(req, {
-          message: 'User not authenticated',
-          path: ['currentUser'],
-          extensions: { code: 'UNAUTHENTICATED' },
-        })
+        errorResponse(req, GET_TEAM_CAPACITY_SERVER_SIDE_ERROR_RESPONSE)
       }
     })
 
-    cy.mountWithProviders(<OverlayPanelPreview onClose={() => {}} onEdit={() => {}} id="" startDate={new Date()} />)
+    cy.mountWithProviders(<OverlayPanelPreview onClose={cy.stub} onEdit={cy.stub} id="" startDate={new Date()} />, {
+      initialRouteEntries: ['/teams-capacity'],
+      route: '/teams-capacity',
+    })
     cy.wait('@gqlGetTeamCapacityQuery')
 
-    cy.contains('Error occured!').should('be.visible')
+    cy.get(COMMON_TEST_SELECTORS.APP_MESSAGE).should('include.text', 'Team not found.')
   })
 })

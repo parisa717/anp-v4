@@ -48,6 +48,7 @@ const EditWorkModal = () => {
       ...DefaultWork,
     },
     values: {
+      id: workDetails?.id ?? '',
       name: workDetails?.name ?? '',
       qualificationId: workDetails?.qualification?.id ?? '',
       isActive: workDetails?.isActive ?? false,
@@ -76,7 +77,7 @@ const EditWorkModal = () => {
         qualification: { id: data.qualificationId },
         brands: data.brands.map((brand) => ({
           id: brand.id,
-          timeUnits: typeof brand.timeUnits === 'string' ? parseInt(brand.timeUnits) : brand.timeUnits,
+          timeUnits: brand.timeUnits,
         })),
       },
     })

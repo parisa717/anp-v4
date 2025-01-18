@@ -1,19 +1,15 @@
 import { Checkbox, CheckboxChangeEvent } from 'primereact/checkbox'
-import { useEffect } from 'react'
+import { Dispatch, SetStateAction, useEffect } from 'react'
 
 import { useGetQualificationsQuery } from '@/entities/qualification'
 
 interface CalendarFiltersProps {
-  setFilters: React.Dispatch<React.SetStateAction<string[]>>
+  setFilters: Dispatch<SetStateAction<string[]>>
   filters: string[]
 }
 
 export const CalendarFilters = ({ setFilters, filters }: CalendarFiltersProps) => {
-  const {
-    data: qualificationsQueryData = [],
-    isLoading: isQualificationsQueryLoading,
-    isError: hasQualificationsQueryError,
-  } = useGetQualificationsQuery()
+  const { data: qualificationsQueryData = [], isLoading: isQualificationsQueryLoading } = useGetQualificationsQuery()
 
   useEffect(() => {
     if (qualificationsQueryData) {
@@ -21,9 +17,7 @@ export const CalendarFilters = ({ setFilters, filters }: CalendarFiltersProps) =
     }
   }, [qualificationsQueryData, setFilters])
 
-  // TODO add error/loading handling
   if (isQualificationsQueryLoading) return <div>Loading...</div>
-  if (hasQualificationsQueryError) return <div>Error occured!</div>
   if (!qualificationsQueryData.length) return <div>No filter available!</div>
 
   return (

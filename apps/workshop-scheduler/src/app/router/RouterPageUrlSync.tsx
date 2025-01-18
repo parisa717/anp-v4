@@ -11,13 +11,22 @@ import {
   useAppSelector,
 } from '@/shared/model'
 
-const ALL_ROUTE_PATHS = Object.values(ROUTE_PATHS).flatMap((section) =>
-  typeof section === 'string'
-    ? [section]
-    : Object.values(section).flatMap((subsection) =>
-        typeof subsection === 'string' ? [subsection] : Object.values(subsection),
-      ),
-)
+type RouteObject = {
+  [key: string]: string | RouteObject
+}
+
+const flattenRoutePaths = (paths: RouteObject) => {
+  return Object.entries(paths).reduce<string[]>((acc, [_, value]) => {
+    if (typeof value === 'string') {
+      acc.push(value)
+    } else {
+      acc.push(...flattenRoutePaths(value))
+    }
+    return acc
+  }, [])
+}
+
+const ALL_ROUTE_PATHS = flattenRoutePaths(ROUTE_PATHS)
 
 // Type guard function to verify if a string is a valid APPLICATION_MESSAGE_PAGE
 const isValidRoutePath = (path: string): path is APPLICATION_MESSAGE_PAGE => {
@@ -51,12 +60,9 @@ export const RouterPageUrlSync = () => {
     }
 
     // Find the matching route pattern
-    const matchingPattern = ALL_ROUTE_PATHS.find(
-      (pattern): pattern is APPLICATION_MESSAGE_PAGE =>
-        typeof pattern === 'string' && matchesPattern(pattern, location.pathname) && isValidRoutePath(pattern),
-    )
+    const matchingPattern = ALL_ROUTE_PATHS.find((pattern) => matchesPattern(pattern, location.pathname))
 
-    if (matchingPattern) {
+    if (matchingPattern && isValidRoutePath(matchingPattern)) {
       return matchingPattern
     }
 

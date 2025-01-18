@@ -1,7 +1,7 @@
 export { useErrorMessages } from './applicationMessage/useErrorMessages'
 export { useOperationFeedbackMessage } from './applicationMessage/useOperationFeedbackMessage'
+export { useServerSideValidation } from './applicationMessage/useServerSideValidation'
 export { pageUrls } from './config/pageUrls'
-export { DEFAULT_PAGINATION_PAGE_SIZE } from './config/pagination'
 export { ROUTE_PATHS } from './config/routePaths'
 export type { AllRoutePaths } from './config/routePathsTypes'
 export { getUrlSearchParamsFromRequest } from './router/getUrlSearchParamsFromRequest'

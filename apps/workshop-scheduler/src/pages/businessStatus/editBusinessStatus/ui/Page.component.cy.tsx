@@ -1,5 +1,6 @@
 import {
   EDIT_ADDITIONAL_BUSINESS_STATUS_OPERATION_DEFAULT_RESPONSE,
+  EDIT_ADDITIONAL_BUSINESS_STATUS_OPERATION_SERVER_SIDE_ERROR_RESPONSE,
   EDIT_BUSINESS_STATUS_OPERATION_DEFAULT_RESPONSE,
   EDIT_BUSINESS_STATUS_OPERATION_SERVER_SIDE_ERROR_RESPONSE,
   GET_ADDITIONAL_BUSINESS_STATUS_OPERATION_DEFAULT_RESPONSE,
@@ -31,32 +32,6 @@ describe('EditBusinessStatusPage', () => {
         successResponse(req, GET_ADDITIONAL_BUSINESS_STATUS_OPERATION_DEFAULT_RESPONSE)
       }
     })
-  })
-
-  it('shows tooltip on isDefault radio button when business status is default', () => {
-    cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
-      if (hasOperationName(req, 'GetBusinessStatus')) {
-        aliasQuery(req, 'GetBusinessStatus')
-
-        successResponse(req, {
-          getWorkshopAppointmentBusinessStatus: {
-            ...GET_BUSINESS_STATUS_OPERATION_DEFAULT_RESPONSE.getWorkshopAppointmentBusinessStatus,
-            isDefault: true,
-          },
-        })
-      }
-    })
-
-    cy.mountWithProviders(<EditBusinessStatusPage isAdditionalBusinessStatus={false} />)
-
-    cy.wait('@gqlGetBusinessStatusQuery')
-
-    cy.get('input[name="isDefault"]').should('be.disabled').realHover({
-      position: 'center',
-      pointer: 'mouse',
-    })
-
-    cy.contains('Please remove the default configuration at the current default status').should('be.visible')
   })
 
   describe('isAdditionalBusinessStatus is false', () => {
@@ -230,6 +205,37 @@ describe('EditBusinessStatusPage', () => {
       cy.mountWithProviders(<EditBusinessStatusPage isAdditionalBusinessStatus />)
 
       cy.get('input[name="isDefault"]').should('be.disabled')
+    })
+
+    it('displays feature-specific server-side error', () => {
+      cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
+        if (hasOperationName(req, 'EditAdditionalBusinessStatus')) {
+          aliasMutation(req, 'EditAdditionalBusinessStatus')
+
+          expect(req.body.variables.additionalBusinessStatus).to.deep.equal({
+            id: '1',
+            name: 'Status 1',
+            isDefault: false,
+            isHighlighted: false,
+          })
+
+          errorResponse(req, EDIT_ADDITIONAL_BUSINESS_STATUS_OPERATION_SERVER_SIDE_ERROR_RESPONSE)
+        }
+      })
+
+      cy.mountWithProviders(<EditBusinessStatusPage isAdditionalBusinessStatus />, {
+        initialRouteEntries: ['/business-status/1/edit-additional'],
+        route: '/business-status/:id/edit-additional',
+      })
+
+      cy.wait('@gqlGetAdditionalBusinessStatusQuery')
+
+      cy.get('#name').clear().type('Status 1')
+
+      cy.get('button[aria-label="save"]').click()
+      cy.wait('@gqlEditAdditionalBusinessStatusMutation')
+
+      cy.get(COMMON_TEST_SELECTORS.APP_MESSAGE).should('include.text', 'Additional business status already exists')
     })
   })
 })

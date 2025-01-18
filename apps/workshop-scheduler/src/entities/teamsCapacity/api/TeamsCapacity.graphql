@@ -1,44 +1,40 @@
-query GetLocationTeamsCalendar($locationId: UUID!, $startDate: String!, $endDate: String!) {
-  getLocationTeamsCalendar(locationId: $locationId, startDate: $startDate, endDate: $endDate) {
-    locationTeamsCalendar {
-      days {
-        date
-        capacities {
-          teamId
-          capacity
-          qualificationName
-        }
-      }
-      calendar {
-        entries {
-          id
-          type
-          isFullDay
-          startTime
-          endTime
-          startDate
-          endDate
-          period
-          periodicEnd
-          isEditable
-        }
-      }
-    }
-  }
-}
-
-query GetTeamCapacity($id: UUID!, $startDate: String!) {
-  getTeamCapacity(id: $id, startDate: $startDate) {
-    teamCapacity {
-      id
-      capacity
-      qualificationName
+query GetLocationTeamsCalendar($id: UUID!, $startDate: DateTime!, $endDate: DateTime!) {
+  getLocationTeamsCalendar(id: $id, startDate: $startDate, endDate: $endDate) {
+    days {
       date
+      capacities {
+        teamId
+        capacity
+        qualificationName
+      }
+    }
+    calendar {
+      entries {
+        id
+        type
+        isFullDay
+        startTime
+        endTime
+        startDate
+        endDate
+        period
+        periodicEnd
+        isEditable
+      }
     }
   }
 }
 
-mutation UpdateTeamCapacity($id: UUID!, $startDate: String!, $capacity: Int!) {
+query GetTeamCapacity($id: UUID!, $startDate: DateTime!) {
+  getTeamCapacity(id: $id, startDate: $startDate) {
+    id
+    capacity
+    qualificationName
+    date
+  }
+}
+
+mutation UpdateTeamCapacity($id: UUID!, $startDate: DateTime!, $capacity: Int!) {
   updateTeamCapacity(id: $id, startDate: $startDate, capacity: $capacity) {
     status
   }

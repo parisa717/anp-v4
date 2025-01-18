@@ -21,9 +21,9 @@ export const ROUTE_PATHS = {
     Details: {
       Root: '/location/:id/details',
       LocationWorks: {
-        create: `/location/:id/details/services/create`,
-        edit: `/location/:id/details/services/edit/:locationWorkId`,
-        remove: `/location/:id/details/services/remove/:locationWorkId`,
+        Create: `/location/:id/details/services/create`,
+        Edit: `/location/:id/details/services/edit/:locationWorkId`,
+        Remove: `/location/:id/details/services/remove/:locationWorkId`,
       },
     },
   },
@@ -35,6 +35,11 @@ export const ROUTE_PATHS = {
   ColorSetup: {
     Root: '/color-setup',
     Edit: '/color-setup/edit',
+  },
+  FollowUpWork: {
+    Root: '/work?tab=follow-up',
+    Add: '/work/add-followup-work',
+    Edit: '/work/:id/edit-followup-work',
   },
   Work: {
     Root: '/work',

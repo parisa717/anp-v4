@@ -1,3 +1,7 @@
+import { GraphQLError } from 'graphql/error'
+
+import { AreaErrorCode } from '@/entities/area'
+
 export const GET_AREA_OPERATION_DEFAULT_RESPONSE = {
   getArea: {
     id: '1',
@@ -5,7 +9,6 @@ export const GET_AREA_OPERATION_DEFAULT_RESPONSE = {
     name: 'AAC Albert Sigg GmbH',
     isActive: true,
     address: {
-      id: '1',
       country: {
         id: '1',
         name: 'Germany',
@@ -14,13 +17,25 @@ export const GET_AREA_OPERATION_DEFAULT_RESPONSE = {
       city: 'Markkleeberg',
       address: 'Magdeborner Str. 12',
     },
-    dms: {
-      id: 'dms_1',
-      name: 'DMS System',
+    dms: 'DMS System',
+    crm: 'CRM System',
+  },
+}
+
+export const CREATE_AREA_SERVER_SIDE_ERROR_RESPONSE: Partial<GraphQLError> = {
+  message: 'Area already exists.',
+  locations: [
+    {
+      line: 2,
+      column: 3,
     },
-    crm: {
-      id: 'crm_1',
-      name: 'CRM System',
+  ],
+  path: ['createArea'],
+  extensions: {
+    code: AreaErrorCode.AREA_ALREADY_EXISTS,
+    message: 'Area already exists.',
+    context: {
+      name: 'Area 1',
     },
   },
 }

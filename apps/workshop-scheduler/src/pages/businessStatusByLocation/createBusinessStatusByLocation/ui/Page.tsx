@@ -5,7 +5,8 @@ import { useNavigate } from 'react-router'
 import { useAssignAdditionalBusinessStatusesToLocationMutation } from '@/entities/additionalBusinessStatus'
 import { useAssignBusinessStatusesToLocationMutation } from '@/entities/businessStatus'
 import { useGetCurrentLocation } from '@/entities/location'
-import { pageUrls } from '@/shared/lib'
+import { pageUrls, ROUTE_PATHS } from '@/shared/lib'
+import { ServerSideErrorsMessagesList } from '@/shared/ui'
 
 import { FORM_ID } from '../config/formId'
 import { useCreateBusinessStatusByLocationPageData } from '../lib/useData'
@@ -49,6 +50,7 @@ const CreateBusinessStatusByLocationPage = ({
     handleAddAllStatuses,
     handleAddOneStatus,
     handleSubmit,
+    watch,
   } = useCreateBusinessStatusByLocationForm()
 
   const handleCancelClick = () => {
@@ -56,20 +58,22 @@ const CreateBusinessStatusByLocationPage = ({
   }
 
   const onSubmitHandler = async (data: CreateBusinessStatusByLocationFormSchema) => {
-    //TODO: Add error handling
+    let result
 
     if (isAdditionalBusinessStatus) {
-      await assignAdditionalBusinessStatusesToLocation({
+      result = await assignAdditionalBusinessStatusesToLocation({
         locationId,
         additionalBusinessStatuses: data.businessStatuses,
       })
     }
 
     if (!isAdditionalBusinessStatus) {
-      await assignBusinessStatusesToLocation({ locationId, businessStatuses: data.businessStatuses })
+      result = await assignBusinessStatusesToLocation({ locationId, businessStatuses: data.businessStatuses })
     }
 
-    navigate(pageUrls.businessStatusByLocation.root())
+    if (result?.data && !result?.error) {
+      navigate(pageUrls.businessStatusByLocation.root())
+    }
   }
 
   return (
@@ -83,6 +87,13 @@ const CreateBusinessStatusByLocationPage = ({
       isLoading={isLoading}
       notFound={notFound}
     >
+      <ServerSideErrorsMessagesList
+        page={
+          isAdditionalBusinessStatus
+            ? ROUTE_PATHS.BusinessStatusByLocation.CreateAdditional
+            : ROUTE_PATHS.BusinessStatusByLocation.Create
+        }
+      />
       <CreateBusinessStatusByLocationForm
         fields={fields}
         control={control}
@@ -92,6 +103,7 @@ const CreateBusinessStatusByLocationPage = ({
         onAddAll={handleAddAllStatuses}
         statusesSelectBoxOptions={statusesSelectBoxOptions}
         onSubmit={handleSubmit(onSubmitHandler)}
+        watch={watch}
         isAdditionalBusinessStatus={isAdditionalBusinessStatus}
       />
     </FormModal>

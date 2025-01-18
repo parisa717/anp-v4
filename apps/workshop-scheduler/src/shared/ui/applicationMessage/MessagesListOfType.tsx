@@ -1,11 +1,11 @@
 import { MessagesList } from '@nexus-ui/ui'
 import { MessagesProps as PrimeMessagesProps } from 'primereact/messages'
-import { memo, useEffect, useRef } from 'react'
+import { memo, useEffect } from 'react'
 
 import { useAppDispatch, useAppSelector } from '@/shared/model'
 
 import {
-  removeApplicationMessageById,
+  removeApplicationMessagesByPageAndType,
   selectApplicationMessagesByPageAndType,
 } from '../../model/applicationMessage/slice'
 import { APPLICATION_MESSAGE_PAGE, APPLICATION_MESSAGE_TYPE } from '../../model/applicationMessage/types'
@@ -19,17 +19,11 @@ export const MessagesListOfType = memo(({ page, type, ...otherProps }: MessagesL
   const applicationMessages = useAppSelector((state) => selectApplicationMessagesByPageAndType(state, page, type))
   const dispatch = useAppDispatch()
 
-  const currentMessageIdsRef = useRef<string[]>([])
-
   useEffect(() => {
-    currentMessageIdsRef.current = applicationMessages.map((message) => message.id)
-
     return () => {
-      currentMessageIdsRef.current.forEach((id) => {
-        dispatch(removeApplicationMessageById(id))
-      })
+      dispatch(removeApplicationMessagesByPageAndType({ page, type }))
     }
-  }, [applicationMessages, dispatch])
+  }, [dispatch, page, type])
 
   return <MessagesList {...otherProps} messages={applicationMessages} />
 })

@@ -1,4 +1,4 @@
-mutation CreateLocationWork($locationWorks: [GqlCreateWorkshopLocationWorkInput!]!) {
+mutation CreateLocationWork($locationWorks: [GqlWorkshopLocationWorksInputType!]!) {
   createWorkshopLocationWork(locationWorks: $locationWorks) {
     locationWorks {
       id
@@ -6,8 +6,13 @@ mutation CreateLocationWork($locationWorks: [GqlCreateWorkshopLocationWorkInput!
   }
 }
 
-query GetLocationWorks($locationId: UUID!) {
-  getLocationWorks(locationId: $locationId) {
+query GetLocationWorks(
+  $filter: GqlWorkshopLocationWorksFilterInputType
+  $sort: GqlWorkshopLocationWorksSortInputType
+  $offset: Float
+  $limit: Float
+) {
+  getWorkshopLocationWorks(filter: $filter, sort: $sort, offset: $offset, limit: $limit) {
     locationWorks {
       id
       locationId
@@ -20,7 +25,7 @@ query GetLocationWorks($locationId: UUID!) {
       isDescriptionEditable
       brands {
         id
-        name
+        code
         timeUnits
       }
       qualification {
@@ -31,8 +36,8 @@ query GetLocationWorks($locationId: UUID!) {
   }
 }
 
-mutation UpdateLocationWork($locationWork: GqlUpdateWorkshopLocationWorkInput!) {
-  updateWorkshopLocationWork(locationWork: $locationWork) {
+mutation UpdateLocationWork($workshopLocationWork: GqlUpdateWorkshopLocationWorkInputType!) {
+  updateWorkshopLocationWork(workshopLocationWork: $workshopLocationWork) {
     status
   }
 }
@@ -54,7 +59,7 @@ query GetLocationWork($id: UUID!) {
     capacityPerDayLimit
     brands {
       id
-      name
+      code
     }
     qualification {
       id

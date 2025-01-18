@@ -1,3 +1,6 @@
+import { GraphQLError } from 'graphql/error'
+
+import { FollowUpWorkErrorCode } from '@/entities/followUpWork'
 import { GetWorkshopFollowUpWorksQuery } from '@/entities/followUpWork/api/FollowUpWork.generated'
 
 export const GET_WORKSHOP_FOLLOW_UP_WORKS_DEFAULT_RESPONSE: GetWorkshopFollowUpWorksQuery = {
@@ -64,5 +67,33 @@ export const GET_WORKSHOP_FOLLOW_UP_WORKS_DEFAULT_RESPONSE: GetWorkshopFollowUpW
         },
       },
     ],
+  },
+}
+
+export const FOLLOWUP_WORK = {
+  id: '1',
+  name: 'Suspension and Steering Service',
+  timeUnits: 100,
+  isCapacityEditable: false,
+  isDescriptionEditable: false,
+  isActive: true,
+  qualification: { id: '0', name: 'Mechanics' },
+}
+
+export const CREATE_WORKSHOP_FOLLOW_UP_WORK_SERVER_SIDE_ERROR_RESPONSE: Partial<GraphQLError> = {
+  message: 'Follow Up Work already exists.',
+  locations: [
+    {
+      line: 2,
+      column: 3,
+    },
+  ],
+  path: ['createWorkshopFollowUpWork'],
+  extensions: {
+    code: FollowUpWorkErrorCode.FOLLOW_UP_WORK_ALREADY_EXISTS,
+    message: 'Follow Up Work already exists.',
+    context: {
+      name: 'Follow Up Work 1',
+    },
   },
 }

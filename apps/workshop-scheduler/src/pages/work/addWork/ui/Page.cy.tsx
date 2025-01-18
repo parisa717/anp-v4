@@ -1,5 +1,9 @@
-import { GET_BRANDS_OPERATION_DEFAULT_RESPONSE, GET_QUALIFICATIONS_DEFAULT_RESPONSE } from '@cypress-fixtures'
-import { aliasQuery, hasOperationName, successResponse } from '@nexus-ui/utils'
+import {
+  GET_BRANDS_OPERATION_DEFAULT_RESPONSE,
+  GET_QUALIFICATIONS_DEFAULT_RESPONSE,
+  GET_WORKSHOP_WORK_LOCATION_WORKS_DEFAULT_RESPONSE,
+} from '@cypress-fixtures'
+import { aliasMutation, aliasQuery, hasOperationName, successResponse } from '@nexus-ui/utils'
 
 import AddWorkPage from './Page'
 
@@ -13,6 +17,16 @@ const HEADER = 'h2'
 describe('AddWorkPage', () => {
   beforeEach(() => {
     cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
+      if (hasOperationName(req, 'CreateWorkshopWork')) {
+        aliasMutation(req, 'CreateWorkshopWork')
+        successResponse(req, {
+          createWorkshopWork: {
+            works: [{ id: '1' }],
+          },
+        })
+      }
+    })
+    cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
       if (hasOperationName(req, 'GetBrands')) {
         aliasQuery(req, 'GetBrands')
         successResponse(req, GET_BRANDS_OPERATION_DEFAULT_RESPONSE)
@@ -24,6 +38,12 @@ describe('AddWorkPage', () => {
           aliasQuery(req, 'GetQualifications')
           successResponse(req, GET_QUALIFICATIONS_DEFAULT_RESPONSE)
         }
+      }
+    })
+    cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
+      if (hasOperationName(req, 'GetWorkshopWorkLocationWorks')) {
+        aliasQuery(req, 'GetWorkshopWorkLocationWorks')
+        successResponse(req, GET_WORKSHOP_WORK_LOCATION_WORKS_DEFAULT_RESPONSE)
       }
     })
 
@@ -52,6 +72,9 @@ describe('AddWorkPage', () => {
     cy.get('input[name="brands.0.timeUnits"]').type('100')
 
     cy.contains('Assign locations').click()
+
+    cy.wait('@gqlGetWorkshopWorkLocationWorksQuery')
+
     cy.get(HEADER).contains('Assign locations').should('be.visible')
 
     cy.contains('Define service setup').click()
@@ -67,7 +90,11 @@ describe('AddWorkPage', () => {
     cy.get('input[name="brands.0.timeUnits"]').type('100')
 
     cy.get(HEADER).contains('Define service setup').should('be.visible')
+
     cy.get(NEXT_BUTTON).click()
+    cy.wait('@gqlCreateWorkshopWorkMutation')
+    cy.wait('@gqlGetWorkshopWorkLocationWorksQuery')
+
     cy.get(HEADER).contains('Assign locations').should('be.visible')
   })
 

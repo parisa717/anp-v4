@@ -2,10 +2,11 @@ query GetArea($id: UUID!) {
   getArea(id: $id) {
     id
     code
+    crm
+    dms
     name
     isActive
     address {
-      id
       country {
         id
         name
@@ -13,14 +14,6 @@ query GetArea($id: UUID!) {
       postCode
       city
       address
-    }
-    dms {
-      id
-      name
-    }
-    crm {
-      id
-      name
     }
   }
 }

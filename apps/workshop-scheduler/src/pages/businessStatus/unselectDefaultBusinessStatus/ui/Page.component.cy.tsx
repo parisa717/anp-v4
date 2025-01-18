@@ -1,5 +1,6 @@
 import {
   DEACTIVATE_ADDITIONAL_BUSINESS_STATUS_OPERATION_DEFAULT_RESPONSE,
+  DEACTIVATE_ADDITIONAL_BUSINESS_STATUS_WITH_DEFAULT_OPERATION_SERVER_SIDE_ERROR_RESPONSE,
   DEACTIVATE_BUSINESS_STATUS_OPERATION_DEFAULT_RESPONSE,
   DEACTIVATE_BUSINESS_STATUS_WITH_DEFAULT_OPERATION_SERVER_SIDE_ERROR_RESPONSE,
   GET_ADDITIONAL_BUSINESS_STATUSES_OPERATION_DEFAULT_RESPONSE,
@@ -172,6 +173,35 @@ describe('UnselectDefaultBusinessStatusPage', () => {
       cy.get('button[aria-label="save"]').click()
 
       cy.wait('@gqlDeactivateAdditionalBusinessStatusMutation')
+    })
+
+    it('displays feature-specific server-side error', () => {
+      cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
+        if (hasOperationName(req, 'DeactivateAdditionalBusinessStatus')) {
+          aliasMutation(req, 'DeactivateAdditionalBusinessStatus')
+
+          expect(req.body.variables).to.deep.equal({
+            id: '1',
+            defaultAdditionalBusinessStatusId: '2',
+          })
+
+          errorResponse(req, DEACTIVATE_ADDITIONAL_BUSINESS_STATUS_WITH_DEFAULT_OPERATION_SERVER_SIDE_ERROR_RESPONSE)
+        }
+      })
+
+      cy.mountWithProviders(<UnselectDefaultBusinessStatusPage isAdditionalBusinessStatus />, {
+        initialRouteEntries: [`/business-status/${BUSINESS_STATUS_ID}/unselect-default-additional`],
+        route: '/business-status/:id/unselect-default-additional',
+      })
+
+      cy.get('input[name="defaultBusinessStatusId"]').eq(0).parent().click()
+      cy.get('button[aria-label="save"]').click()
+
+      cy.wait('@gqlDeactivateAdditionalBusinessStatusMutation')
+      cy.get(COMMON_TEST_SELECTORS.APP_MESSAGE).should(
+        'include.text',
+        'An inactive additional status cannot be set as default.',
+      )
     })
   })
 })

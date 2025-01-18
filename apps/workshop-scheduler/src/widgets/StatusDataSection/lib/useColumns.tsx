@@ -1,4 +1,5 @@
 import { useTranslation } from '@nexus-ui/i18n'
+import { EntityStatusDropdown } from '@nexus-ui/ui'
 import { Button } from 'primereact/button'
 import { ColumnProps } from 'primereact/column'
 import { createSearchParams, Link, useNavigate } from 'react-router'
@@ -14,7 +15,7 @@ import {
 } from '@/entities/businessStatus'
 import { useGetCurrentLocation } from '@/entities/location'
 import { pageUrls } from '@/shared/lib'
-import { DeleteEntityButton, EntityStatusDropdown } from '@/shared/ui'
+import { DeleteEntityButton } from '@/shared/ui'
 
 import { BusinessStatusMode } from '../config/businessStatusModes'
 
@@ -32,10 +33,7 @@ export const useColumns = ({ isAdditionalBusinessStatus, mode }: useColumnsArgs)
   const { t } = useTranslation()
   const navigate = useNavigate()
 
-  //TODO: Add error handling
-
   const locationId = useGetCurrentLocation()
-  //TODO: Add error handling
   const [
     unassignBusinessStatusFromLocationMutation,
     { isLoading: isLoadingUnassignBusinessStatusFromLocationMutation },
@@ -98,7 +96,10 @@ export const useColumns = ({ isAdditionalBusinessStatus, mode }: useColumnsArgs)
         return (
           <DeleteEntityButton
             onDelete={() =>
-              unassignAdditionalBusinessStatusFromLocationMutation({ businessStatusId: cellData.id, locationId })
+              unassignAdditionalBusinessStatusFromLocationMutation({
+                additionalBusinessStatusId: cellData.id,
+                locationId,
+              })
             }
             isLoading={isLoadingUnassignAdditionalBusinessStatusFromLocationMutation}
           />

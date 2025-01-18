@@ -33,7 +33,6 @@ describe('Footer', () => {
   it('disables buttons when `isUpdating` is true', () => {
     cy.mount(<Footer onCancel={() => {}} onNext={() => {}} onSkipAndSave={() => {}} isUpdating={true} />)
 
-    cy.get(CANCEL_BUTTON).should('be.disabled')
     cy.get(SKIP_AND_SAVE_BUTTON).should('be.disabled')
     cy.get(NEXT_BUTTON).should('be.disabled')
   })

@@ -31,15 +31,17 @@ export const pageUrls: PageUrls = {
     details: {
       root: (id: string) => ROUTE_PATHS.Location.Details.Root.replace(':id', id),
       locationWorks: {
-        create: (id: string) => ROUTE_PATHS.Location.Details.LocationWorks.create.replace(':id', id),
+        create: (id: string) => ROUTE_PATHS.Location.Details.LocationWorks.Create.replace(':id', id),
         edit: (locationId: string, locationWorkId: string) =>
-          ROUTE_PATHS.Location.Details.LocationWorks.edit
-            .replace(':id', locationId)
-            .replace(':locationWorkId', locationWorkId),
+          ROUTE_PATHS.Location.Details.LocationWorks.Edit.replace(':id', locationId).replace(
+            ':locationWorkId',
+            locationWorkId,
+          ),
         remove: (locationId: string, locationWorkId: string) =>
-          ROUTE_PATHS.Location.Details.LocationWorks.remove
-            .replace(':id', locationId)
-            .replace(':locationWorkId', locationWorkId),
+          ROUTE_PATHS.Location.Details.LocationWorks.Remove.replace(':id', locationId).replace(
+            ':locationWorkId',
+            locationWorkId,
+          ),
       },
     },
   },
@@ -57,6 +59,11 @@ export const pageUrls: PageUrls = {
   },
   teamsCapacity: {
     root: () => ROUTE_PATHS.TeamsCapacity.Root,
+  },
+  followUpWork: {
+    root: () => ROUTE_PATHS.FollowUpWork.Root,
+    add: () => ROUTE_PATHS.FollowUpWork.Add,
+    edit: (id: string) => ROUTE_PATHS.FollowUpWork.Edit.replace(':id', id),
   },
   work: {
     root: () => ROUTE_PATHS.Work.Root,

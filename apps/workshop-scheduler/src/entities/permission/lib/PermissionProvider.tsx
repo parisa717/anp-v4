@@ -10,12 +10,15 @@ interface Props {
 
 export const PermissionProvider = ({ children, permissions }: Props) => {
   const hasPermissions = (requiredPermissions: PermissionSet[]) => {
-    return requiredPermissions?.every(({ entity, access: requiredAccess }) => {
-      const userPermission = permissions?.find((permission) => permission.name === entity)
-      if (!userPermission) return false
+    // TODO: Remove import.meta.env.PROD when permissions are synced with GW
+    return (
+      requiredPermissions?.every(({ entity, access: requiredAccess }) => {
+        const userPermission = permissions?.find((permission) => permission.name === entity)
+        if (!userPermission) return false
 
-      return requiredAccess.every((type) => userPermission.access.includes(type))
-    })
+        return requiredAccess.every((type) => userPermission.access.includes(type))
+      }) || import.meta.env.PROD
+    )
   }
 
   return (

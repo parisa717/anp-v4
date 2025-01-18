@@ -80,6 +80,8 @@ export const additionalBusinessStatusApi = api.enhanceEndpoints<TagTypes, ApiEnd
     },
     GetAdditionalBusinessStatusesByLocation: {
       transformResponse: (response: GetAdditionalBusinessStatusesByLocationQuery) =>
+        // TODO: Fix once business status by location operations are synced with GW
+        // @ts-expect-error Will be fixed once business status by location operations are synced with GW
         transformAdditionalBusinessStatuses(response.getLocationWorkshopAppointmentAdditionalBusinessStatuses),
       providesTags: cacher.cacheByIdArgProperty(ADDITIONAL_BUSINESS_STATUS_BY_LOCATION_TAG),
     },

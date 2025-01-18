@@ -118,7 +118,7 @@ export const serviceAdvisorCalendar: MockedGqlServiceAdvisorCalendar = {
     entries: [
       {
         // non full day, not periodic, signle day event,
-        id: '1',
+        id: '4e3c2674-4dbd-494d-a6df-423289a7786a',
         type: 'ADVISOR_BUFFER',
         isFullDay: false,
         startDate: '2024-12-10',
@@ -131,7 +131,7 @@ export const serviceAdvisorCalendar: MockedGqlServiceAdvisorCalendar = {
       },
       {
         // non full day, not periodic, signle day event,
-        id: '1',
+        id: '4e3c2674-4dbd-494d-a6df-423289a7786a',
         type: 'ADVISOR_BREAK',
         isFullDay: false,
         startDate: '2024-12-10',
@@ -144,7 +144,7 @@ export const serviceAdvisorCalendar: MockedGqlServiceAdvisorCalendar = {
       },
       {
         // non full day, not periodic, signle day event,
-        id: '1',
+        id: '4e3c2674-4dbd-494d-a6df-423289a7786a',
         type: 'ADVISOR_BREAK',
         isFullDay: false,
         startDate: '2024-12-10',
@@ -157,7 +157,7 @@ export const serviceAdvisorCalendar: MockedGqlServiceAdvisorCalendar = {
       },
       {
         // non full day, not periodic, signle day event,
-        id: '1',
+        id: '4e3c2674-4dbd-494d-a6df-423289a7786a',
         type: 'ADVISOR_BREAK',
         isFullDay: false,
         startDate: '2024-12-10',
@@ -170,7 +170,7 @@ export const serviceAdvisorCalendar: MockedGqlServiceAdvisorCalendar = {
       },
       {
         //non full day, periodic, single day event, period longer than one month
-        id: '2',
+        id: '4e3c2674-4dbd-494d-a6df-423289a7786a',
         type: 'ADVISOR_BREAK',
         isFullDay: false,
         startDate: '2024-12-02',
@@ -183,7 +183,7 @@ export const serviceAdvisorCalendar: MockedGqlServiceAdvisorCalendar = {
       },
       {
         //non full day, periodic, single day event, period shorter than one month
-        id: '3',
+        id: '4e3c2674-4dbd-494d-a6df-423289a7786a',
         type: 'ADVISOR_BUFFER',
         isFullDay: false,
         startDate: '2024-12-03',
@@ -196,7 +196,7 @@ export const serviceAdvisorCalendar: MockedGqlServiceAdvisorCalendar = {
       },
       {
         //  full day, not periodic, signle day event,
-        id: '4',
+        id: '4e3c2674-4dbd-494d-a6df-423289a7786a',
         type: 'ADVISOR_ABSENCE',
         isFullDay: true,
         startDate: '2024-12-19',
@@ -209,7 +209,7 @@ export const serviceAdvisorCalendar: MockedGqlServiceAdvisorCalendar = {
       },
       {
         //  full day, not periodic, multiple day event,
-        id: '5',
+        id: '4e3c2674-4dbd-494d-a6df-423289a7786a',
         type: 'ADVISOR_ABSENCE',
         isFullDay: true,
         startDate: '2024-12-16',
@@ -222,7 +222,7 @@ export const serviceAdvisorCalendar: MockedGqlServiceAdvisorCalendar = {
       },
       {
         //  full day, periodic, single day event, period longer than one month
-        id: '6',
+        id: '4e3c2674-4dbd-494d-a6df-423289a7786a',
         type: 'ADVISOR_ABSENCE',
         isFullDay: true,
         startDate: '2024-12-04',
@@ -235,7 +235,7 @@ export const serviceAdvisorCalendar: MockedGqlServiceAdvisorCalendar = {
       },
       {
         //  full day, periodic, single day event, period shorter than one month
-        id: '7',
+        id: '4e3c2674-4dbd-494d-a6df-423289a7786a',
         type: 'ADVISOR_ABSENCE',
         isFullDay: true,
         startDate: '2024-12-05',
@@ -248,7 +248,7 @@ export const serviceAdvisorCalendar: MockedGqlServiceAdvisorCalendar = {
       },
       {
         //  full day, periodic, multiple day event, period longer than one month
-        id: '8',
+        id: '4e3c2674-4dbd-494d-a6df-423289a7786a',
         type: 'ADVISOR_ABSENCE',
         isFullDay: true,
         startDate: '2024-12-02',
@@ -261,7 +261,7 @@ export const serviceAdvisorCalendar: MockedGqlServiceAdvisorCalendar = {
       },
       {
         //  full day, periodic, multiple day event, period shorter than one month
-        id: '9',
+        id: '4e3c2674-4dbd-494d-a6df-423289a7786a',
         type: 'ADVISOR_ABSENCE',
         isFullDay: true,
         startDate: '2024-12-06',

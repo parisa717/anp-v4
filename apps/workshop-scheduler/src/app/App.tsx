@@ -7,19 +7,17 @@ import { BrowserRouter, Route, Routes } from 'react-router'
 
 import { businessStatusRoutes } from '@/pages/businessStatus'
 import { businessStatusByLocationRoutes } from '@/pages/businessStatusByLocation'
-import { CalendarExamplePage } from '@/pages/calendar'
 import { colorSetupRoutes } from '@/pages/colorSetup'
 import { counterConfigurationRoutes } from '@/pages/counterConfiguration'
 import { locationRoutes } from '@/pages/location'
 import { locationServiceAdvisorRoutes } from '@/pages/locationServiceAdvisor'
 import { teamsCapacityRoutes } from '@/pages/teamsCapacity'
 import { workRoutes } from '@/pages/work'
-import { BaseLayout } from '@/widgets/baseLayout'
 
+import { AppLayout } from './AppLayout'
 import { Providers } from './providers'
 import { RouterPageUrlSync } from './router/RouterPageUrlSync'
 
-//TODO: Remove Route with calendar when it will be implemented in some Page
 function App() {
   return (
     <Providers>
@@ -27,7 +25,7 @@ function App() {
         <RouterPageUrlSync />
         <Suspense fallback={<ProgressSpinner />}>
           <Routes>
-            <Route element={<BaseLayout />}>
+            <Route element={<AppLayout />}>
               <Route index element={<div>Home</div>} />
               {businessStatusByLocationRoutes}
               {businessStatusRoutes}
@@ -37,7 +35,6 @@ function App() {
               {locationRoutes}
               {workRoutes}
               {teamsCapacityRoutes}
-              <Route path="calendar" element={<CalendarExamplePage />} />
             </Route>
           </Routes>
         </Suspense>

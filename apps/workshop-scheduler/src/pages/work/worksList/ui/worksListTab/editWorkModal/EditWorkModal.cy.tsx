@@ -1,11 +1,10 @@
 import { GET_BRANDS_OPERATION_DEFAULT_RESPONSE, GET_QUALIFICATIONS_DEFAULT_RESPONSE } from '@cypress-fixtures'
 import { aliasMutation, aliasQuery, hasOperationName, successResponse } from '@nexus-ui/utils'
 
-import { pageUrls } from '@/shared/lib'
-
 import EditWorkModal from './EditWorkModal'
 
 const CANCEL_BUTTON = 'button[aria-label="cancel"]'
+const SKIP_AND_SAVE_BUTTON = 'button[aria-label="Skip & save"]'
 const NEXT_BUTTON = 'button[aria-label="Next"]'
 
 const WORKSHOP_WORK = {
@@ -83,16 +82,6 @@ describe('EditWorkModal', () => {
   })
 
   it('submits the form with valid data', () => {
-    cy.wait(3000)
-
-    cy.get('input[name="name"]').clear().type('Test')
-
-    cy.get('input[name="isDescriptionEditable"]').check()
-    cy.get('input[name="isCapacityEditable"]').check()
-
-    cy.get('#qualificationId').click()
-    cy.contains('Mechanics').click()
-
     cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
       aliasMutation(req, 'UpdateWorkshopWork')
 
@@ -108,8 +97,19 @@ describe('EditWorkModal', () => {
       })
     })
 
-    cy.get(NEXT_BUTTON).click()
-    cy.url().should('include', pageUrls.work.root())
+    cy.wait(3000)
+    cy.contains('Edit service').should('be.visible')
+
+    cy.get('input[name="name"]').clear().type('Test')
+
+    cy.get('input[name="isDescriptionEditable"]').check()
+    cy.get('input[name="isCapacityEditable"]').check()
+
+    cy.get('#qualificationId').click()
+    cy.contains('Mechanics').click()
+
+    cy.get(SKIP_AND_SAVE_BUTTON).click()
+    cy.wait('@gqlUpdateWorkshopWorkMutation')
   })
 
   it('displays warning modal when new brand is added to the form', () => {
@@ -139,7 +139,9 @@ describe('EditWorkModal', () => {
   })
 
   it('cancels the form and navigates back', () => {
+    cy.wait(3000)
+
     cy.get(CANCEL_BUTTON).click()
-    cy.url().should('include', pageUrls.work.root())
+    cy.contains('Edit service').should('not.exist')
   })
 })

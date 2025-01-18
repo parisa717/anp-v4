@@ -24,7 +24,7 @@ export const Modal = ({ width, minWidth, visible, header, title, pt, ...otherPro
     header
   )
 
-  const mergedPt = merge(DIALOG_PT_ATTRIBUTES, pt || {})
+  const mergedPt = merge({}, DIALOG_PT_ATTRIBUTES, pt || {})
 
   return (
     <Dialog

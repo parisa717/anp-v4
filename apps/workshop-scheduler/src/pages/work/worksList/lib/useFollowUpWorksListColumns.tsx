@@ -1,14 +1,16 @@
 import { useTranslation } from '@nexus-ui/i18n'
+import { EntityStatusDropdown } from '@nexus-ui/ui'
 import { Button } from 'primereact/button'
 import { ColumnProps } from 'primereact/column'
-import { Link } from 'react-router'
+import { Link, useLocation } from 'react-router'
 
 import { FollowUpWorkEntity } from '@/entities/followUpWork'
 import { pageUrls } from '@/shared/lib'
-import { EntityStatusDropdown } from '@/shared/ui'
 
 export const useFollowUpWorksListColumns = () => {
   const { t } = useTranslation()
+
+  const { search } = useLocation()
 
   const translate = (key: string) => t(`pages.work.followUpWorksList.table.${key}`)
 
@@ -34,7 +36,7 @@ export const useFollowUpWorksListColumns = () => {
 
   const linkTemplate = (cellData: FollowUpWorkEntity) => {
     return (
-      <Link to={pageUrls.work.edit(cellData.id)}>
+      <Link to={pageUrls.followUpWork.edit(cellData.id) + search}>
         <Button
           link
           label={t('edit')}

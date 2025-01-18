@@ -1,12 +1,12 @@
-mutation CreateWorkshopFollowUpWork($followUpWork: GqlCreateWorkshopFollowUpWorkInput!) {
-  createWorkshopFollowUpWork(followUpWork: $followUpWork) {
+mutation CreateWorkshopFollowUpWork($workshopFollowUpWork: GqlCreateWorkshopFollowUpWorkInputType!) {
+  createWorkshopFollowUpWork(workshopFollowUpWork: $workshopFollowUpWork) {
     id
   }
 }
 
-mutation UpdateWorkshopFollowUpWork($followUpWork: GqlUpdateWorkshopFollowUpWorkInput!) {
-  updateWorkshopFollowUpWork(followUpWork: $followUpWork) {
-    id
+mutation UpdateWorkshopFollowUpWork($workshopFollowUpWork: GqlUpdateWorkshopFollowUpWorkInputType!) {
+  updateWorkshopFollowUpWork(workshopFollowUpWork: $workshopFollowUpWork) {
+    status
   }
 }
 
@@ -23,6 +23,21 @@ query GetWorkshopFollowUpWorks {
         id
         name
       }
+    }
+  }
+}
+
+query GetWorkshopFollowUpWork($id: UUID!) {
+  getWorkshopFollowUpWork(id: $id) {
+    id
+    name
+    timeUnits
+    isCapacityEditable
+    isDescriptionEditable
+    isActive
+    qualification {
+      id
+      name
     }
   }
 }

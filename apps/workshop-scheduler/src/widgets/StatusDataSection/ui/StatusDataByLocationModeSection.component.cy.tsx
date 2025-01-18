@@ -102,12 +102,21 @@ describe('StatusDataSection in Location Mode', () => {
         cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
           if (hasOperationName(req, 'GetBusinessStatusesByLocation')) {
             aliasQuery(req, 'GetBusinessStatusesByLocation')
-            successResponse(req, { businessStatuses: [] })
+            successResponse(req, {
+              getLocationWorkshopAppointmentBusinessStatuses: {
+                businessStatuses: [],
+              },
+            })
           }
         })
 
+        const store = getStore()
+
+        store.dispatch(setCurrentLocation(GET_LOCATIONS_OPERATION_DEFAULT_RESPONSE.getLocations.locations[0]))
+
         cy.mountWithProviders(
           <StatusDataSection isAdditionalBusinessStatus={false} mode={BusinessStatusMode.ByLocation} />,
+          { reduxStore: store },
         )
         cy.wait('@gqlGetBusinessStatusesByLocationQuery')
 
@@ -126,8 +135,13 @@ describe('StatusDataSection in Location Mode', () => {
           }
         })
 
+        const store = getStore()
+
+        store.dispatch(setCurrentLocation(GET_LOCATIONS_OPERATION_DEFAULT_RESPONSE.getLocations.locations[0]))
+
         cy.mountWithProviders(
           <StatusDataSection isAdditionalBusinessStatus={false} mode={BusinessStatusMode.ByLocation} />,
+          { reduxStore: store },
         )
         cy.wait('@gqlGetBusinessStatusesByLocationQuery')
 
@@ -164,8 +178,13 @@ describe('StatusDataSection in Location Mode', () => {
           }
         })
 
+        const store = getStore()
+
+        store.dispatch(setCurrentLocation(GET_LOCATIONS_OPERATION_DEFAULT_RESPONSE.getLocations.locations[0]))
+
         cy.mountWithProviders(
           <StatusDataSection isAdditionalBusinessStatus={false} mode={BusinessStatusMode.ByLocation} />,
+          { reduxStore: store },
         )
 
         cy.wait('@gqlGetBusinessStatusesByLocationQuery')
@@ -314,7 +333,7 @@ describe('StatusDataSection in Location Mode', () => {
             const firstNonDefaultRow = ADDITIONAL_BUSINESS_STATUSES_BY_LOCATION_DATA.find(
               (businessStatus) => !businessStatus.isDefault,
             )
-            expect(req.body.variables.businessStatusId).to.deep.equal(firstNonDefaultRow?.id)
+            expect(req.body.variables.additionalBusinessStatusId).to.deep.equal(firstNonDefaultRow?.id)
 
             successResponse(req, UNASSIGN_ADDITIONAL_BUSINESS_STATUS_FROM_LOCATION_OPERATION_DEFAULT_RESPONSE)
           }

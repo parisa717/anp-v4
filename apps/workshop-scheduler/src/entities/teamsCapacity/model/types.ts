@@ -1,9 +1,9 @@
 import {
-  GqlGetLocationTeamsCalendarDayCapacityObjectType,
+  GqlGetLocationTeamsCalendarDaysCapacitiesObjectType,
   GqlGetLocationTeamsCalendarObjectType,
   GqlGetTeamCapacityObjectType,
 } from '@/shared/api/types.generated'
 
-export type LocationTeamsCalendarEntity = GqlGetLocationTeamsCalendarObjectType['locationTeamsCalendar']
+export type LocationTeamsCalendarEntity = GqlGetLocationTeamsCalendarObjectType
 export type TeamCapacityEntity = GqlGetTeamCapacityObjectType
-export type LocationTeamsCalendarDayCapacity = GqlGetLocationTeamsCalendarDayCapacityObjectType
+export type LocationTeamsCalendarDayCapacity = GqlGetLocationTeamsCalendarDaysCapacitiesObjectType

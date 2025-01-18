@@ -5,8 +5,8 @@ export const transformLocationOverbooking = (
   locationOverbooking: QueryLocationOverbooking,
 ): LocationOverbookingEntity => {
   return {
-    capacityOverbookingMultiplier: locationOverbooking.locationOverbooking.capacityOverbookingMultiplier,
-    maxCapacityMultiplier: locationOverbooking.locationOverbooking.maxCapacityMultiplier,
-    minimumOverbookingMultiplier: locationOverbooking.locationOverbooking.minimumOverbookingMultiplier,
+    capacityOverbookingMultiplier: locationOverbooking.capacityOverbookingMultiplier,
+    maxCapacityMultiplier: locationOverbooking.maxCapacityMultiplier,
+    minimumOverbookingMultiplier: locationOverbooking.minimumOverbookingMultiplier,
   }
 }

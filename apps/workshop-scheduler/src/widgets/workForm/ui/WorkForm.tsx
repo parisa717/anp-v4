@@ -19,17 +19,12 @@ export const WorkForm = ({ control, errors, setValue, isEditMode = false }: Form
   const { t } = useTranslation()
   const translate = (key: string) => t(`pages.work.add.workSetupForm.${key}`)
 
-  const { data: qualifications, isError: isQualificationsError } = useGetQualificationsQuery(undefined, {
+  const { data: qualifications } = useGetQualificationsQuery(undefined, {
     selectFromResult: (result) => ({
       ...result,
       data: result.data?.map((qualification) => ({ value: qualification.id, label: qualification.name })),
     }),
   })
-
-  if (isQualificationsError) {
-    //TODO: Add proper error handling
-    return 'Error'
-  }
 
   const statuses = [
     {

@@ -3,8 +3,16 @@ import {
   GET_LOCATION_OVERBOOKING_DEFAULT_RESPONSE,
   MAX_CAPACITY_MULTIPLIER,
   MINIMUM_OVERBOOKING_MULTIPLIER,
+  UPDATE_LOCATION_OVERBOOKING_SERVER_SIDE_ERROR_RESPONSE,
 } from '@cypress-fixtures'
-import { aliasMutation, aliasQuery, hasOperationName, successResponse } from '@nexus-ui/utils'
+import {
+  aliasMutation,
+  aliasQuery,
+  COMMON_TEST_SELECTORS,
+  errorResponse,
+  hasOperationName,
+  successResponse,
+} from '@nexus-ui/utils'
 
 import { LocationOverbookingCapacity } from '../../model'
 import { LocationOverbooking } from './LocationOverbooking'
@@ -249,6 +257,35 @@ describe('LocationOverbooking', () => {
               throw new Error('Response body is not defined')
             }
           })
+        })
+
+        it('displays feature-specific server-side error', () => {
+          cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
+            if (hasOperationName(req, 'UpdateLocationOverbooking')) {
+              aliasMutation(req, 'UpdateLocationOverbooking')
+              errorResponse(req, UPDATE_LOCATION_OVERBOOKING_SERVER_SIDE_ERROR_RESPONSE)
+            }
+          })
+
+          cy.mountWithProviders(
+            <LocationOverbooking
+              isEditingDisabled={false}
+              locationId={LOCATION_ID}
+              onChangeEditedType={() => {}}
+              type={LocationOverbookingCapacity.Maximum}
+            />,
+            {
+              initialRouteEntries: ['/business-status-by-location'],
+              route: '/business-status-by-location',
+            },
+          )
+
+          cy.get('[data-pc-name="button"]').click()
+          cy.get('form').submit()
+
+          cy.wait('@gqlUpdateLocationOverbookingMutation')
+
+          cy.get(COMMON_TEST_SELECTORS.APP_MESSAGE).should('include.text', 'Overbooking for the location not found.')
         })
       })
     })

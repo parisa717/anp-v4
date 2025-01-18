@@ -18,12 +18,8 @@ export const CopyLocationWorkForm = ({ selectedBrand, onChange, errorText }: Pro
     data: locationDetails,
     isLoading: isLocationDetailsLoading,
     isSuccess: isLocationDetailsSuccess,
-    isError: isLocationDetailsError,
   } = useGetLocationQuery({ id })
 
-  //TODO: Add proper error/loading handling
-  if (isLocationDetailsError) return <div>Error...</div>
-  if (isLocationDetailsLoading) return <div>Loading...</div>
   if (!isLocationDetailsSuccess) return
 
   return (
@@ -32,6 +28,7 @@ export const CopyLocationWorkForm = ({ selectedBrand, onChange, errorText }: Pro
         value={selectedBrand}
         onChange={(e) => onChange(e.value)}
         options={locationDetails.brands}
+        loading={isLocationDetailsLoading}
         optionLabel="code"
         className="w-full"
       />

@@ -60,11 +60,9 @@ export const LocationCounterCalendarEditForm = ({ workDaysData, onCancel }: Loca
       ...value,
     }))
 
-    try {
-      await updateLocationCounterCalendar({ locationId, workDays })
-    } catch (_) {
-      // TODO add error handling
-    } finally {
+    const result = await updateLocationCounterCalendar({ locationId, workDays })
+
+    if (result.data && !result.error) {
       onCancel()
     }
   }

@@ -1,5 +1,5 @@
 import { useTranslation } from '@nexus-ui/i18n'
-import { DataTableSearchInput } from '@nexus-ui/ui'
+import { DataTableCheckedDropdown, DataTableSearchInput } from '@nexus-ui/ui'
 import { FilterMatchMode, FilterService } from 'primereact/api'
 import { Checkbox } from 'primereact/checkbox'
 import { ColumnProps } from 'primereact/column'
@@ -12,7 +12,6 @@ import {
   useCreateWorkshopConnectedLocationsMutation,
 } from '@/entities/location'
 import { IdParam } from '@/shared/lib'
-import { DataTableCheckedDropdown } from '@/shared/ui'
 
 // Custom filtering is enabled by defining a filter function using FilterService.register where the rule argument must be "custom_[field]" and the filter match mode of the field must be FilterMatchMode.CUSTOM. https://primereact.org/datatable/#custom_filter
 FilterService.register('custom_brands', (brands: LocationEntity['brands'], filterValue: string[]) => {

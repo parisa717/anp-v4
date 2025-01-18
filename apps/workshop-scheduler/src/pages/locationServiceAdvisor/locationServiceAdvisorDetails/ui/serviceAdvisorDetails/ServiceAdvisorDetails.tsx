@@ -1,5 +1,5 @@
+import { useTranslation } from '@nexus-ui/i18n'
 import { View } from 'react-big-calendar'
-import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router'
 
 import { useGetServiceAdvisorQuery } from '@/entities/locationServiceAdvisor'

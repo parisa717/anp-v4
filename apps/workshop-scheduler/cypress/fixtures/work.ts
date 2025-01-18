@@ -1,3 +1,6 @@
+import { GraphQLError } from 'graphql/error'
+
+import { WorkErrorCode } from '@/entities/work'
 import { GetWorkshopWorksQuery } from '@/entities/work/api/Work.generated'
 import {
   GqlGetWorkObjectType,
@@ -193,4 +196,188 @@ export const GET_WORKSHOP_WORK_DEFAULT_RESPONSE = {
       timeUnits: 900,
     },
   ],
+}
+
+export const GET_WORKSHOP_WORK_LOCATION_WORKS_DEFAULT_RESPONSE = {
+  getWorkshopWorkLocationWorks: {
+    locationWorks: [
+      {
+        location: {
+          name: 'location1',
+          id: '67cb774e-ed16-4a66-b3ee-1ebdd94af389',
+          code: '001',
+          brands: [
+            {
+              code: 'Opel',
+              id: 'brand_1',
+            },
+            {
+              code: 'Kia',
+              id: 'brand_2',
+            },
+          ],
+        },
+        locationWork: {
+          isRecommended: true,
+          id: '8b83c3f8-eb52-4fde-aa32-6d8ab2c40c17',
+          brands: [
+            {
+              id: 'brand_1',
+            },
+          ],
+        },
+      },
+      {
+        location: {
+          name: 'location2',
+          id: '67cb774e-ed16-4a66-b3ee-1ebdd94af382',
+          code: '002',
+          brands: [
+            {
+              code: 'Opel',
+              id: 'brand_1',
+            },
+            {
+              code: 'Kia',
+              id: 'brand_2',
+            },
+          ],
+        },
+        locationWork: {
+          isRecommended: false,
+          id: '8b83c3f8-eb52-4fde-aa32-6d8ab2c40c12',
+          brands: [
+            {
+              id: 'brand_1',
+            },
+            {
+              id: 'brand_2',
+            },
+          ],
+        },
+      },
+      {
+        location: {
+          name: 'location3',
+          id: '67cb774e-ed16-4a66-b3ee-1ebdd94af383',
+          code: '003',
+          brands: [
+            {
+              code: 'Opel',
+              id: 'brand_1',
+            },
+          ],
+        },
+        locationWork: {
+          isRecommended: false,
+          id: '8b83c3f8-eb52-4fde-aa32-6d8ab2c40c13',
+          brands: [
+            {
+              id: 'brand_1',
+            },
+          ],
+        },
+      },
+      {
+        location: {
+          name: 'location4',
+          id: '67cb774e-ed16-4a66-b3ee-1ebdd94af384',
+          code: '004',
+          brands: [
+            {
+              code: 'Opel',
+              id: 'brand_1',
+            },
+          ],
+        },
+        locationWork: null,
+      },
+      {
+        location: {
+          name: 'location5',
+          id: '67cb774e-ed16-4a66-b3ee-1ebdd94af385',
+          code: '005',
+          brands: [
+            {
+              code: 'Opel',
+              id: 'brand_1',
+            },
+          ],
+        },
+        locationWork: null,
+      },
+    ],
+  },
+}
+
+export const ACTIVATE_WORKSHOP_WORK_SERVER_SIDE_ERROR_RESPONSE: Partial<GraphQLError> = {
+  message: 'Work not found.',
+  locations: [
+    {
+      line: 2,
+      column: 3,
+    },
+  ],
+  path: ['activateWorkshopWork'],
+  extensions: {
+    code: WorkErrorCode.WORK_NOT_FOUND,
+    message: 'Work not found.',
+    context: {
+      id: '67cb774e-ed16-4a66-b3ee-1ebdd94af384',
+    },
+  },
+}
+
+export const DEACTIVATE_WORKSHOP_WORK_SERVER_SIDE_ERROR_RESPONSE: Partial<GraphQLError> = {
+  message: 'Work not found.',
+  locations: [
+    {
+      line: 2,
+      column: 3,
+    },
+  ],
+  path: ['deactivateWorkshopWork'],
+  extensions: {
+    code: WorkErrorCode.WORK_NOT_FOUND,
+    message: 'Work not found.',
+    context: {
+      id: '67cb774e-ed16-4a66-b3ee-1ebdd94af384',
+    },
+  },
+}
+
+export const CREATE_WORKSHOP_WORK_SERVER_SIDE_ERROR_RESPONSE: Partial<GraphQLError> = {
+  message: 'Work already exists.',
+  locations: [
+    {
+      line: 2,
+      column: 3,
+    },
+  ],
+  path: ['createWorkshopWork'],
+  extensions: {
+    code: WorkErrorCode.WORK_ALREADY_EXISTS,
+    message: 'Work already exists.',
+    context: {
+      name: 'Work 1',
+    },
+  },
+}
+
+export const GET_WORKSHOP_WORKS_SERVER_SIDE_ERROR_RESPONSE: Partial<GraphQLError> = {
+  message: 'Work not found.',
+  locations: [
+    {
+      line: 2,
+      column: 3,
+    },
+  ],
+  path: ['getWorkshopWorks'],
+  extensions: {
+    code: WorkErrorCode.WORK_NOT_FOUND,
+    message: 'Work not found.',
+    context: {
+      id: '67cb774e-ed16-4a66-b3ee-1ebdd94af384',
+    },
+  },
 }

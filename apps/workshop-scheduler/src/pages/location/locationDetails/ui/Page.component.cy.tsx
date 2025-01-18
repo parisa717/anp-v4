@@ -1,5 +1,10 @@
-import { GET_AREA_OPERATION_DEFAULT_RESPONSE, GET_LOCATION_OPERATION_DEFAULT_RESPONSE } from '@cypress-fixtures'
-import { aliasQuery, hasOperationName, successResponse } from '@nexus-ui/utils'
+import {
+  CREATE_AREA_SERVER_SIDE_ERROR_RESPONSE,
+  CREATE_CONNECTED_LOCATION_SERVER_SIDE_ERROR_RESPONSE,
+  GET_AREA_OPERATION_DEFAULT_RESPONSE,
+  GET_LOCATION_OPERATION_DEFAULT_RESPONSE,
+} from '@cypress-fixtures'
+import { aliasQuery, COMMON_TEST_SELECTORS, errorResponse, hasOperationName, successResponse } from '@nexus-ui/utils'
 
 import { AreaEntity } from '@/entities/area'
 import { LocationEntity } from '@/entities/location'
@@ -46,8 +51,8 @@ describe('LocationDetailsPage', () => {
           area.code,
           area.name,
           area.address.country.name,
-          area.dms.name,
-          area.crm.name,
+          area.dms,
+          area.crm,
           area.address.postCode,
           area.address.city,
           area.address.address,
@@ -91,7 +96,7 @@ describe('LocationDetailsPage', () => {
     })
 
     cy.mountWithProviders(<LocationDetailsPage />)
-    cy.wait('@gqlGetLocationQuery')
+
     cy.contains('No location details found').should('be.visible')
   })
 
@@ -106,5 +111,41 @@ describe('LocationDetailsPage', () => {
     cy.mountWithProviders(<LocationDetailsPage />)
     cy.wait('@gqlGetAreaQuery')
     cy.contains('No area details found').should('be.visible')
+  })
+
+  it('displays feature-specific server-side error for getLocation', () => {
+    cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
+      if (hasOperationName(req, 'GetLocation')) {
+        aliasQuery(req, 'GetLocation')
+        errorResponse(req, CREATE_CONNECTED_LOCATION_SERVER_SIDE_ERROR_RESPONSE)
+      }
+    })
+
+    cy.mountWithProviders(<LocationDetailsPage />, {
+      initialRouteEntries: ['/location/1/details'],
+      route: '/location/:id/details',
+    })
+
+    cy.wait('@gqlGetLocationQuery')
+
+    cy.get(COMMON_TEST_SELECTORS.APP_MESSAGE).should('include.text', 'Location already exists.')
+  })
+
+  it('displays feature-specific server-side error for getArea', () => {
+    cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
+      if (hasOperationName(req, 'GetArea')) {
+        aliasQuery(req, 'GetArea')
+        errorResponse(req, CREATE_AREA_SERVER_SIDE_ERROR_RESPONSE)
+      }
+    })
+
+    cy.mountWithProviders(<LocationDetailsPage />, {
+      initialRouteEntries: ['/location/1/details'],
+      route: '/location/:id/details',
+    })
+
+    cy.wait('@gqlGetAreaQuery')
+
+    cy.get(COMMON_TEST_SELECTORS.APP_MESSAGE).should('include.text', 'Area already exists.')
   })
 })

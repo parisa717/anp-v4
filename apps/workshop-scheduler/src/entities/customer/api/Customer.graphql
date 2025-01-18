@@ -1,0 +1,30 @@
+query GetCustomer($id: UUID!) {
+  getCustomer(id: $id) {
+    id
+    salutation
+    title
+    name
+    name2
+    name3
+    countryCode
+    postCode
+    city
+    address
+    address2
+    birthdate
+    salespersonCode
+    serviceAdvisor {
+      id
+      name
+    }
+    phones {
+      contactType
+      deviceType
+      phone
+    }
+    emails {
+      contactType
+      email
+    }
+  }
+}

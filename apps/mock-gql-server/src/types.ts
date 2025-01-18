@@ -29,16 +29,6 @@ export type Country = {
   name: string
 }
 
-export type Dms = {
-  id: string
-  name: string
-}
-
-export type Crm = {
-  id: string
-  name: string
-}
-
 export type Location = {
   id: string
   code: string

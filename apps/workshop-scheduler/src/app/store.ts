@@ -6,6 +6,7 @@ import { areaSlice } from '@/entities/area'
 import { availabilityColorSlice } from '@/entities/availabilityColor'
 import { brandSlice } from '@/entities/brand'
 import { businessStatusSlice } from '@/entities/businessStatus'
+import { customerSlice } from '@/entities/customer'
 import { customerVehicleSlice } from '@/entities/customerVehicle'
 import { followUpWorkSlice } from '@/entities/followUpWork'
 import { locationSlice } from '@/entities/location'
@@ -15,9 +16,11 @@ import { locationOverbookingSlice } from '@/entities/locationOverbooking'
 import { locationWorksSlice } from '@/entities/locationWork'
 import { permissionSlice } from '@/entities/permission'
 import { qualificationSlice } from '@/entities/qualification'
+import { vehicleSlice } from '@/entities/vehicle'
 import { workSlice } from '@/entities/work'
 import { baseApi } from '@/shared/api'
 import { applicationMessageSlice, createServerSideErrorListenerMiddleware, routerSlice } from '@/shared/model'
+import { createBookingSlice } from '@/widgets/createBooking'
 
 import { APP_SERVER_SIDE_ERROR_CODE_TO_MESSAGE_KEY, AppServerSideErrorCodes } from './appServerSideErrors'
 
@@ -47,6 +50,9 @@ export function getStore() {
       [permissionSlice.name]: permissionSlice.reducer,
       [routerSlice.name]: routerSlice.reducer,
       [customerVehicleSlice.name]: customerVehicleSlice.reducer,
+      [customerSlice.name]: customerSlice.reducer,
+      [vehicleSlice.name]: vehicleSlice.reducer,
+      [createBookingSlice.name]: createBookingSlice.reducer,
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(baseApi.middleware).concat(serverSideErrorListenerMiddleware.middleware),

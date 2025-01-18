@@ -1,92 +1,94 @@
 import { useTranslation } from '@nexus-ui/i18n'
-import { StepperModal } from '@nexus-ui/ui'
-import { useState } from 'react'
+import { Step, StepperModal } from '@nexus-ui/ui'
+import { cloneElement } from 'react'
 
+import { useAppDispatch, useAppSelector } from '@/shared/model'
+
+import { useCanProceedToStep, useStepValidation } from '../lib'
+import { BookingStep, resetCreateBooking, selectActiveStep, setActiveStep } from '../model/redux'
 import { CustomerAndVehicleStep } from './steps'
-import { StepWrapper } from './StepWrapper'
-
-const stepperModalPt = {
-  header: {
-    className: 'hidden',
-  },
-  content: {
-    className: 'p-4',
-  },
-}
-const stepperModalStepsPt = {
-  action: {
-    className: 'flex flex-row items-center justify-center gap-3 bg-teal-50',
-  },
-}
-const stepperModalClassname = {
-  stepperWrapper: 'flex min-h-[700px]',
-  stepper: 'bg-teal-50 py-9 pl-14 pr-20 border-r-2 border-y-0 border-l-0 border-solid border-teal-700 rounded',
-}
 
 export const CreateBookingStepperModal = ({ onClose }: { onClose: () => void }) => {
   const { t } = useTranslation()
   const translate = (key: string) => t(`widgets.createBooking.${key}`)
 
-  const [activeIndex, setActiveIndex] = useState(0)
+  const dispatch = useAppDispatch()
+  const activeIndex = useAppSelector(selectActiveStep)
+  const validateStep = useStepValidation()
+  const canProceedToStep = useCanProceedToStep()
 
-  const handleStepChange = (index: number) => {
-    setActiveIndex(index)
+  const handleStepNext = async () => {
+    if (activeIndex === BookingStep.SUMMARY) {
+      await handleSubmitBooking()
+    } else {
+      if (validateStep(activeIndex)) {
+        dispatch(setActiveStep(activeIndex + 1))
+      }
+    }
   }
 
-  const handleNextStepClick = () => setActiveIndex((index) => index + 1)
+  const handleStepPrev = () => {
+    if (activeIndex > 0) {
+      dispatch(setActiveStep(activeIndex - 1))
+    }
+  }
 
-  const handlePrevStepClick = () => setActiveIndex((index) => index && index - 1)
+  const handleStepChange = (index: number) => {
+    if (canProceedToStep(index)) {
+      dispatch(setActiveStep(index))
+    }
+  }
 
-  const formSteps = [
+  const handleClose = () => {
+    dispatch(resetCreateBooking())
+    onClose()
+  }
+
+  const handleSubmitBooking = async () => {
+    // TODO here we will prepare the data and make an API call
+
+    handleClose()
+  }
+
+  const stepFooterProps = (step: BookingStep) => ({
+    step,
+    isValid: validateStep(step),
+    onStepNext: handleStepNext,
+    onStepPrev: handleStepPrev,
+    onCancel: handleClose,
+    className: { root: 'h-[1312px]' },
+  })
+
+  const formSteps: Step[] = [
     {
       label: translate('steps.customerAndVehicle.title'),
       content: <CustomerAndVehicleStep />,
-      width: '70%',
     },
     {
       label: translate('steps.chooseService.title'),
       content: <div>STEP 2</div>,
-      width: '70%',
     },
     {
       label: translate('steps.receptionAndPickUpDate.title'),
       content: <div>STEP 3</div>,
-      width: '70%',
     },
     {
       label: translate('steps.summary.title'),
       content: <div>STEP 4</div>,
-      width: '70%',
     },
   ]
 
-  const isLastStep = activeIndex === formSteps.length - 1
-
-  const formStepsWithFooter = formSteps.map((step) => ({
+  const steps = formSteps.map((step) => ({
     ...step,
-    content: (
-      <StepWrapper
-        isFirstStep={!activeIndex}
-        isLastStep={isLastStep}
-        onNext={handleNextStepClick}
-        onPrev={handlePrevStepClick}
-        onCancel={onClose}
-      >
-        {step.content}
-      </StepWrapper>
-    ),
+    content: cloneElement(step.content, { stepFooterProps }),
   }))
 
   return (
     <StepperModal
       activeStepIndex={activeIndex}
       onStepperStepClick={handleStepChange}
-      steps={formStepsWithFooter}
+      steps={steps}
       stepsTitle={translate('title')}
-      minWidth={1855}
-      pt={stepperModalPt}
-      stepsPt={stepperModalStepsPt}
-      className={stepperModalClassname}
     />
   )
 }

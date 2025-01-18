@@ -3,6 +3,7 @@ import {
   GET_BRANDS_OPERATION_DEFAULT_RESPONSE,
   GET_QUALIFICATIONS_DEFAULT_RESPONSE,
   GET_WORKSHOP_WORKS_DEFAULT_RESPONSE,
+  GET_WORKSHOP_WORKS_SERVER_SIDE_ERROR_RESPONSE,
   paginateWorks,
   sortWorkshopWorks,
 } from '@cypress-fixtures'
@@ -105,22 +106,22 @@ describe('WorksListTab component', () => {
       cy.contains('No works to be carried out found').should('be.visible')
     })
 
-    it('does not render works list table rows when GQL query errors', () => {
+    it('displays feature-specific server-side error', () => {
       cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
         if (hasOperationName(req, 'GetWorkshopWorks')) {
           aliasQuery(req, 'GetWorkshopWorks')
-          errorResponse(req, {
-            message: 'User not authenticated',
-            path: ['currentUser'],
-            extensions: { code: 'UNAUTHENTICATED' },
-          })
+          errorResponse(req, GET_WORKSHOP_WORKS_SERVER_SIDE_ERROR_RESPONSE)
         }
       })
 
-      cy.mountWithProviders(<WorksListTab />)
+      cy.mountWithProviders(<WorksListTab />, {
+        initialRouteEntries: ['/work'],
+        route: '/work',
+      })
+
       cy.wait('@gqlGetWorkshopWorksQuery')
 
-      cy.get(ROW).should('not.exist')
+      cy.get(COMMON_TEST_SELECTORS.APP_MESSAGE).should('include.text', 'Work not found.')
     })
   })
 

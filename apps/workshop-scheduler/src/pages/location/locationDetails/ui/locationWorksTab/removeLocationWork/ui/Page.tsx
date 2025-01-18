@@ -1,9 +1,10 @@
+import { useTranslation } from '@nexus-ui/i18n'
 import { FormModal } from '@nexus-ui/ui'
-import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router'
 
 import { RemoveLocationWorkParams, useDeleteLocationWorkMutation } from '@/entities/locationWork'
-import { pageUrls } from '@/shared/lib'
+import { pageUrls, ROUTE_PATHS } from '@/shared/lib'
+import { ServerSideErrorsMessagesList } from '@/shared/ui'
 
 const RemoveLocationWorkPage = () => {
   const { t } = useTranslation()
@@ -20,13 +21,12 @@ const RemoveLocationWorkPage = () => {
   }
 
   const handleSubmitForm = async () => {
-    try {
-      await deleteLocationWork({
-        id: locationWorkId,
-      })
+    const result = await deleteLocationWork({
+      id: locationWorkId,
+    })
+
+    if (result.data && !result.error) {
       navigateToDetails()
-    } catch {
-      //TODO: handle error
     }
   }
 
@@ -40,6 +40,7 @@ const RemoveLocationWorkPage = () => {
       isUpdating={isDeleteLocationWorkLoading}
       isLoading={false}
     >
+      <ServerSideErrorsMessagesList page={ROUTE_PATHS.Location.Details.LocationWorks.Remove} className="mb-8" />
       <p className="text-xl text-bluegray-700 font-bold mt-0 mb-3 mx-0 text-center">{translate('description')}</p>
     </FormModal>
   )

@@ -37,7 +37,7 @@
             "name": "Beschreibung",
             "isDefault": {
               "label": "Als Standard festlegen",
-              "tooltip": "Bitte entfernen Sie die Standardkonfiguration beim aktuellen\n Standard-Status, um einen anderen Status als Standard-Status festlegen zu können."
+              "tooltip": "Sie können die Markierung als Standardstatus nicht entfernen.Um den Standardstatus zu ändern, gehen Sie bitte\n in die Bearbeitung des Status, welcher der neue Standardstatus werden soll und legen Sie diesen als Standard fest. "
             },
             "isActive": "Status",
             "isHighlighted": "Hervorgehoben in Annahmeterminen",
@@ -264,7 +264,7 @@
           "title": "Liste der durchzuführenden Arbeiten"
         },
         "followUpWorks": {
-          "title": "Durchzuführende Arbeiten für Follow-up-Termine"
+          "title": "Durchzuführende Arbeiten für Folgetermine"
         }
       },
       "worksList": {
@@ -310,7 +310,8 @@
         }
       },
       "followUpWorksList": {
-        "title": "Durchzuführende Arbeiten für Follow-up-Termine",
+        "title": "Durchzuführende Arbeiten für Folgetermine",
+        "addFollowUpWorkButton": "Durchzuführende Arbeit hinzufügen",
         "table": {
           "columnHeaders": {
             "followUpWorkName": "Beschreibung",
@@ -320,7 +321,7 @@
             "isCapacityEditable": "Kapazität änderbar",
             "isActive": "Status"
           },
-          "empty": "Keine durchzuführenden Follow-up Arbeiten gefunden"
+          "empty": "Keine durchzuführenden Folgetermine Arbeiten gefunden"
         },
         "dialogs": {
           "deactivateService": {
@@ -388,7 +389,28 @@
         "breadcrumbTitle": "Serviceberater Details",
         "bufferAppointments": {
           "weekly": "Wöchentlich",
-          "title": "Puffertermine"
+          "title": "Puffertermine",
+          "details": {
+            "title": "Abwesenheit",
+            "bufferDate": "Puffertermin",
+            "date": "Datum",
+            "time": "Uhrzeit",
+            "endDate": "Enddatum",
+            "delete": "Löschen"
+          },
+          "edit": {
+            "title": "Puffertermin bearbeiten",
+            "bufferDate": "Puffertermin",
+            "periodic": "Wöchentliche Wiederholung",
+            "date": "Datum",
+            "startTime": "Startzeit",
+            "endTime": "Endzeit",
+            "periodicEndDate": "Enddatum",
+            "validation": {
+              "invalidPeriodicDate": "Das Enddatum muss nach dem Startdatum liegen",
+              "invalidEndTime": "Die Endzeit muss später als die Startzeit liegen"
+            }
+          }
         }
       },
       "calendar": {
@@ -460,7 +482,7 @@
         "statusAndOverbookingConfiguration": "Status & Überbuchung Konfiguration",
         "counterConfiguration": "Counter Konfiguration",
         "serviceAdvisorConfiguration": "Serviceberater Konfiguration",
-        "teamsCapacity": "Teams Capacity",
+        "teamsCapacity": "Team Konfiguration",
         "userConfiguration": "Benutzer Konfiguration",
         "workToBeCarriedOut": "Durchzuführende Arbeiten",
         "locationConfiguration": "Standortkonfiguration",
@@ -477,6 +499,11 @@
         "customerAndVehicle": {
           "title": "Kunde & Fahrzeug",
           "subtitle": "Kunden und Fahrzeug suchen oder neu anlegen",
+          "messages": {
+            "warn": {
+              "unselectedVehicle": "Sie müssen eine Auswahl treffen, um in den nächsten Prozessschritt gehen zu können"
+            }
+          },
           "searchForm": {
             "customerName": "Kunde",
             "customerBirthDate": "Geburtsdatum",
@@ -489,6 +516,77 @@
           },
           "resultsList": {
             "found": "Gefunden"
+          },
+          "resultItem": {
+            "customerVehicles": "Kundenfahrzeuge",
+            "tables": {
+              "customerPersonalData": {
+                "name": "Kunde",
+                "birthdate": "Geburtsdatum",
+                "address": "Adresse",
+                "phone": "Mobil",
+                "city": "Stadt",
+                "zipCode": "Postleitzahl"
+              },
+              "customerVehicles": {
+                "vehicleLicencePlate": "Kennzeichen",
+                "vehicleVin": "Fahrgestellnummer",
+                "brand": "Marke",
+                "model": "Modell",
+                "type": "Typ",
+                "inspectionStatus": "Inspektionsstatus",
+                "nextEmissionsTest": "Nächste Abgasuntersuchung",
+                "nextMainInspection": "Nächste Hauptuntersuchung"
+              }
+            },
+            "buttons": {
+              "addVehicleDraft": "Entwurf von Fahrzeugen hinzufügen"
+            }
+          },
+          "detailsView": {
+            "customerAndVehicleDetails": "Kunden- und Fahrzeugdetails",
+            "customerInfoSection": {
+              "title": "Kundendaten",
+              "firstName": "Vorname",
+              "lastName": "Nachname",
+              "name2": "Name 2",
+              "customerId": "Kundennummer",
+              "birthDate": "Geburtsdatum",
+              "serviceAdvisorName": "Serviceberatername",
+              "privateTelephone": "Telefon privat",
+              "businessTelephone": "Telefon geschäftlich",
+              "privateMobile": "Mobiltelefon privat",
+              "businessMobile": "Mobiltelefon geschäftlich",
+              "privateEmail": "E-Mail privat",
+              "businessEmail": "E-Mail geschäftlich",
+              "titleCode": "Titel-Code",
+              "blocked": "Gesperrt",
+              "zipCode": "Postleitzahl",
+              "city": "Stadt",
+              "address": "Adresse",
+              "address2": "Adresse 2",
+              "countryCode": "Ländercode",
+              "addressSalutationCode": "Adressanredecode"
+            },
+            "vehicleInfoSection": {
+              "title": "Fahrzeuginformationen",
+              "registrationNumber": "Kennzeichen",
+              "brand": "Marke",
+              "model": "Modell",
+              "type": "Typ",
+              "vehicleStatus": "Fahrzeugstatus",
+              "firstRegistration": "Erstzulassung",
+              "customerRegistrationDate": "Datum Kundenzulassung",
+              "mileage": "Kilometerstand",
+              "nextMainInspectionDate": "Datum nächste Hauptuntersuchung",
+              "nextEmissionsInspectionDate": "Datum nächste Abgasuntersuchung",
+              "chassisNumber": "Fahrgestellnummer",
+              "vehicleModelNumber": "Fahrzeugmodellnummer",
+              "tyreStorageStatus": "Status Reifeneinlagerung"
+            },
+            "buttons": {
+              "editData": "Daten bearbeiten"
+            }
           }
         },
         "chooseService": {
@@ -504,6 +602,12 @@
     }
   },
   "serverSideErrors": {
+    "customer": {
+      "notFound": "Kunde nicht gefunden"
+    },
+    "vehicle": {
+      "notFound": "Fahrzeug nicht gefunden"
+    },
     "businessStatuses": {
       "statusExists": "Der Terminstatus existiert bereits. Bitte verwenden Sie eine andere Beschreibung.",
       "onlyOneCouldBeMarkedAsDefault": "Es muss genau ein aktiver Geschäftsstatus als Standard markiert sein.",
@@ -514,7 +618,12 @@
       "statusNotFound": "Geschäftsstatus wurde nicht gefunden."
     },
     "additionalBusinessStatuses": {
-      "statusExists": "Der Zusatzstatus existiert bereits. Bitte verwenden Sie eine andere Beschreibung."
+      "statusExists": "Der Zusatzstatus existiert bereits. Bitte verwenden Sie eine andere Beschreibung.",
+      "onlyOneCouldBeMarkedAsDefault": "Genau ein aktiver Zusatzstatus muss als Standard markiert sein.",
+      "atLeastOneActive": "Mindestens ein Zusatzstatus muss aktiv sein.",
+      "defaultCannotBeUnassigned": "Der Standard-Zusatzstatus kann dem Standort nicht entzogen werden.",
+      "inactiveCannotBeDefault": "Ein inaktiver Zusatzstatus kann nicht als Standard festgelegt werden.",
+      "statusNotFound": "Zusatzstatus wurde nicht gefunden."
     },
     "locations": {
       "alreadyExists": "Der Standort existiert bereits.",
@@ -524,6 +633,55 @@
       "countryDoesNotExists": "Das Land existiert nicht.",
       "couldNotBeActivated": "Der Standort konnte nicht aktiviert werden.",
       "brandIsNotAssigned": "Die Marke ist dem Standort nicht zugeordnet."
+    },
+    "areas": {
+      "alreadyExists": "Bereich existiert bereits.",
+      "notFound": "Bereich nicht gefunden.",
+      "couldNotBeActivated": "Bereich konnte nicht aktiviert werden.",
+      "countryDoesNotExists": "Land existiert nicht."
+    },
+    "locationWorks": {
+      "alreadyExists": "Standortarbeit existiert bereits.",
+      "notFound": "Standortarbeit wurde nicht gefunden.",
+      "locationNotExist": "Standort existiert nicht.",
+      "brandNotSupported": "Standort unterstützt die Marke nicht.",
+      "workshopWorkNotExist": "Werkstattarbeit existiert nicht.",
+      "brandNotExist": "Marke existiert nicht."
+    },
+    "locationOverbookings": {
+      "multiplierBelowMinimum": "Warnung: Multiplikator unter dem von AVAG definierten Minimum.",
+      "locationNotFound": "Standort nicht gefunden.",
+      "overbookingForLocationNotFound": "Überbuchung für den Standort nicht gefunden."
+    },
+    "availabilityColors": {
+      "capacityValues": "Die erste Verfügbarkeitsfarbe muss den Wert „minimalCapacity“ 0 haben, und die letzte Verfügbarkeitsfarbe muss den Wert „maximalCapacity“ undefiniert haben.",
+      "colorsCannotOverlap": "Verfügbarkeitsfarben dürfen sich nicht überlappen.",
+      "colorsCannotHaveGaps": "Zwischen verschiedenen Farben dürfen keine Lücken bestehen.",
+      "minHigherThanMax": "„minimalCapacity“ darf nicht größer sein als „maximalCapacity“.",
+      "configurationNumber": "Es können mindestens 2 und höchstens 4 verschiedene Farben konfiguriert werden."
+    },
+    "works": {
+      "alreadyExists": "Arbeit existiert bereits.",
+      "notFound": "Arbeit nicht gefunden.",
+      "qualificationNotExist": "Qualifikation existiert nicht.",
+      "brandNotExist": "Marke existiert nicht.",
+      "locationNotExist": "Standort existiert nicht.",
+      "locationNotSupportBrand": "Standort unterstützt die Marke nicht."
+    },
+    "followUpWorks": {
+      "alreadyExists": "Nachfassarbeit existiert bereits.",
+      "notFound": "Nachfassarbeit nicht gefunden.",
+      "qualificationNotExist": "Qualifikation existiert nicht."
+    },
+    "counters": {
+      "notFound": "Zähler nicht gefunden.",
+      "locationNotFound": "Standort nicht gefunden."
+    },
+    "capacity": {
+      "teamNotFound": "Team nicht gefunden.",
+      "teamsCapacityNotFound": "Kapazität des Teams nicht gefunden.",
+      "locationNotFound": "Standort nicht gefunden.",
+      "timeRangeTooBig": "Angeforderter Zeitbereich ist zu groß."
     }
   }
 }

@@ -1,6 +1,6 @@
+import { useTranslation } from '@nexus-ui/i18n'
 import { getDay } from 'date-fns'
 import { HeaderProps, View } from 'react-big-calendar'
-import { useTranslation } from 'react-i18next'
 
 import { mapDayNumberToDayName } from '@/entities/locationCounterCalendar'
 

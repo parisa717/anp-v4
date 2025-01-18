@@ -57,9 +57,9 @@ mutation ActivateBusinessStatus($id: UUID!) {
 
 mutation AssignBusinessStatusesToLocation(
   $locationId: UUID!
-  $businessStatuses: [GqlAssignLocationWorkshopAppointmentBusinessStatusInputType!]!
+  $businessStatuses: [GqlAssignLocationBusinessStatusesIdsInputType!]!
 ) {
-  assignLocationWorkshopAppointmentBusinessStatus(id: $locationId, businessStatuses: $businessStatuses) {
+  assignLocationWorkshopAppointmentBusinessStatus(locationId: $locationId, businessStatuses: $businessStatuses) {
     status
   }
 }

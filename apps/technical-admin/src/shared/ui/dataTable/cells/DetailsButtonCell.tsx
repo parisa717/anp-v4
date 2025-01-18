@@ -14,7 +14,6 @@ export const DetailsButtonCell = <T extends { id: string }>({ data, pageUrl }: D
 
   return (
     <Button
-      link
       label={t('details')}
       className="capitalize"
       icon="pi pi-chevron-right"

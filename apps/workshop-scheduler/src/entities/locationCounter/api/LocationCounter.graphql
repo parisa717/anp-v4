@@ -1,9 +1,7 @@
 query GetLocationCounter($locationId: UUID!) {
   getLocationCounter(locationId: $locationId) {
-    locationCounter {
-      id
-      receptionInterval
-    }
+    id
+    receptionInterval
   }
 }
 

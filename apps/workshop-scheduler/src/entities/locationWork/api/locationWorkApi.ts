@@ -35,12 +35,12 @@ export const locationWorkApi = api.enhanceEndpoints<TagTypes, ApiEndpointDefinit
       invalidatesTags: cacher.invalidatesList(LOCATION_WORK_TAG),
     },
     GetLocationWorks: {
-      transformResponse: (response: GetLocationWorksQuery) => response.getLocationWorks.locationWorks,
+      transformResponse: (response: GetLocationWorksQuery) => response.getWorkshopLocationWorks.locationWorks,
       providesTags: cacher.providesList(LOCATION_WORK_TAG),
     },
     UpdateLocationWork: {
       invalidatesTags: (result, error, arg) => {
-        return cacher.cacheByIdArg(LOCATION_WORK_TAG)(result, error, arg.locationWork.id)
+        return cacher.cacheByIdArg(LOCATION_WORK_TAG)(result, error, arg.workshopLocationWork.id)
       },
     },
     DeleteLocationWork: {

@@ -1,9 +1,17 @@
 import {
   CREATE_LOCATION_WORK_OPERATION_DEFAULT_RESPONSE,
+  CREATE_LOCATION_WORK_SERVER_SIDE_ERROR_RESPONSE,
   GET_LOCATION_OPERATION_DEFAULT_RESPONSE,
   GET_WORKSHOP_WORKS_DEFAULT_RESPONSE,
 } from '@cypress-fixtures'
-import { aliasMutation, aliasQuery, hasOperationName, successResponse } from '@nexus-ui/utils'
+import {
+  aliasMutation,
+  aliasQuery,
+  COMMON_TEST_SELECTORS,
+  errorResponse,
+  hasOperationName,
+  successResponse,
+} from '@nexus-ui/utils'
 
 import CreateLocationWorkPage from './Page'
 
@@ -82,6 +90,31 @@ describe('CreateLocationWorkPage', () => {
         cy.get('[data-pc-name="inputtext"]').eq(1).type(capacityPerDayLimit.toString())
         cy.get('button[aria-label="save"]').click()
         cy.wait('@gqlCreateLocationWorkMutation')
+      })
+
+      it('displays feature-specific server-side error', () => {
+        const capacityPerDayLimit = 50
+
+        cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
+          if (hasOperationName(req, 'CreateLocationWork')) {
+            aliasMutation(req, 'CreateLocationWork')
+            errorResponse(req, CREATE_LOCATION_WORK_SERVER_SIDE_ERROR_RESPONSE)
+          }
+        })
+
+        cy.mountWithProviders(<CreateLocationWorkPage />, {
+          initialRouteEntries: ['/location/1/details/services/create'],
+          route: '/location/:id/details/services/create',
+        })
+
+        cy.get('[data-pc-name="autocomplete"]').first().click().type('sus')
+        cy.get(`[data-pc-section="item"]:contains(Suspension and Steering Service)`).eq(0).click()
+        cy.contains(`label`, 'Opel').click()
+        cy.get('[data-pc-name="inputtext"]').eq(1).type(capacityPerDayLimit.toString())
+        cy.get('button[aria-label="save"]').click()
+        cy.wait('@gqlCreateLocationWorkMutation')
+
+        cy.get(COMMON_TEST_SELECTORS.APP_MESSAGE).should('include.text', 'Location Work already exists.')
       })
     })
   })

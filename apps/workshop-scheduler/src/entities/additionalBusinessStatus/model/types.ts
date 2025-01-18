@@ -1,3 +1,3 @@
-import { GqlAdditionalBusinessStatusObjectType } from '@/shared/api/types.generated'
+import { GqlGetAdditionalBusinessStatusObjectType } from '@/shared/api/types.generated'
 
-export type AdditionalBusinessStatusEntity = GqlAdditionalBusinessStatusObjectType
+export type AdditionalBusinessStatusEntity = GqlGetAdditionalBusinessStatusObjectType

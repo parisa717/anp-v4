@@ -26,7 +26,7 @@ export const DataTableDropdown = ({ pt, ...props }: DropdownProps) => {
     },
   }
 
-  const mergedPt = merge(defaultPt, pt || {})
+  const mergedPt = merge({}, defaultPt, pt || {})
 
   return function filterElement({ value, filterApplyCallback }: ColumnFilterElementTemplateOptions) {
     return (

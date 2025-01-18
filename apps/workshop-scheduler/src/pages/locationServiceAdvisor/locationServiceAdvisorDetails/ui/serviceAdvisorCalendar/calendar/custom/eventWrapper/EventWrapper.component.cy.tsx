@@ -15,8 +15,8 @@ const irrelevantProps: Omit<EventWrapperProps, 'event'> = {
   selected: false,
 }
 const eventTypeName = 'type name'
-const timeFrom = '10:00'
-const timeTo = '18:00'
+const startTime = '10:00'
+const endTime = '18:00'
 
 describe('EventWrapper', () => {
   describe('all day event', () => {
@@ -37,13 +37,13 @@ describe('EventWrapper', () => {
       cy.mountWithProviders(
         <EventWrapper
           view="week"
-          event={{ resource: { eventTypeName: eventTypeName, allDay: false, timeFrom, timeTo } }}
+          event={{ resource: { eventTypeName: eventTypeName, allDay: false, startTime, endTime } }}
           {...irrelevantProps}
         />,
       )
       cy.contains(eventTypeName).should('be.visible')
-      cy.contains(timeFrom).should('be.visible')
-      cy.contains(timeTo).should('be.visible')
+      cy.contains(startTime).should('be.visible')
+      cy.contains(endTime).should('be.visible')
     })
   })
 
@@ -52,13 +52,13 @@ describe('EventWrapper', () => {
       cy.mountWithProviders(
         <EventWrapper
           view="month"
-          event={{ resource: { eventTypeName: eventTypeName, allDay: false, timeFrom, timeTo } }}
+          event={{ resource: { eventTypeName: eventTypeName, allDay: false, startTime, endTime } }}
           {...irrelevantProps}
         />,
       )
       cy.contains(eventTypeName).should('be.visible')
-      cy.contains(timeFrom).should('be.visible')
-      cy.contains(timeTo).should('be.visible')
+      cy.contains(startTime).should('be.visible')
+      cy.contains(endTime).should('be.visible')
     })
   })
 })

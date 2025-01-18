@@ -20,7 +20,6 @@ export const Footer = ({ onCancel, onNext, onSkipAndSave, isUpdating }: ModalFoo
         label={translate('cancelButton')}
         onClick={onCancel}
         className="capitalize"
-        loading={isUpdating}
       />
       <div className="flex gap-2">
         <Button

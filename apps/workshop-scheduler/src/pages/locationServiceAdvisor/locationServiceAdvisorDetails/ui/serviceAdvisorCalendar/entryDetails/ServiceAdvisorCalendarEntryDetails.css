@@ -1,0 +1,4 @@
+.p-overlaypanel::before,
+.p-overlaypanel::after {
+  display: none;
+}

@@ -1,4 +1,12 @@
 {
+  "stored": "Stored",
+  "notStored": "Not stored",
+  "yes": "yes",
+  "no": "no",
+  "item": "item",
+  "items": "items",
+  "search": "search",
+  "clear": "Clear",
   "back": "back",
   "next": "next",
   "minutes": "minutes",

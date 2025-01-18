@@ -20,15 +20,15 @@ query GetAdditionalBusinessStatus($id: UUID!) {
   }
 }
 
-mutation CreateAdditionalBusinessStatuses(
-  $additionalBusinessStatuses: [GqlCreateAdditionalBusinessStatusesInputType!]!
-) {
-  createAdditionalBusinessStatuses(additionalBusinessStatuses: $additionalBusinessStatuses) {
-    status
+mutation CreateAdditionalBusinessStatuses($additionalBusinessStatuses: [GqlCreateAdditionalBusinessStatusInputType!]!) {
+  createWorkshopAppointmentAdditionalBusinessStatus(additionalBusinessStatuses: $additionalBusinessStatuses) {
+    additionalBusinessStatuses {
+      id
+    }
   }
 }
 
-mutation EditAdditionalBusinessStatus($additionalBusinessStatus: GqlEditAdditionalBusinessStatusInputType!) {
+mutation EditAdditionalBusinessStatus($additionalBusinessStatus: GqlUpdateAdditionalBusinessStatusInputType!) {
   updateWorkshopAppointmentAdditionalBusinessStatus(additionalBusinessStatus: $additionalBusinessStatus) {
     status
   }
@@ -63,20 +63,20 @@ query GetAdditionalBusinessStatusesByLocation($id: UUID!) {
 
 mutation AssignAdditionalBusinessStatusesToLocation(
   $locationId: UUID!
-  $additionalBusinessStatuses: [GqlAssignLocationWorkshopAdditionalAppointmentBusinessStatusInputType!]!
+  $additionalBusinessStatuses: [GqlAssignLocationAdditionalBusinessStatusesIdsInputType!]!
 ) {
   assignLocationWorkshopAppointmentAdditionalBusinessStatus(
-    id: $locationId
+    locationId: $locationId
     additionalBusinessStatuses: $additionalBusinessStatuses
   ) {
     status
   }
 }
 
-mutation UnassignAdditionalBusinessStatusFromLocation($locationId: UUID!, $businessStatusId: UUID!) {
+mutation UnassignAdditionalBusinessStatusFromLocation($locationId: UUID!, $additionalBusinessStatusId: UUID!) {
   unassignLocationWorkshopAppointmentAdditionalBusinessStatus(
     locationId: $locationId
-    businessStatusId: $businessStatusId
+    additionalBusinessStatusId: $additionalBusinessStatusId
   ) {
     status
   }

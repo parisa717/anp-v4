@@ -14,6 +14,11 @@ export const getMenuItems = (t: TFunction): MenuItem[] => {
           url: pageUrls.areas.root(),
         },
         {
+          label: t('widgets.baseLayout.menuItems.locations'),
+          icon: 'pi pi-map-marker',
+          url: pageUrls.locations.root(),
+        },
+        {
           label: t('widgets.baseLayout.menuItems.brands'),
           icon: 'pi pi-car',
           url: pageUrls.brands.root(),

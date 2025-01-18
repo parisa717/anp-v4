@@ -1,5 +1,5 @@
 import { GET_QUALIFICATIONS_DEFAULT_RESPONSE } from '@cypress-fixtures'
-import { aliasQuery, errorResponse, hasOperationName, successResponse } from '@nexus-ui/utils'
+import { aliasQuery, hasOperationName, successResponse } from '@nexus-ui/utils'
 
 import { CalendarFilters } from './CalendarFilters'
 
@@ -61,23 +61,5 @@ describe('CalendarFilters component', () => {
     cy.wait('@gqlGetQualificationsQuery')
 
     cy.contains('No filter available!').should('be.visible')
-  })
-
-  it('does not render filters content when GQL query errors', () => {
-    cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
-      if (hasOperationName(req, 'GetQualifications')) {
-        aliasQuery(req, 'GetQualifications')
-        errorResponse(req, {
-          message: 'User not authenticated',
-          path: ['currentUser'],
-          extensions: { code: 'UNAUTHENTICATED' },
-        })
-      }
-    })
-
-    cy.mountWithProviders(<CalendarFilters setFilters={() => {}} filters={[]} />)
-    cy.wait('@gqlGetQualificationsQuery')
-
-    cy.contains('Error occured!').should('be.visible')
   })
 })

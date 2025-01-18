@@ -3,28 +3,17 @@ import {
   additionalBusinessStatusesByLocation,
   addresses,
   areas,
-  availabilityColors,
   businessStatuses,
   businessStatusesByLocation,
   countries,
   crms,
   dmss,
-  followUpWorks,
-  locationCounter,
-  locationCounterCalendarWorkDays,
-  locationOverbooking,
-  locationTeamsCalendar,
-  locationWork,
-  locationWorks,
   MockedGqlWorkshopFollowUpWork,
   MockedGqlWorkshopWork,
   permissions,
-  qualifications,
   simplifiedBrands,
-  teamCapacity,
   works,
   workshopBrands,
-  workshopConnectedLocations,
   workshopQualifications,
 } from '../mockData'
 import { Address, Area, Location } from '../types'
@@ -59,59 +48,16 @@ interface GqlCreateLocationInputType {
 
 const getCountryByAddress = (parent: Address) => countries.find((country) => country.id === parent.countryId)
 
-const getAddressById = (addressId: string) => {
-  const address = addresses.find((address) => address.id === addressId)
-  if (!address) return null
-
-  const country = countries.find((country) => country.id === address.countryId)
-
-  return {
-    ...address,
-    country: country ? { id: country.id, name: country.name } : { id: '0', name: 'Unknown' },
-  }
-}
-
-const getDmsById = (dmsId: string) => {
-  const dms = dmss.find((dms) => dms.id === dmsId)
-  return dms ? { id: dms.id, name: dms.name } : null
-}
-
-const getCrmById = (crmId: string) => {
-  const crm = crms.find((crm) => crm.id === crmId)
-  return crm ? { id: crm.id, name: crm.name } : null
-}
-
 export const resolverMap = {
   Query: {
     areas() {
       return areas
-    },
-    getArea(_: unknown, { id }: { id: string }) {
-      const area = areas.find((area) => area.id === id)
-
-      if (!area) return null
-
-      return {
-        id: area.id,
-        code: area.code,
-        name: area.name,
-        isActive: area.isActive,
-        address: getAddressById(area.addressId),
-        dms: getDmsById(area.dmsId),
-        crm: getCrmById(area.crmId),
-      }
     },
     addresses() {
       return addresses
     },
     countries() {
       return countries
-    },
-    dmss() {
-      return dmss
-    },
-    crms() {
-      return crms
     },
     getWorkshopAppointmentBusinessStatus() {
       return businessStatuses[0]
@@ -134,56 +80,8 @@ export const resolverMap = {
         additionalBusinessStatuses: additionalBusinessStatusesByLocation,
       }
     },
-    getWorkshopConnectedLocations() {
-      return {
-        workshopConnectedLocations: workshopConnectedLocations,
-      }
-    },
-    getAvailabilityColors() {
-      return {
-        availabilityColors,
-      }
-    },
-    getLocationOverbooking(_: unknown) {
-      return {
-        locationOverbooking: locationOverbooking[0],
-      }
-    },
-    getLocationTeamsCalendar() {
-      return {
-        locationTeamsCalendar,
-      }
-    },
-    getTeamCapacity() {
-      return {
-        teamCapacity,
-      }
-    },
-    getQualifications() {
-      return {
-        qualifications: qualifications,
-      }
-    },
-    getLocationWorks(_: unknown) {
-      return {
-        locationWorks,
-      }
-    },
-    getLocationCounter() {
-      return {
-        locationCounter,
-      }
-    },
-    getLocationCounterCalendar() {
-      return {
-        workDays: locationCounterCalendarWorkDays,
-      }
-    },
     getUserPermissions(_: unknown) {
       return { permissions }
-    },
-    getWorkshopLocationWork(_: unknown) {
-      return locationWork
     },
     ...workshopWorksResolver,
     ...workshopFollowUpWorksResolver,
@@ -194,10 +92,6 @@ export const resolverMap = {
       id: 'mocked-area-id',
       code: area.code,
     }),
-    updateTeamCapacity: () => ({
-      id: 'mocked-team-capacity',
-      status: true,
-    }),
     createLocation: (_: unknown, { location }: { location: GqlCreateLocationInputType }) => ({
       operationId: 'mocked-location-id',
       ...location,
@@ -207,40 +101,12 @@ export const resolverMap = {
       operationId: 'mocked-additional-business-statuses-id',
       status: true,
     }),
-    createWorkshopConnectedLocations: (
-      _: unknown,
-      {
-        connectedLocationId,
-      }: {
-        connectedLocationId: string
-      },
-    ) => ({
-      operationId: 'mocked-create-workshop-connected-location-id',
-      connectedLocationId,
-      status: true,
-    }),
     createWorkshopWork: () => {
       return {
         operationId: 'mocked-create-workshop-work',
         works,
       }
     },
-    updateWorkshopFollowUpWork: () => {
-      return {
-        operationId: 'mocked-update-workshop-followup-work',
-        status: true,
-      }
-    },
-    createWorkshopFollowUpWork: () => {
-      return {
-        operationId: 'mocked-create-workshop-followup-work',
-        followUpWorks,
-      }
-    },
-    deleteWorkshopConnectedLocations: () => ({
-      operationId: 'mocked-delete-workshop-connected-location-id',
-      status: true,
-    }),
     updateWorkshopAppointmentBusinessStatus: () => ({
       operationId: 'mocked-edit-business-status-id',
       status: true,
@@ -285,55 +151,8 @@ export const resolverMap = {
       operationId: 'mocked-reorder-business-statuses',
       status: true,
     }),
-    updateAvailabilityColors: () => ({
-      operationId: 'mocked-update-availability-color',
-      status: true,
-    }),
-    updateLocationOverbooking: () => {
-      return {
-        operationId: 'mocked-update-location-overbooking',
-        status: true,
-      }
-    },
-    updateLocationMinimalOverbooking: () => {
-      return {
-        operationId: 'mocked-update-location-minimal-overbooking',
-        status: true,
-      }
-    },
     updateLocationWork: () => ({
       operationId: 'mocked-update-location-work',
-      status: true,
-    }),
-    updateLocationCounterReceptionInterval: () => ({
-      operationId: 'mocked-update-location-counter-reception-interval',
-      status: true,
-    }),
-    updateLocationCounterCalendar: () => ({
-      operationId: 'mocked-update-location-counter-calendar',
-      status: true,
-    }),
-    createWorkshopLocationWork: () => {
-      return {
-        operationId: 'mocked-create-workshop-location-work',
-        locationWorks: [{ id: '1' }, { id: '2' }],
-      }
-    },
-    updateWorkshopLocationWork: () => ({
-      operationId: 'mocked-update-workshop-location-work',
-      status: true,
-    }),
-    deleteWorkshopLocationWork: () => {
-      return {
-        status: true,
-      }
-    },
-    activateWorkshopWork: () => ({
-      operationId: 'mocked-activate-workshop-work',
-      status: true,
-    }),
-    deactivateWorkshopWork: () => ({
-      operationId: 'mocked-deactivate-workshop-work',
       status: true,
     }),
   },

@@ -1,16 +1,17 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useTranslation } from '@nexus-ui/i18n'
 import { CheckboxFormField, FormModal, InputNumberFormField } from '@nexus-ui/ui'
 import clsx from 'clsx'
 import { Button } from 'primereact/button'
 import { Checkbox } from 'primereact/checkbox'
 import { useForm } from 'react-hook-form'
-import { useTranslation } from 'react-i18next'
 import { Link, useNavigate, useParams } from 'react-router'
 
 import { useGetLocationQuery } from '@/entities/location'
 import { EditLocationWorkParams, useGetLocationWorkQuery, useUpdateLocationWorkMutation } from '@/entities/locationWork'
 import { useGetWorkshopWorkQuery } from '@/entities/work'
-import { pageUrls } from '@/shared/lib'
+import { pageUrls, ROUTE_PATHS } from '@/shared/lib'
+import { ServerSideErrorsMessagesList } from '@/shared/ui'
 
 import {
   EditLocationWorkFormSchema,
@@ -31,23 +32,22 @@ const EditLocationWorkPage = () => {
     data: locationWorkDetails,
     isLoading: isLocationWorkDetailsLoading,
     isSuccess: isLocationWorDetailsSuccess,
-    isError: isLocationWorDetailsError,
   } = useGetLocationWorkQuery({ id: locationWorkId })
 
   const {
     data: locationDetails,
     isLoading: isLocationDetailsLoading,
     isSuccess: isLocationDetailsSuccess,
-    isError: isLocationDetailsError,
   } = useGetLocationQuery({ id: locationId })
 
-  const {
-    data: workDetails,
-    isError: isWorkDetailsError,
-    isSuccess: isWorkDetailsSuccess,
-  } = useGetWorkshopWorkQuery({
-    id: locationWorkDetails?.workId ?? '',
-  })
+  const { data: workDetails, isSuccess: isWorkDetailsSuccess } = useGetWorkshopWorkQuery(
+    {
+      id: locationWorkDetails?.workId ?? '',
+    },
+    {
+      skip: !locationWorkDetails?.workId,
+    },
+  )
 
   const values = {
     amountPerDayLimit: locationWorkDetails?.amountPerDayLimit ?? null,
@@ -70,8 +70,6 @@ const EditLocationWorkPage = () => {
     resolver: zodResolver(getEditLocationWorkFormSchema(t)),
   })
 
-  //TODO: Add proper error/loading handling
-  if (isLocationDetailsError || isLocationWorDetailsError || isWorkDetailsError) return <div>Error...</div>
   if (!isLocationDetailsSuccess || !isLocationWorDetailsSuccess || !isWorkDetailsSuccess) return null
 
   const handleCancelClick = () => {
@@ -79,21 +77,20 @@ const EditLocationWorkPage = () => {
   }
 
   const handleSubmitForm = async (data: EditLocationWorkFormSchema) => {
-    try {
-      await updateLocationWork({
-        locationWork: {
-          brands: data.brands.map((brandId) => ({ id: brandId })),
-          id: locationWorkId,
-          workId: locationWorkDetails.workId,
-          locationId,
-          isRecommended: data.isRecommended,
-          amountPerDayLimit: data.amountPerDayLimit,
-          capacityPerDayLimit: data.capacityPerDayLimit !== null ? data.capacityPerDayLimit / 100 : null,
-        },
-      })
+    const result = await updateLocationWork({
+      workshopLocationWork: {
+        brands: data.brands.map((brandId) => ({ id: brandId })),
+        id: locationWorkId,
+        workId: locationWorkDetails.workId,
+        locationId,
+        isRecommended: data.isRecommended,
+        amountPerDayLimit: data.amountPerDayLimit,
+        capacityPerDayLimit: data.capacityPerDayLimit !== null ? data.capacityPerDayLimit / 100 : null,
+      },
+    })
+
+    if (result.data && !result.error) {
       navigate(pageUrls.location.details.root(locationId))
-    } catch {
-      //TODO: handle error
     }
   }
 
@@ -116,6 +113,7 @@ const EditLocationWorkPage = () => {
       isUpdating={isUpdateLocationWorkLoading}
       isLoading={isLocationWorkDetailsLoading || isLocationDetailsLoading}
     >
+      <ServerSideErrorsMessagesList page={ROUTE_PATHS.Location.Details.LocationWorks.Edit} className="mb-8" />
       <p className="text-lg text-bluegray-500 my-0 mx-0">{translate('nameLabel')}</p>
       <p className="text-xl text-bluegray-700 font-bold mt-0 mb-3 mx-0">{locationWorkDetails.name}</p>
       <div>

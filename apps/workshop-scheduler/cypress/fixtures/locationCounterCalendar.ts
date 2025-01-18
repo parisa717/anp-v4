@@ -1,3 +1,7 @@
+import { GraphQLError } from 'graphql/error'
+
+import { CounterErrorCode } from '@/entities/locationCounter'
+
 export const GET_COUNTER_CALENDAR_WORKING_DAYS = {
   getLocationCounterCalendar: {
     workDays: [
@@ -47,5 +51,41 @@ export const GET_COUNTER_CALENDAR_WORKING_DAYS = {
         breaks: [],
       },
     ],
+  },
+}
+
+export const UPDATE_LOCATION_COUNTER_CALENDAR_SERVER_SIDE_ERROR_RESPONSE: Partial<GraphQLError> = {
+  message: 'Counter not found.',
+  locations: [
+    {
+      line: 2,
+      column: 3,
+    },
+  ],
+  path: ['updateLocationCounterCalendar'],
+  extensions: {
+    code: CounterErrorCode.COUNTER_NOT_FOUND,
+    message: 'Counter not found.',
+    context: {
+      id: '550e8400-e29b-41d4-a716-446655440000',
+    },
+  },
+}
+
+export const GET_LOCATION_COUNTER_CALENDAR_SERVER_SIDE_ERROR_RESPONSE: Partial<GraphQLError> = {
+  message: 'Counter not found.',
+  locations: [
+    {
+      line: 2,
+      column: 3,
+    },
+  ],
+  path: ['getLocationCounterCalendar'],
+  extensions: {
+    code: CounterErrorCode.COUNTER_NOT_FOUND,
+    message: 'Counter not found.',
+    context: {
+      id: '550e8400-e29b-41d4-a716-446655440000',
+    },
   },
 }

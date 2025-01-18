@@ -1,9 +1,9 @@
-import { GqlAvailabilityColorObjectType } from '@/shared/api/types.generated'
+import { GqlGetAvailabilityColorObjectType } from '@/shared/api/types.generated'
 
-export const getCapacityValue = (availabilityColor: GqlAvailabilityColorObjectType) => {
-  if (!availabilityColor.maximumCapacity) {
+export const getCapacityValue = (availabilityColor: GqlGetAvailabilityColorObjectType) => {
+  if (!availabilityColor.maximalCapacity) {
     return `>${availabilityColor.minimalCapacity}%`
   }
 
-  return `${availabilityColor.minimalCapacity}%-${availabilityColor.maximumCapacity}%`
+  return `${availabilityColor.minimalCapacity}%-${availabilityColor.maximalCapacity}%`
 }

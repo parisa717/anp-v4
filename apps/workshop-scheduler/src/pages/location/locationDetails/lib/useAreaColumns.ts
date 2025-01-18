@@ -35,7 +35,7 @@ export const useAreaColumns = () => {
       },
     },
     {
-      field: 'dms.name',
+      field: 'dms',
       header: translate('dms'),
       pt: {
         bodyCell: {
@@ -44,7 +44,7 @@ export const useAreaColumns = () => {
       },
     },
     {
-      field: 'crm.name',
+      field: 'crm',
       header: translate('crm'),
       pt: {
         bodyCell: {

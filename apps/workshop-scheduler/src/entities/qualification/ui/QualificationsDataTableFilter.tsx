@@ -4,12 +4,7 @@ import { MultiSelectProps } from 'primereact/multiselect'
 import { useGetQualificationsQuery } from '../api/qualificationApi'
 
 export const QualificationsDataTableFilter = (props?: Partial<MultiSelectProps>) => {
-  const { data: brands, isError, isLoading } = useGetQualificationsQuery()
-
-  if (isError) {
-    //TODO: Add proper error handling
-    console.error('Error fetching qualifications')
-  }
+  const { data: brands, isLoading } = useGetQualificationsQuery()
 
   return DataTableMultiSelect({
     options: brands,

@@ -1,4 +1,12 @@
 {
+  "stored": "Eingelagert",
+  "notStored": "Nicht eingelagert",
+  "yes": "ja",
+  "no": "nein",
+  "item": "Suchergebnis",
+  "items": "Suchergebnisse",
+  "search": "Suchen",
+  "clear": "Suche zurücksetzen",
   "back": "Zurück",
   "next": "Weiter",
   "minutes": "Minuten",

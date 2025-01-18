@@ -26,7 +26,7 @@ export const DataTableMultiSelect = ({ pt, ...props }: MultiSelectProps) => {
     },
   }
 
-  const mergedPt = merge(defaultPt, pt || {})
+  const mergedPt = merge({}, defaultPt, pt || {})
 
   return function filterElement({ value, filterApplyCallback }: ColumnFilterElementTemplateOptions) {
     return (

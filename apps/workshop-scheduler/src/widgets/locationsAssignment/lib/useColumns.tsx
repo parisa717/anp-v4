@@ -3,12 +3,12 @@ import { DataTableMultiSelect, DataTableSearchInput } from '@nexus-ui/ui'
 import clsx from 'clsx'
 import { FilterMatchMode, FilterService } from 'primereact/api'
 import { Checkbox, CheckboxChangeEvent, CheckboxProps } from 'primereact/checkbox'
+import { ColumnProps } from 'primereact/column'
+import { useEffect, useRef, useState } from 'react'
 
-import { LocationEntity, QueryLocations } from '@/entities/location'
+import { WorkshopWorkLocationWorkEntity } from '@/entities/work'
 
-import { SelectedLocationEntity } from '../model/types'
-
-type GetLocationsQueryBrand = QueryLocations['locations'][number]['brands'][number]
+import { LocationEntity, SelectedLocationEntity } from '../model/types'
 
 // Custom filtering is enabled by defining a filter function using FilterService.register where the rule argument must be "custom_[field]" and the filter match mode of the field must be FilterMatchMode.CUSTOM. https://primereact.org/datatable/#custom_filter
 FilterService.register('custom_brands', (brands: LocationEntity['brands'], filterValue: string[]) => {
@@ -18,13 +18,22 @@ FilterService.register('custom_brands', (brands: LocationEntity['brands'], filte
 })
 
 export const useColumns = (
-  brands: GetLocationsQueryBrand[],
+  brands: WorkshopWorkLocationWorkEntity['location']['brands'],
   selectedLocations: SelectedLocationEntity[],
   onChange: (updatedLocations: SelectedLocationEntity[]) => void,
   filteredLocations: LocationEntity[],
 ) => {
+  const hasRun = useRef(false)
   const { t } = useTranslation()
   const translate = (key: string) => t(`pages.work.add.assignLocations.table.${key}`)
+  const [selectedBrands, setSelectedBrands] = useState<string[]>([])
+
+  useEffect(() => {
+    if (brands && brands.length > 0 && !hasRun.current) {
+      setSelectedBrands(brands.map(({ id }) => id))
+      hasRun.current = true
+    }
+  }, [brands])
 
   const updateLocations = (updater: (prevLocations: SelectedLocationEntity[]) => SelectedLocationEntity[]) => {
     const updatedLocations = updater(selectedLocations)
@@ -116,16 +125,18 @@ export const useColumns = (
 
   const brandsTemplate = (entity: LocationEntity) => {
     const selectedLocation = selectedLocations?.find((loc) => loc.id === entity.id)
+    const entityFilteredBrands =
+      selectedBrands.length > 0 ? entity.brands.filter((brand) => selectedBrands.includes(brand.id)) : entity.brands
 
     return (
       <div className="flex flex-col gap-2">
-        {entity.brands.map((brand, index) => (
+        {entityFilteredBrands.map((brand, index) => (
           <div
             key={brand.id}
             className={clsx(
               'inline-flex items-center pl-2',
-              index !== entity.brands.length - 1 && 'border-0 border-solid border-b-table-footer-cell',
-              entity.brands.length > 1 && index !== entity.brands.length - 1 && 'pb-2',
+              index !== entityFilteredBrands.length - 1 && 'border-0 border-solid border-b-table-footer-cell',
+              entityFilteredBrands.length > 1 && index !== entityFilteredBrands.length - 1 && 'pb-2',
             )}
           >
             <Checkbox
@@ -206,13 +217,14 @@ export const useColumns = (
           )
         }
       }}
-      checked={filteredLocations.every((location) =>
-        selectedLocations?.some((selected) => selected.id === location.id),
-      )}
+      checked={
+        filteredLocations.length > 0 &&
+        filteredLocations.every((location) => selectedLocations?.some((selected) => selected.id === location.id))
+      }
     />
   )
 
-  return [
+  const columns: ColumnProps[] = [
     {
       header: parentCheckboxTemplate,
       body: (entity: LocationEntity) => checkboxTemplates.isSelected(entity),
@@ -245,16 +257,25 @@ export const useColumns = (
       showFilterMenu: false,
       showClearButton: false,
       filterMatchMode: FilterMatchMode.CUSTOM,
-      filterElement: DataTableMultiSelect({
-        options: brands,
-        optionLabel: 'code',
-        optionValue: 'id',
-      }),
+      filterElement: (options) =>
+        DataTableMultiSelect({
+          options: brands || [],
+          optionLabel: 'code',
+          optionValue: 'id',
+          value: selectedBrands,
+          onChange: (e) => {
+            setSelectedBrands(e.value)
+            options.filterApplyCallback(e.value)
+          },
+        })(options),
       body: brandsTemplate,
     },
+
     {
       body: (entity: LocationEntity) => checkboxTemplates.isRecommended(entity),
       field: 'isRecommended',
     },
   ]
+
+  return columns
 }

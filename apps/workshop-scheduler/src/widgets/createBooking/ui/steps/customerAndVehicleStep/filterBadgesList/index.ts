@@ -1,0 +1,1 @@
+export { FilterBadgesList } from './FilterBadgesList'

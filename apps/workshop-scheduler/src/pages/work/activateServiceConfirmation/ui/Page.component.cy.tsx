@@ -1,4 +1,5 @@
-import { aliasMutation, hasOperationName, successResponse } from '@nexus-ui/utils'
+import { ACTIVATE_WORKSHOP_WORK_SERVER_SIDE_ERROR_RESPONSE } from '@cypress-fixtures'
+import { aliasMutation, COMMON_TEST_SELECTORS, errorResponse, hasOperationName, successResponse } from '@nexus-ui/utils'
 
 import ActivateServiceConfirmationPage from './Page'
 
@@ -45,5 +46,24 @@ describe('ActivateServiceConfirmationPage component', () => {
     cy.get('[aria-label="confirm"]').click()
     cy.wait('@gqlActivateWorkshopWorkMutation')
     cy.get('Status change').should('not.exist')
+  })
+
+  it('displays feature-specific server-side error', () => {
+    cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
+      if (hasOperationName(req, 'ActivateWorkshopWork')) {
+        aliasMutation(req, 'ActivateWorkshopWork')
+        errorResponse(req, ACTIVATE_WORKSHOP_WORK_SERVER_SIDE_ERROR_RESPONSE)
+      }
+    })
+
+    cy.mountWithProviders(<ActivateServiceConfirmationPage />, {
+      initialRouteEntries: ['/work/1/activate-service'],
+      route: '/work/:id/activate-service',
+    })
+
+    cy.get('[aria-label="confirm"]').click()
+    cy.wait('@gqlActivateWorkshopWorkMutation')
+
+    cy.get(COMMON_TEST_SELECTORS.APP_MESSAGE).should('include.text', 'Work not found.')
   })
 })

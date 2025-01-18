@@ -1,0 +1,1 @@
+export { VehicleInfo } from './VehicleInfo'

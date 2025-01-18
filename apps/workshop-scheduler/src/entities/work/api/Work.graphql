@@ -1,5 +1,5 @@
-mutation CreateWorkshopWork($works: [GqlCreateWorkshopWorkInput!]!) {
-  createWorkshopWork(works: $works) {
+mutation CreateWorkshopWork($workshopWork: GqlCreateWorkshopWorkInputType!) {
+  createWorkshopWork(workshopWork: $workshopWork) {
     works {
       id
     }
@@ -63,6 +63,40 @@ query GetWorkshopWork($id: UUID!) {
       id
       name
       timeUnits
+    }
+  }
+}
+
+mutation SetWorkshopWorkLocationWorks(
+  $id: UUID!
+  $locationWorks: [GqlSetWorkshopWorkLocationWorksLocationWorkInputType!]!
+) {
+  setWorkshopWorkLocationWorks(id: $id, locationWorks: $locationWorks) {
+    locationWorks {
+      id
+    }
+  }
+}
+
+query GetWorkshopWorkLocationWorks($id: UUID!) {
+  getWorkshopWorkLocationWorks(id: $id) {
+    locationWorks {
+      location {
+        id
+        code
+        name
+        brands {
+          id
+          code
+        }
+      }
+      locationWork {
+        id
+        isRecommended
+        brands {
+          id
+        }
+      }
     }
   }
 }

@@ -23,10 +23,8 @@ mutation UpdateLocationMinimalOverbooking($locationId: UUID!, $minimumOverbookin
 
 query GetLocationOverbooking($locationId: UUID!) {
   getLocationOverbooking(locationId: $locationId) {
-    locationOverbooking {
-      minimumOverbookingMultiplier
-      capacityOverbookingMultiplier
-      maxCapacityMultiplier
-    }
+    minimumOverbookingMultiplier
+    capacityOverbookingMultiplier
+    maxCapacityMultiplier
   }
 }

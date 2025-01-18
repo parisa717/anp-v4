@@ -1,5 +1,4 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { isEqual } from 'lodash'
 
 import { APPLICATION_MESSAGE_PAGE, APPLICATION_MESSAGE_TYPE, ApplicationMessage } from './types'
 
@@ -56,30 +55,6 @@ export const applicationMessageSlice = createSlice({
       if (newApplicationMessages.length === 0) return
 
       const { page, type } = newApplicationMessages[0]
-
-      // Get existing messages of the same page and type
-      const existingMessageIds = (state.byPage[page] || []).filter((id) => {
-        const message = state.byId[id]
-        return message && message.type === type
-      })
-
-      const existingMessages = existingMessageIds.map((id) => state.byId[id])
-
-      // Compare messages without IDs to check if they're identical
-      const areMessagesEqual =
-        existingMessages.length === newApplicationMessages.length &&
-        existingMessages.every((existingMsg, index) => {
-          const newMsg = newApplicationMessages[index]
-          // Create new objects without the id property using destructuring
-          const { id: _existingId, ...existingMsgWithoutId } = existingMsg
-          const { id: _newId, ...newMsgWithoutId } = newMsg
-          return isEqual(existingMsgWithoutId, newMsgWithoutId)
-        })
-
-      // If messages are identical (ignoring IDs), don't update state
-      if (areMessagesEqual) {
-        return
-      }
 
       const applicationMessageIdsToRemove = (state.byPage[page] || []).filter((id) => {
         const message = state.byId[id]

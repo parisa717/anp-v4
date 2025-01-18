@@ -1,5 +1,9 @@
+import { GraphQLError } from 'graphql/error'
+
+import { LocationWorkErrorCode } from '@/entities/locationWork'
+
 export const GET_LOCATION_WORKS_DEFAULT_RESPONSE = {
-  getLocationWorks: {
+  getWorkshopLocationWorks: {
     locationWorks: [
       {
         id: '1',
@@ -10,8 +14,8 @@ export const GET_LOCATION_WORKS_DEFAULT_RESPONSE = {
         isCapacityEditable: false,
         isDescriptionEditable: false,
         brands: [
-          { id: 'brand_1', name: 'Opel', timeUnits: 1000 },
-          { id: 'brand_2', name: 'Kia', timeUnits: 1000 },
+          { id: 'brand_1', code: 'Opel', timeUnits: 1000 },
+          { id: 'brand_2', code: 'Kia', timeUnits: 1000 },
         ],
         qualification: { id: '55023400-eg5b-4564-iu16-4466554k8h00', name: 'Mechanic' },
         isRecommended: true,
@@ -26,8 +30,8 @@ export const GET_LOCATION_WORKS_DEFAULT_RESPONSE = {
         isCapacityEditable: false,
         isDescriptionEditable: false,
         brands: [
-          { id: 'brand_1', name: 'Opel', timeUnits: 1000 },
-          { id: 'brand_2', name: 'Kia', timeUnits: 1000 },
+          { id: 'brand_1', code: 'Opel', timeUnits: 1000 },
+          { id: 'brand_2', code: 'Kia', timeUnits: 1000 },
         ],
         qualification: { id: '55023400-eg5b-4564-iu16-4466554k8h00', name: 'Mechanic' },
         isRecommended: true,
@@ -42,8 +46,8 @@ export const GET_LOCATION_WORKS_DEFAULT_RESPONSE = {
         isCapacityEditable: false,
         isDescriptionEditable: true,
         brands: [
-          { id: 'brand_1', name: 'Opel', timeUnits: 1000 },
-          { id: 'brand_2', name: 'Kia', timeUnits: 1000 },
+          { id: 'brand_1', code: 'Opel', timeUnits: 1000 },
+          { id: 'brand_2', code: 'Kia', timeUnits: 1000 },
         ],
         qualification: { id: 'i80e8400-e29b-41d4-a716-446655440002', name: 'Brake and Transmission Technicians' },
         isRecommended: false,
@@ -70,7 +74,7 @@ export const GET_LOCATION_WORKS_DEFAULT_RESPONSE = {
         capacityPerDayLimit: 0.5,
         isCapacityEditable: false,
         isDescriptionEditable: false,
-        brands: [{ id: 'brand_1', name: 'Opel', timeUnits: 1000 }],
+        brands: [{ id: 'brand_1', code: 'Opel', timeUnits: 1000 }],
         qualification: { id: 'i80e8400-e29b-41d4-a716-446655440002', name: 'Brake and Transmission Technicians' },
         isRecommended: false,
         workId: '550e8400-e29b-41d4-a716-446655440066',
@@ -88,8 +92,8 @@ export const GET_LOCATION_WORK_DEFAULT_RESPONSE = {
   isCapacityEditable: false,
   isDescriptionEditable: false,
   brands: [
-    { id: 'brand_1', name: 'Opel', timeUnits: 1000 },
-    { id: 'brand_2', name: 'Kia', timeUnits: 1000 },
+    { id: 'brand_1', code: 'Opel', timeUnits: 1000 },
+    { id: 'brand_2', code: 'Kia', timeUnits: 1000 },
   ],
   qualification: { id: '55023400-eg5b-4564-iu16-4466554k8h00', name: 'Mechanic' },
   isRecommended: true,
@@ -102,4 +106,76 @@ export const UPDATE_LOCATION_WORK_OPERATION_DEFAULT_RESPONSE = {
 
 export const DELETE_LOCATION_WORK_OPERATION_DEFAULT_RESPONSE = {
   status: true,
+}
+
+export const CREATE_LOCATION_WORK_SERVER_SIDE_ERROR_RESPONSE: Partial<GraphQLError> = {
+  message: 'Location Work already exists.',
+  locations: [
+    {
+      line: 2,
+      column: 3,
+    },
+  ],
+  path: ['createWorkshopLocationWork'],
+  extensions: {
+    code: LocationWorkErrorCode.LOCATION_WORK_ALREADY_EXISTS,
+    message: 'Location Work already exists.',
+    context: {
+      name: 'Location Work 1',
+    },
+  },
+}
+
+export const UPDATE_LOCATION_WORK_SERVER_SIDE_ERROR_RESPONSE: Partial<GraphQLError> = {
+  message: 'Location does not exist.',
+  locations: [
+    {
+      line: 2,
+      column: 3,
+    },
+  ],
+  path: ['updateWorkshopLocationWork'],
+  extensions: {
+    code: LocationWorkErrorCode.LOCATION_WORK_LOCATION_NOT_EXIST,
+    message: 'Location does not exist.',
+    context: {
+      id: '55023400-eg5b-4564-iu16-4466554k8h00',
+    },
+  },
+}
+
+export const DELETE_LOCATION_WORK_SERVER_SIDE_ERROR_RESPONSE: Partial<GraphQLError> = {
+  message: 'Location does not exist.',
+  locations: [
+    {
+      line: 2,
+      column: 3,
+    },
+  ],
+  path: ['deleteWorkshopLocationWork'],
+  extensions: {
+    code: LocationWorkErrorCode.LOCATION_WORK_LOCATION_NOT_EXIST,
+    message: 'Location does not exist.',
+    context: {
+      id: '55023400-eg5b-4564-iu16-4466554k8h00',
+    },
+  },
+}
+
+export const GET_LOCATION_WORKS_SERVER_SIDE_ERROR_RESPONSE: Partial<GraphQLError> = {
+  message: 'Location does not exist.',
+  locations: [
+    {
+      line: 2,
+      column: 3,
+    },
+  ],
+  path: ['getWorkshopLocationWorks'],
+  extensions: {
+    code: LocationWorkErrorCode.LOCATION_WORK_LOCATION_NOT_EXIST,
+    message: 'Location does not exist.',
+    context: {
+      id: '55023400-eg5b-4564-iu16-4466554k8h00',
+    },
+  },
 }

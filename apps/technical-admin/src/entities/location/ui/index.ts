@@ -1,0 +1,1 @@
+export { BrandsTagsCellTemplate } from './BrandsTagsCellTemplate'

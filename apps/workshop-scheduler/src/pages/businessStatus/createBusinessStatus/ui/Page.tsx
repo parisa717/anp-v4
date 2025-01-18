@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router'
 
 import { useCreateAdditionalBusinessStatusesMutation } from '@/entities/additionalBusinessStatus'
 import { useCreateBusinessStatusesMutation } from '@/entities/businessStatus'
-import { pageUrls, ROUTE_PATHS } from '@/shared/lib'
+import { pageUrls, ROUTE_PATHS, useServerSideValidation } from '@/shared/lib'
 import { ServerSideErrorsMessagesList } from '@/shared/ui'
 
 import { CreateBusinessStatusFormSchema, createBusinessStatusFormSchema } from '../model/formSchema'
@@ -42,12 +42,19 @@ const CreateBusinessStatusPage = ({ isAdditionalBusinessStatus }: CreateBusiness
     handleSubmit,
     control,
     setValue,
+    setError,
   } = useForm<CreateBusinessStatusFormSchema>({
     resolver: zodResolver(createBusinessStatusFormSchema(t, isAdditionalBusinessStatus)),
     defaultValues: {
       businessStatuses: [{ ...DEFAULT_BUSINESS_STATUS }],
     },
   })
+
+  useServerSideValidation(
+    isAdditionalBusinessStatus ? ROUTE_PATHS.BusinessStatus.CreateAdditional : ROUTE_PATHS.BusinessStatus.Create,
+    setError,
+    createBusinessStatusFormSchema(t, isAdditionalBusinessStatus),
+  )
 
   const { fields, append, remove } = useFieldArray<CreateBusinessStatusFormSchema>({
     control,

@@ -1,8 +1,10 @@
 import {
   CREATE_ADDITIONAL_BUSINESS_STATUSES_OPERATION_DEFAULT_RESPONSE,
   CREATE_ADDITIONAL_BUSINESS_STATUSES_OPERATION_SERVER_SIDE_ERROR_RESPONSE,
+  CREATE_ADDITIONAL_BUSINESS_STATUSES_OPERATION_SERVER_SIDE_VALIDATION_ERROR_RESPONSE,
   CREATE_BUSINESS_STATUSES_OPERATION_DEFAULT_RESPONSE,
   CREATE_BUSINESS_STATUSES_OPERATION_SERVER_SIDE_ERROR_RESPONSE,
+  CREATE_BUSINESS_STATUSES_OPERATION_SERVER_SIDE_VALIDATION_ERROR_RESPONSE,
 } from '@cypress-fixtures'
 import { aliasMutation, COMMON_TEST_SELECTORS, errorResponse, hasOperationName, successResponse } from '@nexus-ui/utils'
 
@@ -106,6 +108,51 @@ describe('CreateBusinessStatusPage', () => {
       cy.wait('@gqlCreateBusinessStatusesMutation')
 
       cy.get(COMMON_TEST_SELECTORS.APP_MESSAGE).should('include.text', 'Business status already exists')
+    })
+
+    it('displays server-side validation errors', () => {
+      cy.mountWithProviders(<CreateBusinessStatusPage isAdditionalBusinessStatus={false} />, {
+        initialRouteEntries: ['/business-status/create'],
+        route: '/business-status/create',
+      })
+
+      cy.get('#businessStatuses\\.0\\.name').type('A')
+
+      cy.contains('Add status').click()
+      cy.get('#businessStatuses\\.1\\.name').type('ABCDEFGH')
+
+      cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
+        if (hasOperationName(req, 'CreateBusinessStatuses')) {
+          aliasMutation(req, 'CreateBusinessStatuses')
+
+          expect(req.body.variables.businessStatuses).to.deep.equal([
+            {
+              name: 'A',
+              isDefault: false,
+              isActive: true,
+            },
+            {
+              name: 'ABCDEFGH',
+              isDefault: false,
+              isActive: true,
+            },
+          ])
+
+          errorResponse(req, CREATE_BUSINESS_STATUSES_OPERATION_SERVER_SIDE_VALIDATION_ERROR_RESPONSE)
+        }
+      })
+
+      cy.get('button[aria-label="save"]').click()
+      cy.wait('@gqlCreateBusinessStatusesMutation')
+
+      cy.get('#businessStatuses\\.0\\.name')
+        .parent()
+        .find('.text-error')
+        .should('include.text', 'This field must be longer than 2 characters')
+      cy.get('#businessStatuses\\.1\\.name')
+        .parent()
+        .find('.text-error')
+        .should('include.text', 'This field must be shorter than 4 characters')
     })
 
     it('removes entry when remove button is clicked', () => {
@@ -229,6 +276,53 @@ describe('CreateBusinessStatusPage', () => {
       cy.get('button[aria-label="save"]').click()
 
       cy.get('.text-error').should('have.length', 2)
+    })
+
+    it('displays server-side validation errors', () => {
+      cy.mountWithProviders(<CreateBusinessStatusPage isAdditionalBusinessStatus />, {
+        initialRouteEntries: ['/business-status/create-additional'],
+        route: '/business-status/create-additional',
+      })
+
+      cy.get('#businessStatuses\\.0\\.name').type('A')
+
+      cy.contains('Add status').click()
+      cy.get('#businessStatuses\\.1\\.name').type('ABCDEFGH')
+
+      cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
+        if (hasOperationName(req, 'CreateAdditionalBusinessStatuses')) {
+          aliasMutation(req, 'CreateAdditionalBusinessStatuses')
+
+          expect(req.body.variables.additionalBusinessStatuses).to.deep.equal([
+            {
+              name: 'A',
+              isDefault: false,
+              isActive: true,
+              isHighlighted: false,
+            },
+            {
+              name: 'ABCDEFGH',
+              isDefault: false,
+              isActive: true,
+              isHighlighted: false,
+            },
+          ])
+
+          errorResponse(req, CREATE_ADDITIONAL_BUSINESS_STATUSES_OPERATION_SERVER_SIDE_VALIDATION_ERROR_RESPONSE)
+        }
+      })
+
+      cy.get('button[aria-label="save"]').click()
+      cy.wait('@gqlCreateAdditionalBusinessStatusesMutation')
+
+      cy.get('#businessStatuses\\.0\\.name')
+        .parent()
+        .find('.text-error')
+        .should('include.text', 'This field must be longer than 2 characters')
+      cy.get('#businessStatuses\\.1\\.name')
+        .parent()
+        .find('.text-error')
+        .should('include.text', 'This field must be shorter than 4 characters')
     })
 
     it('displays feature-specific server-side error', () => {

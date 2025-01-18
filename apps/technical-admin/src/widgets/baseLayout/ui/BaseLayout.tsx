@@ -1,8 +1,8 @@
+import { useTranslation } from '@nexus-ui/i18n'
 import { ProfileButton, Sidebar, Topbar } from '@nexus-ui/ui'
 import { Button } from 'primereact/button'
 import { Divider } from 'primereact/divider'
 import { Menu } from 'primereact/menu'
-import { useTranslation } from 'react-i18next'
 import { Outlet } from 'react-router'
 
 import { useMenuItems } from '../lib/useMenuItems'

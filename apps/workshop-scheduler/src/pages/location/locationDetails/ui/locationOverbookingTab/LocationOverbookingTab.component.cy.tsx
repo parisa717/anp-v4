@@ -1,5 +1,16 @@
-import { GET_LOCATION_OVERBOOKING_DEFAULT_RESPONSE } from '@cypress-fixtures'
-import { aliasQuery, errorResponse, hasOperationName, successResponse } from '@nexus-ui/utils'
+import {
+  GET_LOCATION_OVERBOOKING_DEFAULT_RESPONSE,
+  GET_LOCATION_OVERBOOKING_SERVER_SIDE_ERROR_RESPONSE,
+  UPDATE_LOCATION_MINIMAL_OVERBOOKING_SERVER_SIDE_ERROR_RESPONSE,
+} from '@cypress-fixtures'
+import {
+  aliasMutation,
+  aliasQuery,
+  COMMON_TEST_SELECTORS,
+  errorResponse,
+  hasOperationName,
+  successResponse,
+} from '@nexus-ui/utils'
 
 import { LocationOverbookingTab } from './LocationOverbookingTab'
 
@@ -21,22 +32,42 @@ describe('LocationOverbooking component', () => {
     cy.get('[data-cy="location-overbooking-description"]').should('contain.text', 'Overbooking lowest level')
   })
 
-  it('should not render content when GQL query errors', () => {
+  it('displays feature-specific server-side error on fetch', () => {
     cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
       if (hasOperationName(req, 'GetLocationOverbooking')) {
         aliasQuery(req, 'GetLocationOverbooking')
-        errorResponse(req, {
-          message: 'User not authenticated',
-          path: ['currentUser'],
-          extensions: { code: 'UNAUTHENTICATED' },
-        })
+        errorResponse(req, GET_LOCATION_OVERBOOKING_SERVER_SIDE_ERROR_RESPONSE)
       }
     })
 
-    cy.mountWithProviders(<LocationOverbookingTab />)
+    cy.mountWithProviders(<LocationOverbookingTab />, {
+      initialRouteEntries: ['/location/1/details'],
+      route: '/location/:id/details',
+    })
+
     cy.wait('@gqlGetLocationOverbookingQuery')
 
-    cy.get('[data-cy="location-overbooking-content"]').should('not.exist')
-    cy.contains('Error occured!').should('be.visible')
+    cy.get(COMMON_TEST_SELECTORS.APP_MESSAGE).should('include.text', 'Overbooking for the location not found.')
+  })
+
+  it('displays feature-specific server-side error on update', () => {
+    cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
+      if (hasOperationName(req, 'UpdateLocationMinimalOverbooking')) {
+        aliasMutation(req, 'UpdateLocationMinimalOverbooking')
+        errorResponse(req, UPDATE_LOCATION_MINIMAL_OVERBOOKING_SERVER_SIDE_ERROR_RESPONSE)
+      }
+    })
+
+    cy.mountWithProviders(<LocationOverbookingTab />, {
+      initialRouteEntries: ['/location/1/details'],
+      route: '/location/:id/details',
+    })
+
+    cy.get('[data-pc-name="button"]').click()
+    cy.get('form').submit()
+
+    cy.wait('@gqlUpdateLocationMinimalOverbookingMutation')
+
+    cy.get(COMMON_TEST_SELECTORS.APP_MESSAGE).should('include.text', 'Location not found.')
   })
 })

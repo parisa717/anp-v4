@@ -39,15 +39,15 @@ export const locationRoutes = (
     >
       <Route path={ROUTE_PATHS.Location.Details.Root} element={<LocationDetailsPage />}>
         <Route
-          path={ROUTE_PATHS.Location.Details.LocationWorks.create.slice(ROUTE_PATHS.Location.Details.Root.length + 1)}
+          path={ROUTE_PATHS.Location.Details.LocationWorks.Create.slice(ROUTE_PATHS.Location.Details.Root.length + 1)}
           element={<CreateLocationWorkPage />}
         />
         <Route
-          path={ROUTE_PATHS.Location.Details.LocationWorks.edit.slice(ROUTE_PATHS.Location.Details.Root.length + 1)}
+          path={ROUTE_PATHS.Location.Details.LocationWorks.Edit.slice(ROUTE_PATHS.Location.Details.Root.length + 1)}
           element={<EditLocationWorkPage />}
         />
         <Route
-          path={ROUTE_PATHS.Location.Details.LocationWorks.remove.slice(ROUTE_PATHS.Location.Details.Root.length + 1)}
+          path={ROUTE_PATHS.Location.Details.LocationWorks.Remove.slice(ROUTE_PATHS.Location.Details.Root.length + 1)}
           element={<RemoveLocationWorkPage />}
         />
       </Route>

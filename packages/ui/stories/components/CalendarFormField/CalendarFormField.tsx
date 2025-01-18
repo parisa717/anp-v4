@@ -17,11 +17,6 @@ interface BaseCalendarProps extends Omit<CalendarBaseProps, 'className'> {
   }
 }
 
-interface CalendarFormFieldProps<T extends FieldValues> extends BaseCalendarProps, RefAttributes<HTMLInputElement> {
-  control: Control<T>
-  name: Path<T>
-}
-
 interface MemoizedCalendarProps<T extends FieldValues> extends BaseCalendarProps {
   field: ControllerRenderProps<T, Path<T>>
 }
@@ -79,6 +74,11 @@ function MemoizedCalendar<T extends FieldValues>({
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 const MemoizedCalendarComponent = memo(MemoizedCalendar) as typeof MemoizedCalendar
+
+interface CalendarFormFieldProps<T extends FieldValues> extends BaseCalendarProps, RefAttributes<HTMLInputElement> {
+  control: Control<T>
+  name: Path<T>
+}
 
 export const CalendarFormField = <T extends FieldValues>({
   control,

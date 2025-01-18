@@ -12,7 +12,7 @@ const DEFAULT_BUSINESS_STATUS: CreateBusinessStatusByLocationFormSchema['busines
 export const useCreateBusinessStatusByLocationForm = () => {
   const { t } = useTranslation()
 
-  const { control, formState, handleSubmit } = useForm<CreateBusinessStatusByLocationFormSchema>({
+  const { control, formState, handleSubmit, watch } = useForm<CreateBusinessStatusByLocationFormSchema>({
     resolver: zodResolver(createBusinessStatusFormByLocationSchema(t)),
     defaultValues: {
       businessStatuses: [{ id: '' }],
@@ -42,5 +42,6 @@ export const useCreateBusinessStatusByLocationForm = () => {
     handleAddAllStatuses,
     handleAddOneStatus,
     handleSubmit,
+    watch,
   }
 }

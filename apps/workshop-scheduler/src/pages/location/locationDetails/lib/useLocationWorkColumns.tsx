@@ -1,5 +1,5 @@
 import { useTranslation } from '@nexus-ui/i18n'
-import { DataTableSearchInput } from '@nexus-ui/ui'
+import { DataTableCheckedDropdown, DataTableSearchInput } from '@nexus-ui/ui'
 import { FilterMatchMode, FilterService } from 'primereact/api'
 import { Button } from 'primereact/button'
 import { Checkbox } from 'primereact/checkbox'
@@ -10,12 +10,11 @@ import { Link } from 'react-router'
 import { BrandsDataTableFilter } from '@/entities/brand'
 import { ListLocationWorkItemEntity, useUpdateLocationWorkMutation } from '@/entities/locationWork'
 import { pageUrls } from '@/shared/lib'
-import { DataTableCheckedDropdown } from '@/shared/ui'
 
 const brandBodyTemplate = (entity: ListLocationWorkItemEntity) => (
   <div className="flex items-center gap-2">
     {entity.brands.map((brand) => (
-      <Tag key={brand.id} value={brand.name} severity="info" className="uppercase bg-tag text-tag" />
+      <Tag key={brand.id} value={brand.code} severity="info" className="uppercase bg-tag text-tag" />
     ))}
   </div>
 )
@@ -65,11 +64,7 @@ export const useLocationWorkColumns = () => {
         <Checkbox
           disabled={isUpdateLocationWorkPending}
           onChange={async () => {
-            try {
-              await updateLocationWork({ locationWork: updatedLocationWork })
-            } catch (_) {
-              // TODO: Add proper error handling
-            }
+            await updateLocationWork({ workshopLocationWork: updatedLocationWork })
           }}
           checked={entity.isRecommended}
         />

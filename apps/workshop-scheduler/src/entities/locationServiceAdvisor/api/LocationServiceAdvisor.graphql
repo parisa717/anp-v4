@@ -20,7 +20,7 @@ query GetServiceAdvisor($id: UUID!) {
   }
 }
 
-query GetServiceAdvisorCalendar($id: UUID!, $startDate: String!, $endDate: String!) {
+query GetServiceAdvisorCalendar($id: UUID!, $startDate: DateTime!, $endDate: DateTime!) {
   getServiceAdvisorCalendar(id: $id, startDate: $startDate, endDate: $endDate) {
     workDays {
       date
@@ -41,5 +41,33 @@ query GetServiceAdvisorCalendar($id: UUID!, $startDate: String!, $endDate: Strin
         isEditable
       }
     }
+  }
+}
+
+mutation UpdateServiceAdvisorCalendarEntry(
+  $advisorId: UUID!
+  $entryId: UUID!
+  $type: String!
+  $isFullDay: Boolean!
+  $startTime: String
+  $endTime: String
+  $startDate: String
+  $endDate: String
+  $period: String!
+  $periodicEnd: String
+) {
+  updateServiceAdvisorCalendarEntry(
+    advisorId: $advisorId
+    entryId: $entryId
+    type: $type
+    isFullDay: $isFullDay
+    startTime: $startTime
+    endTime: $endTime
+    startDate: $startDate
+    endDate: $endDate
+    period: $period
+    periodicEnd: $periodicEnd
+  ) {
+    id
   }
 }

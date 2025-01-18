@@ -1,21 +1,18 @@
-type ServerSideValidationError = {
+export type ServerSideValidationError = {
   messageKey: string
-  context: Record<string, string>
-  plurality: number | null
+  context?: Record<string, string>
+  plurality?: number | null
 }
 
-type ServerSideFieldError = {
-  errors: ServerSideValidationError[]
+export type ServerSideValidationField = {
+  errors?: ServerSideValidationError[]
+  children?: Record<string, ServerSideValidationField>
 }
 
-type ServerSideNestedFieldErrors = {
-  children: Record<string, ServerSideFieldError>
-}
-
-type ServerSideValidationFields = {
-  [key: string]: ServerSideFieldError | ServerSideNestedFieldErrors
+export type ServerSideValidationFields = {
+  fields: Record<string, ServerSideValidationField>
 }
 
 export type ServerSideValidationContext = {
-  fields: ServerSideValidationFields
+  fields: Record<string, ServerSideValidationField>
 }

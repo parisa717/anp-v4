@@ -1,9 +1,10 @@
 export const DefaultBrand = {
   id: '',
-  timeUnits: '',
+  timeUnits: 0,
 }
 
 export const DefaultWork = {
+  id: '',
   name: '',
   qualificationId: '',
   isActive: true,

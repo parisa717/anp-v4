@@ -1,5 +1,5 @@
 import { useTranslation } from '@nexus-ui/i18n'
-import { DataTableSearchInput } from '@nexus-ui/ui'
+import { DataTableCheckedDropdown, DataTableSearchInput, EntityStatusDropdown } from '@nexus-ui/ui'
 import clsx from 'clsx'
 import { FilterMatchMode } from 'primereact/api'
 import { Button } from 'primereact/button'
@@ -10,7 +10,6 @@ import { BrandsDataTableFilter } from '@/entities/brand'
 import { QualificationsDataTableFilter } from '@/entities/qualification'
 import { WorkEntity } from '@/entities/work'
 import { pageUrls } from '@/shared/lib'
-import { DataTableCheckedDropdown, EntityStatusDropdown } from '@/shared/ui'
 
 export const useWorksListColumns = () => {
   const { t } = useTranslation()
@@ -156,6 +155,9 @@ export const useWorksListColumns = () => {
         headerCell: {
           className: 'text-center min-w-[296px]',
         },
+        columnFilter: {
+          className: 'text-left',
+        },
         bodyCell: {
           className: 'align-top',
         },
@@ -177,6 +179,9 @@ export const useWorksListColumns = () => {
         headerCell: {
           className: 'text-center min-w-[176px]',
         },
+        columnFilter: {
+          className: 'text-left',
+        },
         bodyCell: {
           className: 'text-center align-top pt-8',
         },
@@ -197,6 +202,9 @@ export const useWorksListColumns = () => {
       pt: {
         headerCell: {
           className: 'text-center min-w-[176px]',
+        },
+        columnFilter: {
+          className: 'text-left',
         },
         bodyCell: {
           className: 'text-center align-top pt-8',

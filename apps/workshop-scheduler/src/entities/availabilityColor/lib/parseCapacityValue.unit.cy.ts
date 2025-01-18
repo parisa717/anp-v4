@@ -5,7 +5,7 @@ describe('parseCapacityValue', () => {
     const result = parseCapacityValue('1 - 100')
     expect(result).to.deep.equal({
       minimalCapacity: 1,
-      maximumCapacity: 100,
+      maximalCapacity: 100,
     })
   })
 
@@ -13,7 +13,7 @@ describe('parseCapacityValue', () => {
     const result = parseCapacityValue('1-100')
     expect(result).to.deep.equal({
       minimalCapacity: 1,
-      maximumCapacity: 100,
+      maximalCapacity: 100,
     })
   })
 
@@ -21,7 +21,7 @@ describe('parseCapacityValue', () => {
     const result = parseCapacityValue('  1  -  100  ')
     expect(result).to.deep.equal({
       minimalCapacity: 1,
-      maximumCapacity: 100,
+      maximalCapacity: 100,
     })
   })
 

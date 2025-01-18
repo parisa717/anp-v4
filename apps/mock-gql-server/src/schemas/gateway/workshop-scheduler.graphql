@@ -7,8 +7,18 @@ directive @oneOf on INPUT_OBJECT
 A UUID parser
 """
 scalar UUID
+scalar DateTime
 
 type Query {
+  """
+  This method returns vehicle
+  """
+  getVehicle(
+    """
+    Vehicle id
+    """
+    id: UUID!
+  ): GqlGetVehicleObjectType!
   """
   This method lists Brands
   """
@@ -17,6 +27,15 @@ type Query {
   This method returns list of Business Statuses
   """
   getWorkshopAppointmentBusinessStatuses: GqlGetBusinessStatusesObjectType!
+  """
+  This method returns customer
+  """
+  getCustomer(
+    """
+    Customer id
+    """
+    id: UUID!
+  ): GqlGetCustomerObjectType!
   """
   This method returns Service Advisor
   """
@@ -45,6 +64,10 @@ type Query {
     id: UUID!
   ): GqlGetBusinessStatusObjectType!
   """
+  Gets workshop work location works
+  """
+  getWorkshopWorkLocationWorks(id: UUID!): GqlGetWorkshopWorkLocationWorksObjectType!
+  """
   This method lists Locations
   """
   getLocations(
@@ -63,6 +86,231 @@ type Query {
     """
     id: UUID!
   ): GqlGetLocationObjectType!
+
+  """
+  This method returns list of Business Statuses
+  """
+  getLocationWorkshopAppointmentBusinessStatuses(
+    """
+    Location ID
+    """
+    id: UUID!
+  ): GqlGetLocationBusinessStatusesObjectType!
+
+  """
+  This method returns list of Additional Business Statuses
+  """
+  getWorkshopAppointmentAdditionalBusinessStatuses: GqlGetAdditionalBusinessStatusesObjectType!
+
+  """
+  This method returns list of Additional Business Statuses
+  """
+  getWorkshopAppointmentAdditionalBusinessStatus(
+    """
+    Additional Business Status ID
+    """
+    id: UUID!
+  ): GqlGetAdditionalBusinessStatusObjectType!
+
+  """
+  This method returns list of Additional Business Statuses
+  """
+  getWorkshopAppointmentAdditionalBusinessStatuses: GqlGetAdditionalBusinessStatusesObjectType!
+
+  """
+  This method returns list of Additional Business Statuses
+  """
+  getWorkshopAppointmentAdditionalBusinessStatus(
+    """
+    Additional Business Status ID
+    """
+    id: UUID!
+  ): GqlGetAdditionalBusinessStatusObjectType!
+
+  """
+  This method returns Area
+  """
+  getArea(
+    """
+    Area ID
+    """
+    id: UUID!
+  ): GqlGetAreaObjectType!
+
+  """
+  This method lists workshop location works
+  """
+  getWorkshopLocationWorks(
+    """
+    Workshop location work filter
+    """
+    filter: GqlWorkshopLocationWorksFilterInputType
+
+    """
+    Workshop location work sort
+    """
+    sort: GqlWorkshopLocationWorksSortInputType
+
+    """
+    Limit
+    """
+    limit: Float
+
+    """
+    Offset
+    """
+    offset: Float
+  ): GqlGetWorkshopLocationWorksObjectType!
+
+  """
+  This method returns workshop location work based on its id
+  """
+  getWorkshopLocationWork(
+    """
+    location work id
+    """
+    id: UUID!
+  ): GqlGetWorkshopLocationWorkObjectType!
+
+  """
+  This method returns the overbookings for a location
+  """
+  getLocationOverbooking(
+    """
+    Location Id
+    """
+    locationId: UUID!
+  ): GqlGetLocationOverbookingObjectType!
+
+  """
+  This method returns availability color collection
+  """
+  getAvailabilityColors: GqlGetAvailabilityColorsObjectType!
+
+  """
+  This method lists workshop follow up works
+  """
+  getWorkshopFollowUpWorks: GqlGetWorkshopFollowUpWorksObjectType!
+
+  """
+  This method returns list of Additional Business Statuses
+  """
+  getLocationWorkshopAppointmentAdditionalBusinessStatuses(
+    """
+    Location ID
+    """
+    id: UUID!
+  ): GqlGetLocationAdditionalBusinessStatusesObjectType!
+
+  """
+  This method returns Service Advisors
+  """
+  getLocationServiceAdvisors(
+    """
+    Location id
+    """
+    locationId: UUID!
+  ): GqlGetLocationServiceAdvisorsObjectType!
+
+  """
+  This method returns Service Advisor
+  """
+  getServiceAdvisor(
+    """
+    Service advisor id
+    """
+    id: UUID!
+  ): GqlGetServiceAdvisorObjectType!
+
+  """
+  This method returns Service Advisor Calendar
+  """
+  getServiceAdvisorCalendar(
+    """
+    Service advisor id
+    """
+    id: UUID!
+
+    """
+    Start date
+    """
+    startDate: DateTime!
+
+    """
+    End date
+    """
+    endDate: DateTime!
+  ): GqlGetServiceAdvisorCalendarObjectType!
+
+  """
+  This method returns the counter calendar for a location
+  """
+  getLocationCounterCalendar(
+    """
+    Location Id
+    """
+    locationId: UUID!
+  ): GqlGetLocationCounterCalendarObjectType!
+
+  """
+  This method returns the counters for a location
+  """
+  getLocationCounter(
+    """
+    Location Id
+    """
+    locationId: UUID!
+  ): GqlGetLocationCounterObjectType!
+
+  """
+  This method returns team capacity
+  """
+  getTeamCapacity(
+    """
+    Id
+    """
+    id: UUID!
+
+    """
+    Start date
+    """
+    startDate: DateTime!
+  ): GqlGetTeamCapacityObjectType!
+
+  """
+  This method returns location teams calendar
+  """
+  getLocationTeamsCalendar(
+    """
+    Location Id
+    """
+    id: UUID!
+
+    """
+    Start date
+    """
+    startDate: DateTime!
+
+    """
+    End date
+    """
+    endDate: DateTime!
+  ): GqlGetLocationTeamsCalendarObjectType!
+
+  """
+  Get Workshop Connected Locations
+  """
+  getWorkshopConnectedLocations(
+    """
+    Location ID
+    """
+    locationId: UUID!
+  ): GqlGetWorkshopConnectedLocationsObjectType!
+
+  """
+  This method returns Service Advisor
+  """
+  getQualifications: GqlGetQualificationsObjectType!
 }
 
 type Mutation {
@@ -122,6 +370,361 @@ type Mutation {
     """
     businessStatuses: [GqlReorderBusinessStatusInputType!]!
   ): GqlReorderBusinessStatusesObjectType!
+  """
+  Sets workshop work location works
+  """
+  setWorkshopWorkLocationWorks(
+    id: UUID!
+    locationWorks: [GqlSetWorkshopWorkLocationWorksLocationWorkInputType!]!
+  ): GqlSetWorkshopWorkLocationWorksObjectType!
+
+  """
+  This method assigns Business Statuses to Location
+  """
+  assignLocationWorkshopAppointmentBusinessStatus(
+    """
+    Location ID
+    """
+    locationId: UUID!
+
+    """
+    Business Statuses to assign
+    """
+    businessStatuses: [GqlAssignLocationBusinessStatusesIdsInputType!]!
+  ): GqlAssignLocationBusinessStatusesObjectType!
+
+  """
+  This method unassigns Business Status from Location
+  """
+  unassignLocationWorkshopAppointmentBusinessStatus(
+    """
+    Location ID
+    """
+    locationId: UUID!
+
+    """
+    Business Status id
+    """
+    businessStatusId: UUID!
+  ): GqlUnassignLocationBusinessStatusObjectType!
+
+  """
+  This method creates new Additional Business Status
+  """
+  createWorkshopAppointmentAdditionalBusinessStatus(
+    """
+    Additional Business Statuses collection
+    """
+    additionalBusinessStatuses: [GqlCreateAdditionalBusinessStatusInputType!]!
+  ): GqlCreateAdditionalBusinessStatusesObjectType!
+
+  """
+  This method updates Additional Business Status
+  """
+  updateWorkshopAppointmentAdditionalBusinessStatus(
+    additionalBusinessStatus: GqlUpdateAdditionalBusinessStatusInputType!
+  ): GqlUpdateAdditionalBusinessStatusObjectType!
+
+  """
+  This method activates Additional Business Status
+  """
+  activateWorkshopAppointmentAdditionalBusinessStatus(
+    """
+    Additional Business Status ID
+    """
+    id: UUID!
+  ): GqlActivateAdditionalBusinessStatusObjectType!
+
+  """
+  This method deactivates Additional Business Status
+  """
+  deactivateWorkshopAppointmentAdditionalBusinessStatus(
+    """
+    Additional Business Status ID
+    """
+    id: UUID!
+
+    """
+    UUID of the other Additional Business Status, which should be marked as active. Can be null if non-default Additional Business Status is being deactivated.
+    """
+    defaultAdditionalBusinessStatusId: UUID
+  ): GqlDeactivateAdditionalBusinessStatusObjectType!
+
+  """
+  This method creates new workshop location work
+  """
+  createWorkshopLocationWork(
+    """
+    Workshop location works
+    """
+    locationWorks: [GqlWorkshopLocationWorksInputType!]!
+  ): GqlCreateWorkshopLocationWorkObjectType!
+
+  """
+  This method updates workshop location work
+  """
+  updateWorkshopLocationWork(
+    workshopLocationWork: GqlUpdateWorkshopLocationWorkInputType!
+  ): GqlUpdateWorkshopLocationWorkObjectType!
+
+  """
+  This method deletes workshop location work based on its id
+  """
+  deleteWorkshopLocationWork(
+    """
+    Location work id
+    """
+    id: UUID!
+  ): GqlDeleteWorkshopLocationWorkObjectType!
+
+  """
+  This method creates service advisor calendar entry
+  """
+  updateServiceAdvisorCalendarEntry(
+    """
+    Service advisor id
+    """
+    advisorId: UUID!
+
+    """
+    Calendar entry id
+    """
+    entryId: UUID!
+
+    """
+    Calendar entry type
+    """
+    type: String!
+
+    """
+    Calendar entry is full day entry
+    """
+    isFullDay: Boolean!
+
+    """
+    Calendar entry start time
+    """
+    startTime: String
+
+    """
+    Calendar entry end time
+    """
+    endTime: String
+
+    """
+    Calendar entry start date
+    """
+    startDate: String
+
+    """
+    Calendar entry end date
+    """
+    endDate: String
+
+    """
+    Calendar entry period
+    """
+    period: String!
+
+    """
+    Calendar entry periodic end
+    """
+    periodicEnd: String
+  ): GqlUpdateServiceAdvisorCalendarEntryObjectType!
+
+  """
+  This method changes the overbooking for a location
+  """
+  updateLocationMinimalOverbooking(
+    """
+    Location Id
+    """
+    locationId: UUID!
+
+    """
+    Minimum Overbooking Multiplier
+    """
+    minimumOverbookingMultiplier: Float!
+  ): GqlUpdateLocationMinimalOverbookingObjectType!
+
+  """
+  This method changes the overbooking for a location
+  """
+  updateLocationOverbooking(
+    """
+    Location Id
+    """
+    locationId: UUID!
+
+    """
+    Capacity Overbooking Multiplier
+    """
+    capacityOverbookingMultiplier: Float!
+
+    """
+    Max Capacity Multiplier
+    """
+    maxCapacityMultiplier: Float!
+  ): GqlUpdateLocationOverbookingObjectType!
+
+  """
+  This method activates workshop work
+  """
+  activateWorkshopWork(
+    """
+    Workshop work id
+    """
+    id: UUID!
+  ): GqlActivateWorkshopWorkObjectType!
+
+  """
+  This method updates availability color collection
+  """
+  updateAvailabilityColors(
+    """
+    Availability colors collection
+    """
+    availabilityColors: [GqlUpdateAvailabilityColorInputType!]!
+  ): GqlUpdateAvailabilityColorsObjectType!
+
+  """
+  This method deactivates workshop work
+  """
+  deactivateWorkshopWork(
+    """
+    Workshop work id
+    """
+    id: UUID!
+  ): GqlDeactivateWorkshopWorkObjectType!
+
+  """
+  This method creates new workshop work
+  """
+  createWorkshopWork(workshopWork: GqlCreateWorkshopWorkInputType!): GqlCreateWorkshopWorkObjectType!
+
+  """
+  This method assigns Additional Business Statuses to Location
+  """
+  assignLocationWorkshopAppointmentAdditionalBusinessStatus(
+    """
+    Location ID
+    """
+    locationId: UUID!
+
+    """
+    Additional Business Statuses to assign
+    """
+    additionalBusinessStatuses: [GqlAssignLocationAdditionalBusinessStatusesIdsInputType!]!
+  ): GqlAssignLocationAdditionalBusinessStatusesObjectType!
+
+  """
+  This method unassigns Additional Business Status from Location
+  """
+  unassignLocationWorkshopAppointmentAdditionalBusinessStatus(
+    """
+    Location ID
+    """
+    locationId: UUID!
+
+    """
+    Additional Business Status id
+    """
+    additionalBusinessStatusId: UUID!
+  ): GqlUnassignLocationAdditionalBusinessStatusObjectType!
+
+  """
+  This method creates new workshop follow up work
+  """
+  createWorkshopFollowUpWork(
+    workshopFollowUpWork: GqlCreateWorkshopFollowUpWorkInputType!
+  ): GqlCreateWorkshopFollowUpWorkObjectType!
+
+  """
+  This method update counter reception interval for a location
+  """
+  updateLocationCounterReceptionInterval(
+    """
+    Location Id
+    """
+    locationId: UUID!
+
+    """
+    Reception interval
+    """
+    receptionInterval: Int!
+  ): GqlUpdateLocationCounterReceptionIntervalObjectType!
+
+  """
+  This method updates counter calendar for a location
+  """
+  updateLocationCounterCalendar(
+    """
+    Location Id
+    """
+    locationId: UUID!
+
+    """
+    Work days
+    """
+    workDays: [GqlUpdateLocationCounterCalendarWorkdayInputType!]!
+  ): GqlUpdateLocationCounterCalendarObjectType!
+
+  """
+  This method updates team capacity
+  """
+  updateTeamCapacity(
+    """
+    Team id
+    """
+    id: UUID!
+
+    """
+    Start date
+    """
+    startDate: DateTime!
+
+    """
+    Capacity
+    """
+    capacity: Int!
+  ): GqlUpdateTeamCapacityObjectType!
+
+  """
+  This method updates workshop follow up work
+  """
+  updateWorkshopFollowUpWork(
+    workshopFollowUpWork: GqlUpdateWorkshopFollowUpWorkInputType!
+  ): GqlUpdateWorkshopFollowUpWorkObjectType!
+
+  """
+  Create Workshop Connected Locations
+  """
+  createWorkshopConnectedLocations(
+    """
+    Location ID
+    """
+    locationId: UUID!
+
+    """
+    Connected Location ID
+    """
+    connectedLocationId: UUID!
+  ): GqlCreateWorkshopConnectedLocationsObjectType!
+
+  """
+  Delete Workshop Connected Locations
+  """
+  deleteWorkshopConnectedLocations(
+    """
+    Location ID
+    """
+    locationId: UUID!
+
+    """
+    Connected Location ID
+    """
+    connectedLocationId: UUID!
+  ): GqlDeleteWorkshopConnectedLocationsObjectType!
 }
 
 type GqlGetBrandsObjectType {
@@ -573,4 +1176,1782 @@ type GqlGetLocationCountryObjectType {
   Country name
   """
   name: String!
+}
+
+type GqlGetWorkshopWorkLocationWorksLocationWorksLocationBrandObjectType {
+  """
+  Id
+  """
+  id: UUID!
+
+  """
+  Code
+  """
+  code: String!
+}
+
+type GqlGetWorkshopWorkLocationWorksLocationWorksLocationWorkBrandObjectType {
+  """
+  Id
+  """
+  id: UUID!
+}
+
+type GqlGetWorkshopWorkLocationWorksLocationWorksLocationWorkObjectType {
+  """
+  Id
+  """
+  id: UUID!
+
+  """
+  Is recommended
+  """
+  isRecommended: Boolean!
+
+  """
+  Brands
+  """
+  brands: [GqlGetWorkshopWorkLocationWorksLocationWorksLocationWorkBrandObjectType!]!
+}
+
+type GqlGetWorkshopWorkLocationWorksLocationWorkLocationObjectType {
+  """
+  Id
+  """
+  id: UUID!
+
+  """
+  Code
+  """
+  code: String!
+
+  """
+  Name
+  """
+  name: String!
+
+  """
+  Name
+  """
+  brands: [GqlGetWorkshopWorkLocationWorksLocationWorksLocationBrandObjectType!]!
+}
+
+type GqlGetWorkshopWorkLocationWorksLocationWorkObjectType {
+  location: GqlGetWorkshopWorkLocationWorksLocationWorkLocationObjectType!
+  locationWork: GqlGetWorkshopWorkLocationWorksLocationWorksLocationWorkObjectType!
+}
+
+type GqlGetWorkshopWorkLocationWorksObjectType {
+  locationWorks: [GqlGetWorkshopWorkLocationWorksLocationWorkObjectType!]!
+}
+
+input GqlSetWorkshopWorkLocationWorksLocationWorkBrandInputType {
+  id: UUID!
+}
+
+input GqlSetWorkshopWorkLocationWorksLocationWorkInputType {
+  locationId: UUID!
+  isRecommended: Boolean!
+  brands: [GqlSetWorkshopWorkLocationWorksLocationWorkBrandInputType!]!
+}
+
+type GqlSetWorkshopWorkLocationWorksLocationWorkIdObjectType {
+  id: UUID!
+}
+
+type GqlSetWorkshopWorkLocationWorksObjectType {
+  locationWorks: [GqlSetWorkshopWorkLocationWorksLocationWorkIdObjectType!]!
+}
+
+type GqlGetLocationBusinessStatusesObjectType {
+  """
+  Location Business Statuses collection
+  """
+  businessStatuses: [GqlGetBusinessStatusObjectType!]!
+}
+
+input GqlAssignLocationBusinessStatusesIdsInputType {
+  """
+  Business Status ID
+  """
+  id: UUID!
+}
+
+type GqlAssignLocationBusinessStatusesObjectType {
+  """
+  Status of Assigning Business Statuses to Location
+  """
+  status: Boolean!
+}
+
+type GqlUnassignLocationBusinessStatusObjectType {
+  """
+  Status of Unassigning Business Status from Location
+  """
+  status: Boolean!
+}
+
+type GqlGetAdditionalBusinessStatusesObjectType {
+  """
+  Additional Business Statuses ids collection
+  """
+  additionalBusinessStatuses: [GqlGetAdditionalBusinessStatusObjectType!]!
+}
+
+type GqlGetAdditionalBusinessStatusObjectType {
+  """
+  Additional Business Status ID
+  """
+  id: UUID!
+
+  """
+  Additional Business Status name
+  """
+  name: String!
+
+  """
+  Is Additional Business Status default
+  """
+  isDefault: Boolean!
+
+  """
+  Is Additional Business Status highlighted
+  """
+  isHighlighted: Boolean!
+
+  """
+  Is Additional Business Status active
+  """
+  isActive: Boolean!
+}
+
+input GqlCreateAdditionalBusinessStatusInputType {
+  """
+  Additional Business Status name
+  """
+  name: String!
+
+  """
+  Is Additional Business Status highlighted
+  """
+  isHighlighted: Boolean!
+
+  """
+  Is Additional Business Status default
+  """
+  isDefault: Boolean!
+
+  """
+  Is Additional Business Status active
+  """
+  isActive: Boolean!
+}
+
+type GqlCreateAdditionalBusinessStatusesObjectType {
+  """
+  Additional Business Statuses ids collection
+  """
+  additionalBusinessStatuses: [GqlCreateAdditionalBusinessStatusObjectType!]!
+}
+
+type GqlCreateAdditionalBusinessStatusObjectType {
+  """
+  Additional Business Status ID
+  """
+  id: UUID!
+}
+
+input GqlUpdateAdditionalBusinessStatusInputType {
+  """
+  Additional Business Status ID
+  """
+  id: UUID!
+
+  """
+  Additional Business Status name
+  """
+  name: String!
+
+  """
+  Is Additional Business Status highlighted
+  """
+  isHighlighted: Boolean!
+
+  """
+  Is Additional Business Status default
+  """
+  isDefault: Boolean!
+}
+
+type GqlUpdateAdditionalBusinessStatusObjectType {
+  """
+  Status of Additional Business Status update
+  """
+  status: Boolean!
+}
+
+type GqlActivateAdditionalBusinessStatusObjectType {
+  """
+  Status of Additional Business Status activation
+  """
+  status: Boolean!
+}
+
+type GqlDeactivateAdditionalBusinessStatusObjectType {
+  """
+  Status of Additional Business Status deactivation
+  """
+  status: Boolean!
+}
+
+type GqlGetAdditionalBusinessStatusesObjectType {
+  """
+  Additional Business Statuses ids collection
+  """
+  additionalBusinessStatuses: [GqlGetAdditionalBusinessStatusObjectType!]!
+}
+
+type GqlGetAdditionalBusinessStatusObjectType {
+  """
+  Additional Business Status ID
+  """
+  id: UUID!
+
+  """
+  Additional Business Status name
+  """
+  name: String!
+
+  """
+  Is Additional Business Status default
+  """
+  isDefault: Boolean!
+
+  """
+  Is Additional Business Status highlighted
+  """
+  isHighlighted: Boolean!
+
+  """
+  Is Additional Business Status active
+  """
+  isActive: Boolean!
+}
+
+input GqlCreateAdditionalBusinessStatusInputType {
+  """
+  Additional Business Status name
+  """
+  name: String!
+
+  """
+  Is Additional Business Status highlighted
+  """
+  isHighlighted: Boolean!
+
+  """
+  Is Additional Business Status default
+  """
+  isDefault: Boolean!
+
+  """
+  Is Additional Business Status active
+  """
+  isActive: Boolean!
+}
+
+type GqlCreateAdditionalBusinessStatusesObjectType {
+  """
+  Additional Business Statuses ids collection
+  """
+  additionalBusinessStatuses: [GqlCreateAdditionalBusinessStatusObjectType!]!
+}
+
+type GqlCreateAdditionalBusinessStatusObjectType {
+  """
+  Additional Business Status ID
+  """
+  id: UUID!
+}
+
+input GqlUpdateAdditionalBusinessStatusInputType {
+  """
+  Additional Business Status ID
+  """
+  id: UUID!
+
+  """
+  Additional Business Status name
+  """
+  name: String!
+
+  """
+  Is Additional Business Status highlighted
+  """
+  isHighlighted: Boolean!
+
+  """
+  Is Additional Business Status default
+  """
+  isDefault: Boolean!
+}
+
+type GqlUpdateAdditionalBusinessStatusObjectType {
+  """
+  Status of Additional Business Status update
+  """
+  status: Boolean!
+}
+
+type GqlActivateAdditionalBusinessStatusObjectType {
+  """
+  Status of Additional Business Status activation
+  """
+  status: Boolean!
+}
+
+type GqlDeactivateAdditionalBusinessStatusObjectType {
+  """
+  Status of Additional Business Status deactivation
+  """
+  status: Boolean!
+}
+
+type GqlGetAreaCountryObjectType {
+  """
+  Country ID
+  """
+  id: UUID!
+
+  """
+  Country name
+  """
+  name: String!
+}
+
+type GqlGetAreaAddressObjectType {
+  """
+  Country
+  """
+  country: GqlGetAreaCountryObjectType!
+
+  """
+  Postcode
+  """
+  postCode: String!
+
+  """
+  City
+  """
+  city: String!
+
+  """
+  Address (Street, house number/flat number)
+  """
+  address: String!
+}
+
+type GqlGetAreaObjectType {
+  """
+  Area ID
+  """
+  id: UUID!
+
+  """
+  Area code
+  """
+  code: String!
+
+  """
+  DMS - not supported yet
+  """
+  dms: String!
+
+  """
+  CRM - not supported yet
+  """
+  crm: String!
+
+  """
+  Area name
+  """
+  name: String!
+
+  """
+  Is Area active
+  """
+  isActive: Boolean!
+
+  """
+  Address
+  """
+  address: GqlGetAreaAddressObjectType!
+}
+
+type GqlWorkshopLocationWorkIdObjectType {
+  """
+  Workshop location work id
+  """
+  id: UUID!
+}
+
+type GqlCreateWorkshopLocationWorkObjectType {
+  """
+  Workshop location work ids
+  """
+  locationWorks: [GqlWorkshopLocationWorkIdObjectType!]!
+}
+
+input GqlWorkshopLocationWorksInputType {
+  """
+  Work id
+  """
+  workId: UUID!
+
+  """
+  Location id
+  """
+  locationId: UUID!
+
+  """
+  Is recommended
+  """
+  isRecommended: Boolean!
+
+  """
+  Amount per day limit
+  """
+  amountPerDayLimit: Int
+
+  """
+  Capacity per day limit
+  """
+  capacityPerDayLimit: Float
+
+  """
+  Brands id collection
+  """
+  brands: [GqlWorkshopLocationWorksBrandIdInputType!]!
+}
+
+input GqlWorkshopLocationWorksBrandIdInputType {
+  """
+  Brand id
+  """
+  id: UUID!
+}
+
+input GqlUpdateWorkshopLocationWorkInputType {
+  """
+  Workshop location work id
+  """
+  id: UUID!
+
+  """
+  Location id
+  """
+  locationId: UUID!
+
+  """
+  Work id
+  """
+  workId: UUID!
+
+  """
+  Is recommended
+  """
+  isRecommended: Boolean!
+
+  """
+  Amount per day limit
+  """
+  amountPerDayLimit: Int
+
+  """
+  Capacity per day limit
+  """
+  capacityPerDayLimit: Float
+
+  """
+  Brands id collection
+  """
+  brands: [GqlWorkshopLocationWorksBrandIdInputType!]!
+}
+
+type GqlUpdateWorkshopLocationWorkObjectType {
+  """
+  Status of workshop location work update
+  """
+  status: Boolean!
+}
+
+type GqlDeleteWorkshopLocationWorkObjectType {
+  """
+  Status of workshop location work delete
+  """
+  status: Boolean!
+}
+
+type GqlGetWorkshopLocationWorksBrandObjectType {
+  """
+  Brand id
+  """
+  id: UUID!
+
+  """
+  Brand code
+  """
+  code: String!
+
+  """
+  Timeunits
+  """
+  timeUnits: Float!
+}
+
+type GqlWorkshopLocationWorksQualificationObjectType {
+  """
+  Qualification id
+  """
+  id: UUID!
+
+  """
+  Qualification name
+  """
+  name: String!
+}
+
+type GqlGetWorkshopLocationWorksLocationWorkObjectType {
+  """
+  Workshop location work id
+  """
+  id: UUID!
+
+  """
+  Location id
+  """
+  locationId: UUID!
+
+  """
+  Work id
+  """
+  workId: UUID!
+
+  """
+  Workshop location work name
+  """
+  name: String!
+
+  """
+  Is recommended
+  """
+  isRecommended: Boolean!
+
+  """
+  Amount per day limit
+  """
+  amountPerDayLimit: Int
+
+  """
+  Capacity per day limit
+  """
+  capacityPerDayLimit: Float
+
+  """
+  Is Workshop location work capacity editable
+  """
+  isCapacityEditable: Boolean!
+
+  """
+  Is Workshop location work description editable
+  """
+  isDescriptionEditable: Boolean!
+
+  """
+  Qualification
+  """
+  qualification: GqlWorkshopLocationWorksQualificationObjectType!
+
+  """
+  Brands collection
+  """
+  brands: [GqlGetWorkshopLocationWorksBrandObjectType!]!
+}
+
+enum WorkshopLocationWorkSortFieldsEnum {
+  NAME
+  QUALIFICATION
+  IS_RECOMMENDED
+}
+
+type GqlWorkshopLocationWorksSortObjectType {
+  """
+  Sort field
+  """
+  field: WorkshopLocationWorkSortFieldsEnum
+
+  """
+  Sort direction
+  """
+  direction: SortDirection
+}
+
+type GqlWorkshopLocationWorksMetadataObjectType {
+  """
+  Total results
+  """
+  totalResults: Float!
+
+  """
+  Sort
+  """
+  sort: GqlWorkshopLocationWorksSortObjectType
+}
+
+type GqlGetWorkshopLocationWorksObjectType {
+  """
+  Workshop Location work collection
+  """
+  locationWorks: [GqlGetWorkshopLocationWorksLocationWorkObjectType!]!
+
+  """
+  Metadata
+  """
+  metadata: GqlWorkshopLocationWorksMetadataObjectType!
+}
+
+input GqlWorkshopLocationWorksFilterInputType {
+  """
+  Location id. It shows all works in location with the specified id
+  """
+  location: UUID
+
+  """
+  Excluded location id. It is opposite filter to the “location” - it shows work in all locations except the one specified
+  """
+  excludedLocation: Float
+
+  """
+  Name of the location
+  """
+  name: String
+
+  """
+  Brands Ids. Used in the admin panel - strict brand filter
+  """
+  brand: [UUID!]
+
+  """
+  Brand id. Used in the booking process - returns services assigned to the vehicle’s brand, or to the location’s default brand
+  """
+  vehicleBrand: UUID
+
+  """
+  qualifications Ids
+  """
+  qualification: [UUID!]
+
+  """
+  Is recommended
+  """
+  isRecommended: Boolean!
+
+  """
+  Work id. Used in the batch assigning locations to the work.
+  """
+  work: UUID
+}
+
+input GqlWorkshopLocationWorksSortInputType {
+  """
+  Sort field
+  """
+  field: WorkshopLocationWorkSortFieldsEnum
+
+  """
+  Sort direction
+  """
+  direction: SortDirection
+}
+
+type GqlWorkshopLocationWorkBrandObjectType {
+  """
+  Brand id
+  """
+  id: UUID!
+
+  """
+  Brand code
+  """
+  code: String!
+}
+
+type GqlGetWorkshopLocationWorkObjectType {
+  """
+  Workshop location work id
+  """
+  id: UUID!
+
+  """
+  Location id
+  """
+  locationId: UUID!
+
+  """
+  Work id
+  """
+  workId: UUID!
+
+  """
+  Workshop location work name
+  """
+  name: String!
+
+  """
+  Is recommended
+  """
+  isRecommended: Boolean!
+
+  """
+  Amount per day limit
+  """
+  amountPerDayLimit: Int
+
+  """
+  Capacity per day limit
+  """
+  capacityPerDayLimit: Float
+
+  """
+  Qualification
+  """
+  qualification: GqlWorkshopLocationWorksQualificationObjectType!
+
+  """
+  Brands collection
+  """
+  brands: [GqlWorkshopLocationWorkBrandObjectType!]!
+}
+
+type GqlUpdateServiceAdvisorCalendarEntryObjectType {
+  """
+  Service advisor calendar entry id
+  """
+  id: UUID!
+}
+
+type GqlUpdateLocationMinimalOverbookingObjectType {
+  """
+  Minimal Overbooking update status
+  """
+  status: Boolean!
+}
+
+type GqlUpdateLocationOverbookingObjectType {
+  """
+  Overbooking update status
+  """
+  status: Boolean!
+}
+
+type GqlGetLocationOverbookingObjectType {
+  """
+  Minimum Overbooking Multiplier
+  """
+  minimumOverbookingMultiplier: Float!
+
+  """
+  Capacity Overbooking Multiplier
+  """
+  capacityOverbookingMultiplier: Float!
+
+  """
+  Max Capacity Multiplier
+  """
+  maxCapacityMultiplier: Float!
+}
+
+enum SortDirection {
+  ASC
+  DESC
+}
+
+type GqlGetAvailabilityColorObjectType {
+  """
+  Availability Color ID
+  """
+  id: UUID!
+
+  """
+  Color
+  """
+  color: String!
+
+  """
+  Minimal capacity
+  """
+  minimalCapacity: Int!
+
+  """
+  Maximal capacity
+  """
+  maximalCapacity: Int
+}
+
+type GqlGetAvailabilityColorsObjectType {
+  """
+  Availability Colors collection
+  """
+  availabilityColors: [GqlGetAvailabilityColorObjectType!]!
+}
+
+type GqlGetAvailabilityColorObjectType {
+  """
+  Availability Color ID
+  """
+  id: UUID!
+
+  """
+  Color
+  """
+  color: String!
+
+  """
+  Minimal capacity
+  """
+  minimalCapacity: Int!
+
+  """
+  Maximal capacity
+  """
+  maximalCapacity: Int
+}
+
+type GqlGetAvailabilityColorsObjectType {
+  """
+  Availability Colors collection
+  """
+  availabilityColors: [GqlGetAvailabilityColorObjectType!]!
+}
+
+input GqlUpdateAvailabilityColorInputType {
+  """
+  Color
+  """
+  color: String!
+
+  """
+  Minimal capacity
+  """
+  minimalCapacity: Int!
+
+  """
+  Maximal capacity
+  """
+  maximalCapacity: Int
+}
+
+type GqlUpdateAvailabilityColorsObjectType {
+  """
+  Availability colors update status
+  """
+  status: Boolean!
+}
+
+type GqlGetCustomerObjectType {
+  """
+  Id
+  """
+  id: UUID!
+
+  """
+  Salutation
+  """
+  salutation: String!
+
+  """
+  Title
+  """
+  title: String!
+
+  """
+  Name
+  """
+  name: String!
+
+  """
+  Name 2
+  """
+  name2: String!
+
+  """
+  Name 3
+  """
+  name3: String!
+
+  """
+  Country code
+  """
+  countryCode: String!
+
+  """
+  Post code
+  """
+  postCode: String!
+
+  """
+  City
+  """
+  city: String!
+
+  """
+  Address
+  """
+  address: String!
+
+  """
+  Address 2
+  """
+  address2: String!
+
+  """
+  Birthdate
+  """
+  birthdate: String!
+
+  """
+  Salesperson code
+  """
+  salespersonCode: String!
+
+  """
+  Service Advisor
+  """
+  serviceAdvisor: GqlGetCustomerServiceAdvisorObjectType!
+
+  """
+  Phones
+  """
+  phones: [GqlGetCustomerPhoneObjectType!]!
+
+  """
+  Emails
+  """
+  emails: [GqlGetCustomerEmailObjectType!]!
+}
+
+type GqlGetCustomerServiceAdvisorObjectType {
+  """
+  Id
+  """
+  id: UUID!
+  """
+  Name
+  """
+  name: String!
+}
+
+type GqlGetCustomerPhoneObjectType {
+  """
+  Contact type
+  """
+  contactType: String!
+
+  """
+  Device type
+  """
+  deviceType: String!
+
+  """
+  Phone number
+  """
+  phone: String!
+}
+
+type GqlGetCustomerEmailObjectType {
+  """
+  Contact type
+  """
+  contactType: String!
+
+  """
+  Email
+  """
+  email: String!
+}
+
+type GqlUnassignLocationAdditionalBusinessStatusObjectType {
+  """
+  Status of Unassigning Additional Business Status from Location
+  Contact type
+  """
+  status: Boolean!
+}
+
+type GqlAssignLocationAdditionalBusinessStatusesObjectType {
+  """
+  Status of Assigning Additional Business Statuses to Location
+  Contact type
+  """
+  status: Boolean!
+}
+
+input GqlAssignLocationAdditionalBusinessStatusesIdsInputType {
+  """
+  Additional Business Status ID
+  """
+  id: UUID!
+}
+
+type GqlGetLocationAdditionalBusinessStatusesObjectType {
+  """
+  Location Additional Business Statuses collection Service Advisor
+  """
+  additionalBusinessStatuses: [GqlGetAdditionalBusinessStatusObjectType!]!
+}
+
+type GqlCreateWorkshopWorkObjectType {
+  """
+  Workshop works creation status
+  """
+  works: [GqlCreateWorkshopWorkWorksObjectType!]!
+}
+
+type GqlCreateWorkshopWorkWorksObjectType {
+  """
+  Workshop work id
+  """
+  id: UUID!
+}
+
+input GqlCreateWorkshopWorkInputType {
+  """
+  Workshop works
+  """
+  works: [GqlCreateWorkshopWorkWorksInputType!]!
+}
+
+input GqlCreateWorkshopWorkWorksInputType {
+  """
+  Workshop work name
+  """
+  name: String!
+  """
+  Is workshop work capacity editable
+  """
+  isCapacityEditable: Boolean!
+  """
+  Is workshop work description editable
+  """
+  isDescriptionEditable: Boolean!
+  """
+  Is workshop work active
+  """
+  isActive: Boolean!
+  """
+  Workshop work qualifications
+  """
+  qualification: GqlWorkshopWorkQualificationIdInputType!
+  """
+  Brands
+  """
+  brands: [GqlCreateWorkshopWorkBrandsInputType!]!
+}
+
+type GqlActivateWorkshopWorkObjectType {
+  """
+  Status of workshop work activation
+  """
+  status: Boolean!
+}
+
+type GqlDeactivateWorkshopWorkObjectType {
+  """
+  Status of workshop work deactivation
+  """
+  status: Boolean!
+}
+
+input GqlCreateWorkshopWorkBrandsInputType {
+  """
+  Brand id
+  """
+  id: String!
+  """
+  Brand time units
+  """
+  timeUnits: Float!
+}
+
+type GqlGetVehicleObjectType {
+  """
+  Id
+  """
+  id: UUID!
+
+  """
+  Vin
+  """
+  vin: String!
+
+  """
+  Licence plate
+  """
+  licencePlate: String!
+
+  """
+  Brand
+  """
+  brand: String!
+
+  """
+  Model
+  """
+  model: String!
+
+  """
+  Type
+  """
+  type: String!
+
+  """
+  Status
+  """
+  status: String!
+
+  """
+  First registration
+  """
+  firstRegistration: String!
+
+  """
+  Customer registration
+  """
+  customerRegistration: String!
+
+  """
+  Mileage
+  """
+  mileage: Float!
+
+  """
+  Model number
+  """
+  modelNumber: String!
+
+  """
+  Are tyres stored
+  """
+  areTyresStored: String!
+
+  """
+  Next main inspection
+  """
+  nextMainInspection: String!
+
+  """
+  Next emissions test
+  """
+  nextEmissionsTest: String!
+
+  """
+  Drivers
+  """
+  drivers: [GqlGetCustomerObjectType!]!
+
+  """
+  Service history
+  """
+  serviceHistory: [GqlGetVehicleServiceHistoryObjectType!]!
+}
+
+type GqlGetVehicleServiceHistoryObjectType {
+  """
+  Number
+  """
+  number: String!
+
+  """
+  Date
+  """
+  date: String!
+
+  """
+  Positions
+  """
+  positions: [GqlGetVehicleServiceHistoryPositionObjectType!]!
+}
+
+type GqlGetVehicleServiceHistoryPositionObjectType {
+  """
+  Name
+  """
+  name: String!
+
+  """
+  Description
+  """
+  description: String!
+}
+
+input GqlWorkshopFollowUpWorkQualificationIdInputType {
+  """
+  Qualification ID
+  """
+  id: UUID!
+}
+
+input GqlCreateWorkshopFollowUpWorkInputType {
+  """
+  Workshop follow up work name
+  """
+  name: String!
+
+  """
+  Workshop follow up work time units
+  """
+  timeUnits: Float!
+
+  """
+  Is workshop follow up work capacity editable
+  """
+  isCapacityEditable: Boolean!
+
+  """
+  Is workshop follow up work description editable
+  """
+  isDescriptionEditable: Boolean!
+
+  """
+  Is workshop follow up work active
+  """
+  isActive: Boolean!
+
+  """
+  Workshop follow up work qualifications
+  """
+  qualification: GqlWorkshopFollowUpWorkQualificationIdInputType!
+}
+
+type GqlCreateWorkshopFollowUpWorkObjectType {
+  """
+  Workshop follow up work creation status
+  """
+  id: UUID!
+}
+
+type GqlGetLocationCounterCalendarWorkDaysBreaksObjectType {
+  """
+  Start time
+  """
+  startTime: String!
+
+  """
+  End time
+  """
+  endTime: String!
+}
+
+type GqlGetLocationCounterCalendarWorkDaysObjectType {
+  """
+  Day number
+  """
+  dayNumber: Float!
+
+  """
+  Start time
+  """
+  startTime: String!
+
+  """
+  End time
+  """
+  endTime: String!
+
+  """
+  Breaks
+  """
+  breaks: [GqlGetLocationCounterCalendarWorkDaysBreaksObjectType!]!
+}
+
+type GqlGetLocationCounterCalendarObjectType {
+  """
+  Work days
+  """
+  workDays: [GqlGetLocationCounterCalendarWorkDaysObjectType!]!
+}
+
+type GqlGetLocationCounterObjectType {
+  """
+  Counter id
+  """
+  id: UUID!
+
+  """
+  Reception Interval
+  """
+  receptionInterval: Int!
+}
+
+type GqlUpdateLocationCounterReceptionIntervalObjectType {
+  """
+  Status of configure counter reception interval
+  """
+  status: Boolean!
+}
+
+input GqlUpdateLocationCounterCalendarWorkdayBreakInputType {
+  """
+  Start time
+  """
+  startTime: String!
+
+  """
+  End time
+  """
+  endTime: String!
+}
+
+input GqlUpdateLocationCounterCalendarWorkdayInputType {
+  """
+  Day number
+  """
+  dayNumber: Int!
+
+  """
+  Start time
+  """
+  startTime: String!
+
+  """
+  End time
+  """
+  endTime: String!
+
+  """
+  Breaks
+  """
+  breaks: [GqlUpdateLocationCounterCalendarWorkdayBreakInputType!]!
+}
+
+type GqlUpdateLocationCounterCalendarObjectType {
+  """
+  Status of update location counter calendar
+  """
+  status: Boolean!
+}
+
+type GqlGetLocationServiceAdvisorsObjectType {
+  """
+  Service advisors list
+  """
+  serviceAdvisors: [GqlGetServiceAdvisorObjectType!]!
+}
+
+type GqlGetServiceAdvisorObjectType {
+  """
+  Service advisor id
+  """
+  id: UUID!
+
+  """
+  Service advisor number
+  """
+  number: String!
+
+  """
+  Service advisor name
+  """
+  name: String!
+
+  """
+  Service advisor surname
+  """
+  surname: String!
+
+  """
+  Service advisor reception interval
+  """
+  receptionInterval: Float!
+}
+
+type GqlGetServiceAdvisorCalendarObjectType {
+  """
+  Work days list
+  """
+  workDays: [GqlGetServiceAdvisorCalendarWorkDaysObjectType!]!
+
+  """
+  Calendar
+  """
+  calendar: GqlGetServiceAdvisorCalendarCalendarObjectType!
+}
+
+type GqlGetServiceAdvisorCalendarWorkDaysObjectType {
+  """
+  Date
+  """
+  date: String!
+
+  """
+  Start time
+  """
+  startTime: String!
+
+  """
+  End time
+  """
+  endTime: String!
+}
+
+type GqlGetServiceAdvisorCalendarCalendarObjectType {
+  """
+  Calendar entries list
+  """
+  entries: [GqlGetServiceAdvisorCalendarCalendarEntryObjectType!]!
+}
+
+type GqlGetServiceAdvisorCalendarCalendarEntryObjectType {
+  """
+  Calendar entry id
+  """
+  id: UUID!
+
+  """
+  Calendar entry type
+  """
+  type: CalendarEntryTypeEnum!
+
+  """
+  Calendar entry is full day entry
+  """
+  isFullDay: Boolean!
+
+  """
+  Calendar entry start time
+  """
+  startTime: String
+
+  """
+  Calendar entry end time
+  """
+  endTime: String
+
+  """
+  Calendar entry start date
+  """
+  startDate: String
+
+  """
+  Calendar entry end date
+  """
+  endDate: String
+
+  """
+  Calendar entry period
+  """
+  period: CalendarEntryPeriodEnum!
+
+  """
+  Calendar entry periodic end
+  """
+  periodicEnd: String
+
+  """
+  Calendar entry is editable
+  """
+  isEditable: Boolean!
+}
+
+enum CalendarEntryTypeEnum {
+  ADVISOR_BREAK
+  ADVISOR_BUFFER
+  ADVISOR_ABSENCE
+  PUBLIC_HOLIDAY
+}
+
+enum CalendarEntryPeriodEnum {
+  NONE
+  WEEKLY
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type GqlGetTeamCapacityObjectType {
+  """
+  Id
+  """
+  id: UUID!
+
+  """
+  Capacity
+  """
+  capacity: Float!
+
+  """
+  Qualification name
+  """
+  qualificationName: String!
+
+  """
+  Date
+  """
+  date: String!
+}
+
+type GqlUpdateTeamCapacityObjectType {
+  """
+  Status of updating team capacity
+  """
+  status: Boolean!
+}
+
+type GqlGetLocationTeamsCalendarDaysCapacitiesObjectType {
+  """
+  Team Id
+  """
+  teamId: UUID!
+
+  """
+  Capacity
+  """
+  capacity: Float!
+
+  """
+  Capacity
+  """
+  qualificationName: String!
+}
+
+type GqlGetLocationTeamsCalendarDaysObjectType {
+  """
+  Date
+  """
+  date: String
+
+  """
+  Capacities
+  """
+  capacities: [GqlGetLocationTeamsCalendarDaysCapacitiesObjectType!]!
+}
+
+type GqlGetLocationTeamsCalendarCalendarEntryObjectType {
+  """
+  Id
+  """
+  id: UUID!
+
+  """
+  Type
+  """
+  type: String!
+
+  """
+  Is full day
+  """
+  isFullDay: Boolean!
+
+  """
+  Start time
+  """
+  startTime: String
+
+  """
+  End time
+  """
+  endTime: String
+
+  """
+  Start date
+  """
+  startDate: String
+
+  """
+  End date
+  """
+  endDate: String
+
+  """
+  Period
+  """
+  period: String
+
+  """
+  Periodic end
+  """
+  periodicEnd: String
+
+  """
+  Is editable
+  """
+  isEditable: Boolean!
+}
+
+type GqlGetLocationTeamsCalendarCalendarObjectType {
+  """
+  Calendar entries
+  """
+  entries: [GqlGetLocationTeamsCalendarCalendarEntryObjectType!]!
+}
+
+type GqlGetLocationTeamsCalendarObjectType {
+  """
+  Days
+  """
+  days: [GqlGetLocationTeamsCalendarDaysObjectType!]!
+
+  """
+  Calendar
+  """
+  calendar: GqlGetLocationTeamsCalendarCalendarObjectType!
+}
+
+input GqlUpdateWorkshopFollowUpWorkInputType {
+  """
+  Workshop follow up work ID
+  """
+  id: UUID!
+
+  """
+  Workshop follow up work name
+  """
+  name: String!
+
+  """
+  Workshop follow up work time units
+  """
+  timeUnits: Float!
+
+  """
+  Is workshop follow up work capacity editable
+  """
+  isCapacityEditable: Boolean!
+
+  """
+  Is workshop follow up work description editable
+  """
+  isDescriptionEditable: Boolean!
+
+  """
+  Workshop follow up work qualifications
+  """
+  qualification: GqlWorkshopFollowUpWorkQualificationIdInputType!
+}
+
+type GqlUpdateWorkshopFollowUpWorkObjectType {
+  """
+  Status of workshop follow up work update
+  """
+  status: Boolean!
+}
+
+type GqlGetQualificationsQualificationObjectType {
+  """
+  Id
+  """
+  id: UUID!
+
+  """
+  Code
+  """
+  code: String!
+
+  """
+  Name
+  """
+  name: String!
+}
+
+type GqlGetQualificationsObjectType {
+  """
+  Qualifications
+  """
+  qualifications: [GqlGetQualificationsQualificationObjectType!]!
+}
+
+type GqlGetWorkshopFollowUpWorksObjectType {
+  """
+  Workshop follow up works collection
+  """
+  works: [GqlGetWorkshopFollowUpWorkObjectType!]!
+}
+
+type GqlGetWorkshopFollowUpWorkObjectType {
+  """
+  Workshop follow up work ID
+  """
+  id: UUID!
+
+  """
+  Workshop follow up work name
+  """
+  name: String!
+
+  """
+  Workshop follow up work time units
+  """
+  timeUnits: Float!
+
+  """
+  Is workshop follow up work capacity editable
+  """
+  isCapacityEditable: Boolean!
+
+  """
+  Is workshop follow up work description editable
+  """
+  isDescriptionEditable: Boolean!
+
+  """
+  Is workshop follow up work active
+  """
+  isActive: Boolean!
+
+  """
+  Workshop follow up work qualifications
+  """
+  qualification: GqlWorkshopFollowUpWorkQualificationObjectType!
+}
+
+type GqlWorkshopFollowUpWorkQualificationObjectType {
+  """
+  Qualification ID
+  """
+  id: UUID!
+
+  """
+  Qualification name
+  """
+  name: String!
+}
+
+type GqlGetWorkshopConnectedLocationObjectType {
+  """
+  Connected Location ID
+  """
+  connectedLocationId: UUID!
+}
+
+type GqlGetWorkshopConnectedLocationsObjectType {
+  """
+  Connected Locations collection
+  """
+  workshopConnectedLocations: [GqlGetWorkshopConnectedLocationObjectType!]!
+}
+
+type GqlCreateWorkshopConnectedLocationsObjectType {
+  """
+  Status of Workshop Connected Location Creation
+  """
+  status: Boolean!
+}
+
+type GqlDeleteWorkshopConnectedLocationsObjectType {
+  """
+  Status of Workshop Connected Location Deletion
+  """
+  status: Boolean!
 }

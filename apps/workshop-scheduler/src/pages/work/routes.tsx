@@ -4,10 +4,12 @@ import { CommonPermissionsConfig, PermissionLayout } from '@/entities/permission
 import { PermissionType } from '@/shared/api/types.generated'
 import { ROUTE_PATHS } from '@/shared/lib'
 
+import CreateFollowUpWork from './createFollowUpWork/ui/Page'
 import {
   ActivateServiceConfirmationPage,
   AddWorkPage,
   DeactivateServiceConfirmationPage,
+  EditFollowUpWorkModal,
   EditWorkModal,
   WorksListPage,
 } from './lazyComponents'
@@ -40,6 +42,10 @@ export const workRoutes = (
         >
           <Route path={ROUTE_PATHS.Work.Add.slice(ROUTE_PATHS.Work.Root.length + 1)} element={<AddWorkPage />} />
           <Route path={ROUTE_PATHS.Work.Edit.slice(ROUTE_PATHS.Work.Root.length + 1)} element={<EditWorkModal />} />
+          <Route
+            path={ROUTE_PATHS.FollowUpWork.Add.slice(ROUTE_PATHS.Work.Root.length + 1)}
+            element={<CreateFollowUpWork />}
+          />
         </Route>
         <Route
           path={ROUTE_PATHS.Work.DeactivateService.slice(ROUTE_PATHS.Work.Root.length + 1)}
@@ -48,6 +54,10 @@ export const workRoutes = (
         <Route
           path={ROUTE_PATHS.Work.ActivateService.slice(ROUTE_PATHS.Work.Root.length + 1)}
           element={<ActivateServiceConfirmationPage />}
+        />
+        <Route
+          path={ROUTE_PATHS.FollowUpWork.Edit.slice(ROUTE_PATHS.Work.Root.length + 1)}
+          element={<EditFollowUpWorkModal />}
         />
       </Route>
     </Route>

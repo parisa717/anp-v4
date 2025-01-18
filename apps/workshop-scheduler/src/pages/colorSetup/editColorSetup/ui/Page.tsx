@@ -8,7 +8,8 @@ import {
   useAvailabilityColorsListData,
   useUpdateAvailabilityColorsMutation,
 } from '@/entities/availabilityColor'
-import { pageUrls } from '@/shared/lib'
+import { pageUrls, ROUTE_PATHS } from '@/shared/lib'
+import { ServerSideErrorsMessagesList } from '@/shared/ui'
 
 import { useEditColorSetupForm } from '../lib/useForm'
 import { EditColorSetupFormSchema } from '../model/formSchema'
@@ -30,8 +31,6 @@ const EditColorSetupPage = () => {
   const isAddNewColorButtonDisabled = fields.length >= AVAILABILITY_COLORS_CREATION_LIMIT
 
   const onSubmitHandler = async (formData: EditColorSetupFormSchema) => {
-    // TODO: Add error handling
-
     const updatedAvailabilityColorsData = formData.availabilityColors.map((color) => {
       return {
         color: color.color,
@@ -39,11 +38,13 @@ const EditColorSetupPage = () => {
       }
     })
 
-    await updateAvailabilityColors({
+    const result = await updateAvailabilityColors({
       availabilityColors: updatedAvailabilityColorsData,
     })
 
-    navigate(pageUrls.colorSetup.root())
+    if (result.data && !result.error) {
+      navigate(pageUrls.colorSetup.root())
+    }
   }
 
   const handleCancelClick = () => {
@@ -59,6 +60,7 @@ const EditColorSetupPage = () => {
       <h1 className="text-headline">{translate('title')}</h1>
 
       <section className="flex flex-col gap-9 w-[55%] min-w-[784px]">
+        <ServerSideErrorsMessagesList page={ROUTE_PATHS.ColorSetup.Edit} className="mb-8" />
         <div className="flex flex-row items-center justify-between">
           <h3 className="text-3xl text-bluegray-700 m-0 font-normal">{translate('capacitiesColors')}</h3>
           <div className="flex flex-row gap-2">

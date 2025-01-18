@@ -1,6 +1,6 @@
+import { useTranslation } from '@nexus-ui/i18n'
 import { OverlayPanel } from 'primereact/overlaypanel'
 import { Fragment, useRef } from 'react'
-import { useTranslation } from 'react-i18next'
 
 import { LocationTeamsCalendarDayCapacity } from '@/entities/teamsCapacity'
 

@@ -1,7 +1,7 @@
+import { useTranslation } from '@nexus-ui/i18n'
 import type { Meta, StoryObj } from '@storybook/react'
 import { ColumnFilterElementTemplateOptions } from 'primereact/column'
 import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
 
 import { DataTableMultiSelect } from './DataTableMultiSelect'
 

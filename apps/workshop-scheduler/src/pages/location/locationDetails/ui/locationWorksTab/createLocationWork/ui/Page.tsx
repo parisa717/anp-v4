@@ -1,12 +1,13 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useTranslation } from '@nexus-ui/i18n'
 import { FormModal } from '@nexus-ui/ui'
 import { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router'
 
 import { useCreateLocationWorkMutation } from '@/entities/locationWork'
-import { IdParam, pageUrls } from '@/shared/lib'
+import { IdParam, pageUrls, ROUTE_PATHS } from '@/shared/lib'
+import { ServerSideErrorsMessagesList } from '@/shared/ui'
 
 import {
   CreateLocationWorkFormSchema,
@@ -61,20 +62,19 @@ const CreateLocationWorkPage = () => {
   }
 
   const handleNewLocationWorkSubmit = async (data: CreateLocationWorkFormSchema) => {
-    try {
-      await createLocationWork({
-        locationWorks: data.works.map((work) => ({
-          amountPerDayLimit: work.amountPerDayLimit,
-          capacityPerDayLimit: work.capacityPerDayLimit !== null ? work.capacityPerDayLimit / 100 : null,
-          isRecommended: work.isRecommended,
-          workId: work.id,
-          brands: work.selectedBrands.map((brandId) => ({ id: brandId })),
-          locationId: id,
-        })),
-      }).unwrap()
+    const result = await createLocationWork({
+      locationWorks: data.works.map((work) => ({
+        amountPerDayLimit: work.amountPerDayLimit,
+        capacityPerDayLimit: work.capacityPerDayLimit !== null ? work.capacityPerDayLimit / 100 : null,
+        isRecommended: work.isRecommended,
+        workId: work.id,
+        brands: work.selectedBrands.map((brandId) => ({ id: brandId })),
+        locationId: id,
+      })),
+    })
+
+    if (result.data && !result.error) {
       navigate(pageUrls.location.details.root(id))
-    } catch {
-      //TODO: handle error
     }
   }
 
@@ -89,6 +89,7 @@ const CreateLocationWorkPage = () => {
       isLoading={isCreateLocationWorkLoading}
     >
       <div className="flex gap-4 flex-col">
+        <ServerSideErrorsMessagesList page={ROUTE_PATHS.Location.Details.LocationWorks.Create} className="mb-8" />
         {/**TODO: uncomment when ready CopyLocationWork */}
         {/* <LocationFormModeRadioButton
           isChecked={isSelected(CreateLocationWorkMode.COPY)}

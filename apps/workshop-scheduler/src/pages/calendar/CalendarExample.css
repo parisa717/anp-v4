@@ -1,5 +1,0 @@
-.Calendar {
-  & .rbc-day-bg:not([class*=' ']) {
-    background-color: #ffffff;
-  }
-}
