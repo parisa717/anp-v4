@@ -230,6 +230,31 @@ type GqlGetAreaCountryObjectType {
   name: String!
 }
 
+
+type GqlGetLocationObjectType {
+  """Location ID"""
+  id: UUID!
+
+  """Location code"""
+  code: String!
+
+  """Location name"""
+  name: String!
+
+  """Is Location active"""
+  isActive: Boolean!
+
+  """Address"""
+  address: GqlGetLocationAddressObjectType!
+
+  """Area"""
+  area: GqlGetLocationAreaObjectType!
+
+  """Brand"""
+  brands: [GqlGetLocationBrandObjectType!]!
+}
+
+
 type Query {
   """
   This method lists Areas
@@ -266,10 +291,20 @@ type Query {
   """
   getCountries: GqlGetCountriesObjectType!
 
+ """This method returns Location based on its id"""
+  getLocation(
+    """Location ID"""
+    id: UUID!
+  ): GqlGetLocationObjectType
+
   """
   This method lists Locations
   """
   getLocations: GqlGetLocationsObjectType!
+}
+type GqlUpdateLocationObjectType {
+  """Status of Location update"""
+  status: Boolean!
 }
 
 type Mutation {
@@ -291,6 +326,9 @@ type Mutation {
   This method creates new Location
   """
   createLocation(location: GqlCreateLocationInputType!): GqlCreateLocationObjectType!
+
+  """This method updates Location"""
+  updateLocation(location: GqlUpdateLocationInputType!): GqlUpdateLocationObjectType!
 }
 
 input GqlCreateAreaInputType {
@@ -553,4 +591,24 @@ type GqlGetLocationCountryObjectType {
   Country name
   """
   name: String!
+}
+
+input GqlUpdateLocationInputType {
+  """Location ID"""
+  id: UUID!
+
+  """Location code"""
+  code: String!
+
+  """Location name"""
+  name: String!
+
+  """Address"""
+  address: GqlSetLocationAddressObjectType!
+
+  """Area"""
+  area: GqlSetLocationAreaInputType!
+
+  """Brand"""
+  brands: [GqlSetLocationBrandInputType!]!
 }

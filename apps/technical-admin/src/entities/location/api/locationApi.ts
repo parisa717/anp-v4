@@ -1,14 +1,15 @@
 import { ApiWithTransformResponse, cacher } from '@nexus-ui/utils'
 
 import { transformLocations } from '../lib/transformLocations'
-import { LocationEntity } from '../model/types'
-import { api, GetLocationsQuery } from './Location.generated'
+import { LocationEntity, LocationEntityFromQuery } from '../model/types'
+import { api, GetLocationQuery,GetLocationsQuery } from './Location.generated'
 
 type LocationApi = ApiWithTransformResponse<
   typeof api,
-  ['GetLocations'],
+  ['GetLocations','GetLocation'],
   {
-    GetLocations: LocationEntity[]
+    GetLocations: LocationEntity[],
+    GetLocation: LocationEntityFromQuery 
   }
 >
 
@@ -23,7 +24,11 @@ export const locationApi = api.enhanceEndpoints<TagTypes, ApiEndpointDefinitions
       transformResponse: (response: GetLocationsQuery) => transformLocations(response.getLocations),
       providesTags: cacher.providesList(LOCATION_TAG),
     },
+    GetLocation: {
+      transformResponse: (response: GetLocationQuery) => response.getLocation,
+      providesTags: cacher.cacheByIdArgProperty(LOCATION_TAG),
+    },
   },
 })
 
-export const { useCreateLocationMutation, useGetLocationsQuery } = locationApi
+export const { useCreateLocationMutation, useGetLocationsQuery,useGetLocationQuery,useUpdateLocationMutation } = locationApi

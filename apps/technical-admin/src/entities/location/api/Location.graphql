@@ -3,6 +3,11 @@ mutation CreateLocation($location: GqlCreateLocationInputType!) {
     id
   }
 }
+mutation UpdateLocation($location: GqlUpdateLocationInputType!) {
+  updateLocation(location: $location) {
+    status
+  }
+}
 
 query GetLocations {
   getLocations {
@@ -31,5 +36,33 @@ query GetLocations {
         isWorkshopDefault
       }
     }
+  }
+}
+
+query GetLocation($id: UUID!) {
+  getLocation(id: $id) {
+      id
+      code
+      name
+      isActive
+      address {
+        country {
+          id
+          name
+        }
+        postCode
+        city
+        address
+      }
+      area {
+        id
+        code
+        name
+      }
+      brands {
+        id
+        code
+        isWorkshopDefault
+      }
   }
 }
