@@ -2,7 +2,7 @@ import { Route } from 'react-router'
 
 import { ROUTE_PATHS } from '@/shared/lib'
 
-import { CreateLocationPage, LocationsListPage } from './lazyComponents'
+import { CreateLocationPage, EditLocationPage, LocationsListPage } from './lazyComponents'
 
 export const locationsRoutes = (
   <>
@@ -10,6 +10,10 @@ export const locationsRoutes = (
       <Route
         path={ROUTE_PATHS.Locations.Create.slice(ROUTE_PATHS.Locations.Root.length + 1)}
         element={<CreateLocationPage />}
+      />
+       <Route
+        path={ROUTE_PATHS.Locations.Edit.slice(ROUTE_PATHS.Locations.Root.length + 1)}
+        element={<EditLocationPage />}
       />
     </Route>
   </>
