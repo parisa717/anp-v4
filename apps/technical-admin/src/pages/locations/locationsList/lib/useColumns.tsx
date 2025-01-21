@@ -129,7 +129,6 @@ export const useColumns = () => {
       showFilterMenu: false,
       showClearButton: false,
     },
-
     {
       field: 'isActive',
       filterMatchMode: FilterMatchMode.EQUALS,
