@@ -99,6 +99,7 @@
       "areaDetail": {
         "title": "Area details",
         "EditAreaButton": "Bearbeiten",
+        "AssignLocationTitle": "Zugeordnete Standorte",
         "addLocationButton": "Standort hinzufügen",
         "details": {
           "areaId": "Area",

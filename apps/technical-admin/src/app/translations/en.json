@@ -99,6 +99,7 @@
       "areaDetail": {
         "title": "Area details",
         "EditAreaButton": "Edit",
+        "AssignLocationTitle": "Assigned locations",
         "addLocationButton": "Add Location",
         "details": {
           "areaId": "Area",

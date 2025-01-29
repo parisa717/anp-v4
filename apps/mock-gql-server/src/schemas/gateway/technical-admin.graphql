@@ -266,10 +266,20 @@ type Query {
   """
   getCountries: GqlGetCountriesObjectType!
 
-  """
-  This method lists Locations
-  """
-  getLocations: GqlGetLocationsObjectType!
+ """This method lists Locations"""
+  getLocations(
+    """Filters"""
+    filter: GqlGetLocationsFilterInputType
+  ): GqlGetLocationsObjectType!
+}
+
+
+input GqlGetLocationsFilterInputType {
+  """Area ID"""
+  area: UUID
+
+  """Brand ID"""
+  brand: [UUID!]
 }
 
 type Mutation {

@@ -4,8 +4,8 @@ mutation CreateLocation($location: GqlCreateLocationInputType!) {
   }
 }
 
-query GetLocations {
-  getLocations {
+query GetLocations($filter: GqlGetLocationsFilterInputType) {
+  getLocations(filter : $filter) {
     locations {
       id
       code
