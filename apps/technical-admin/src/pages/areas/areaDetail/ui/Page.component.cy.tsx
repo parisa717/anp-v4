@@ -7,6 +7,7 @@ import { LocationEntity } from '@/entities/location'
 import AreaDetailPage from './Page'
 
 const AREA_TABLE = '[data-cy="area-table"]'
+const LOCATION_TABLE = '[data-cy="location-table"]'
 const CELL = '[data-pc-section="bodycell"]'
 const ROW = '[data-pc-section="bodyrow"]'
 
@@ -81,7 +82,7 @@ describe('AreaDetailsPage', () => {
     LOCATIONS?.forEach((location, locationIndex) => {
       getLocationFields(location).forEach((field, fieldIndex) => {
         console.log(field)
-        cy.get(ROW).eq(locationIndex).find(CELL).eq(fieldIndex).should('contain.text', field)
+        cy.get(LOCATION_TABLE).get(ROW).eq(locationIndex).find(CELL).eq(fieldIndex).should('contain.text', field)
       })
     })
   })

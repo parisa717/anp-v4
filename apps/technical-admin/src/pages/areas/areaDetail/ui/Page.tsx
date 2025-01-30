@@ -80,6 +80,8 @@ const AreaDetailPage = () => {
         data={LocationData ?? []}
         loading={isLocationDataLoading}
         emptyMessage={translate('table.empty')}
+        pt={{ root: {  'data-cy': 'location-table' } }}
+
       />
 
       <Outlet />
