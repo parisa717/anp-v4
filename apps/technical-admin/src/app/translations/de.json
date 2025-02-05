@@ -112,12 +112,6 @@
                 "areaAddress": "Adresse"
               }
             }
-          },
-          "DMS": {
-            "title": "DMS zuordnen"
-          },
-          "CRM": {
-            "title": "CRM zuordnen"
           }
         }
           },

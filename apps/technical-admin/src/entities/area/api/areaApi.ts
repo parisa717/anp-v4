@@ -26,7 +26,7 @@ export const areaApi = api.enhanceEndpoints<TagTypes, ApiEndpointDefinitions>({
       invalidatesTags: cacher.invalidatesList(AREA_TAG),
     },
     UpdateArea: {
-      invalidatesTags: cacher.invalidatesList(AREA_TAG),
+      invalidatesTags: (result, error, arg) => cacher.cacheByIdArg(AREA_TAG)(result, error, arg.area.id)
     },
     GetArea: {
       transformResponse: (response: GetAreaQuery) => response.getArea,

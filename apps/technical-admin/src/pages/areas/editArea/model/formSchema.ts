@@ -1,7 +1,6 @@
 import { TFunction } from 'i18next'
 import { z } from 'zod'
 
-import { AreaStatus } from '@/entities/area'
 
 const EditCountryInputSchema = (t: TFunction) =>
   z.object({
@@ -21,7 +20,6 @@ export const EditAreaFormSchema = (t: TFunction) =>
     code: z.string().min(3, t('validation.required')),
     name: z.string().min(1, t('validation.required')),
     address: EditAddressInputSchema(t),
-    status: z.nativeEnum(AreaStatus, { message: t('validation.required') }),
   })
 
 export type EditAreaFormSchema = z.infer<ReturnType<typeof EditAreaFormSchema>>

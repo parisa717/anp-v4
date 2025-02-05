@@ -4,7 +4,6 @@ import { Control, FieldErrors } from 'react-hook-form'
 
 import { useLoadCountries } from '../lib/useLoadCountries'
 import { EditAreaFormSchema } from '../model/formSchema'
-import { EditAreaFormStep } from '../model/types'
 
 export interface EditAreaFormProps {
   control: Control<EditAreaFormSchema>
@@ -15,7 +14,7 @@ export const EditAreaForm = ({ control, errors }: EditAreaFormProps) => {
   const { t } = useTranslation()
 
   const { translatedCountries, isLoading: areCountriesLoading } = useLoadCountries(t)
-  const translate = (formStep: EditAreaFormStep, key: string) => t(`pages.areas.editArea.steps.${formStep}.${key}`)
+  const translate = ( key: string) => t(`pages.areas.editArea.steps.general.${key}`)
 
   return (
     <form className="mt-6 flex flex-col gap-6">
@@ -23,7 +22,7 @@ export const EditAreaForm = ({ control, errors }: EditAreaFormProps) => {
       <InputTextFormField
         type="text"
         name="code"
-        label={translate(EditAreaFormStep.General, 'form.fields.areaId')}
+        label={translate('form.fields.areaId')}
         hasFloatLabel
         control={control}
         error={errors.code}
@@ -34,7 +33,7 @@ export const EditAreaForm = ({ control, errors }: EditAreaFormProps) => {
       <InputTextFormField
         type="text"
         name="name"
-        label={translate(EditAreaFormStep.General, 'form.fields.areaName')}
+        label={translate('form.fields.areaName')}
         hasFloatLabel
         control={control}
         error={errors.name}
@@ -46,7 +45,7 @@ export const EditAreaForm = ({ control, errors }: EditAreaFormProps) => {
     </div>
     <AutoCompleteInputFormField
       name="address.country.id"
-      label={translate(EditAreaFormStep.General, 'form.fields.areaCountry')}
+      label={translate('form.fields.areaCountry')}
       hasFloatLabel
       initialSuggestions={translatedCountries || []}
       control={control}
@@ -60,7 +59,7 @@ export const EditAreaForm = ({ control, errors }: EditAreaFormProps) => {
       <InputTextFormField
         type="text"
         name="address.postCode"
-        label={translate(EditAreaFormStep.General, 'form.fields.areaPostCode')}
+        label={translate('form.fields.areaPostCode')}
         hasFloatLabel
         control={control}
         error={errors.address?.postCode}
@@ -71,7 +70,7 @@ export const EditAreaForm = ({ control, errors }: EditAreaFormProps) => {
       <InputTextFormField
         type="text"
         name="address.city"
-        label={translate(EditAreaFormStep.General, 'form.fields.areaCity')}
+        label={translate('form.fields.areaCity')}
         hasFloatLabel
         control={control}
         error={errors.address?.city}
@@ -84,7 +83,7 @@ export const EditAreaForm = ({ control, errors }: EditAreaFormProps) => {
     <InputTextFormField
       type="text"
       name="address.address"
-      label={translate(EditAreaFormStep.General, 'form.fields.areaAddress')}
+      label={translate('form.fields.areaAddress')}
       hasFloatLabel
       control={control}
       error={errors.address?.address}

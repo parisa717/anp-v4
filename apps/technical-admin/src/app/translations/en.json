@@ -112,12 +112,6 @@
                 "areaAddress": "Address"
               }
             }
-          },
-          "DMS": {
-            "title": "Assign DMS"
-          },
-          "CRM": {
-            "title": "Assign CRM"
           }
         }
       },
