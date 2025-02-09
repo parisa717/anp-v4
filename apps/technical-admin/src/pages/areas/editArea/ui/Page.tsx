@@ -18,7 +18,6 @@ const EditAreaPage = () => {
 
   const translate = (key: string) => t(`pages.areas.editArea.steps.general.${key}`)
 
-
   const { id = '' } = useParams<{ id: string }>()
   const defaultValues: EditAreaFormSchema = {
     code: '',
@@ -40,31 +39,34 @@ const EditAreaPage = () => {
   } = useForm<EditAreaFormSchema>({
     resolver: zodResolver(EditAreaFormSchema(t)),
     values: areaData
-    ? {
-        code: areaData.code,
-        name: areaData.name,
-        address: {
-          postCode: areaData.address.postCode,
-          city: areaData.address.city,
-          address: areaData.address.address,
-          country: {
-            id: areaData.address.country.id,
+      ? {
+          code: areaData.code,
+          name: areaData.name,
+          address: {
+            postCode: areaData.address.postCode,
+            city: areaData.address.city,
+            address: areaData.address.address,
+            country: {
+              id: areaData.address.country.id,
+            },
           },
-        },
-      }
-    : defaultValues,
+        }
+      : defaultValues,
   })
 
   const onSubmitHandler = async (data: EditAreaFormSchema) => {
-     await updateArea({
-          area: {
-            id:id,
-            name: data.name,
-            code: data.code,
-            address: data.address,
-          },
-        })
-    navigate(pageUrls.areas.detail(id))
+    const result = await updateArea({
+      area: {
+        id: id,
+        name: data.name,
+        code: data.code,
+        address: data.address,
+      },
+    })
+
+    if (result.data && !result.error) {
+      navigate(pageUrls.areas.detail(id))
+    }
   }
 
   const handleCancelClick = () => {
@@ -75,26 +77,24 @@ const EditAreaPage = () => {
     handleSubmit(onSubmitHandler)()
   }
 
-
   return (
     <FormModal
-     
-      width={896}
+      minWidth={896}
+      width={"50%"}
       onCancelClick={handleCancelClick}
       onSaveClick={handleSaveClick}
       isUpdating={isUpdating}
-      
+      isLoading={isUpdating}
     >
       <div className="flex gap-12">
         <div className="basis-1/3">
           <h1 className="text-text-4xl-regular-lineheight-100 leading-text-4xl-regular-lineheight-100 m-0">
-           {t('pages.areas.editArea.title')}
+            {t('pages.areas.editArea.title')}
           </h1>
-        
         </div>
         <div className="basis-2/3">
           <h2 className="text-text-3xl-semibold-lineheight-150 leading-text-3xl-semibold-lineheight-150 m-0">
-           {translate('title')}
+            {translate('title')}
           </h2>
           <EditAreaForm control={control} errors={errors} />
         </div>
