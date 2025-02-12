@@ -222,7 +222,7 @@ const EditLocationList = () => {
             className="min-w-44 max-w-1/3 mt-4 mb-2"
             severity="secondary"
             outlined
-            label={translate('form.actions.addBrand')}
+            label={translate('form.fields.addBrand')}
             onClick={() => append({ id: '' })}
             loading={isLoadingBrands}
             disabled={activeBrands && watchBrandIds.length >= activeBrands.length}
