@@ -98,23 +98,21 @@
       },
       "editArea": {
         "title": "Area bearbeiten",
-        "steps": {
-          "general": {
-            "title": "Allgemeine Daten",
-            "form": {
-              "fields": {
-                "areaId": "Area-ID",
-                "areaName": "Area-Name",
-                "areaStatus": "Status",
-                "areaCountry": "Land",
-                "areaPostCode": "Postleitzahl",
-                "areaCity": "Stadt",
-                "areaAddress": "Adresse"
-              }
+
+        
+          "form": {
+            "fields": {
+              "areaId": "Area-ID",
+              "areaName": "Area-Name",
+              "areaStatus": "Status",
+              "areaCountry": "Land",
+              "areaPostCode": "Postleitzahl",
+              "areaCity": "Stadt",
+              "areaAddress": "Adresse"
             }
           }
-        }
-          },
+        
+      },
       "areaDetail": {
         "title": "Area details",
         "EditAreaButton": "Bearbeiten",

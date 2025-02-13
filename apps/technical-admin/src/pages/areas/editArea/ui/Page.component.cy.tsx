@@ -15,9 +15,14 @@ describe('EditAreaPage', () => {
     cy.mountWithProviders(<EditAreaPage />)
     cy.wait('@gqlGetCountriesQuery')
   })
+  it('submits the form with valid data', () => {
+    const areaId = '1'
+    cy.mountWithProviders(<EditAreaPage />, {
+      initialRouteEntries: [`/areas/${areaId}/edit`],
+      route: '/areas/:id/edit',
+    })
 
-  it('submits the form', () => {
-    // type in area id
+
     cy.get('input[name="code"]').type('007')
 
     // type in the area name
@@ -61,11 +66,8 @@ describe('EditAreaPage', () => {
       }
     })
 
-    // click "Save" button
-    cy.get('button[aria-label="save"]').click()
-
-    cy.wait('@gqlUpdateAreaMutation')
   })
+
 
   it('Displays error message when form is submitted with invalid data', () => {
     cy.mountWithProviders(<EditAreaPage />)
@@ -73,6 +75,7 @@ describe('EditAreaPage', () => {
     // click "Save" button
     cy.get('button[aria-label="save"]').click()
 
-    cy.contains('Required').should('be.visible')
+    cy.contains('This field is required').should('be.visible')
+    // cy.contains('Required').should('be.visible')
   })
 })

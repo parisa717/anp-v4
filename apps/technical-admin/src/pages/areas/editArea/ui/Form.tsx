@@ -2,7 +2,8 @@ import { useTranslation } from '@nexus-ui/i18n'
 import { AutoCompleteInputFormField, InputTextFormField } from '@nexus-ui/ui'
 import { Control, FieldErrors } from 'react-hook-form'
 
-import { useLoadCountries } from '../lib/useLoadCountries'
+import { useLoadCountries } from '@/entities/country'
+
 import { EditAreaFormSchema } from '../model/formSchema'
 
 export interface EditAreaFormProps {
@@ -14,7 +15,7 @@ export const EditAreaForm = ({ control, errors }: EditAreaFormProps) => {
   const { t } = useTranslation()
 
   const { translatedCountries, isLoading: areCountriesLoading } = useLoadCountries(t)
-  const translate = ( key: string) => t(`pages.areas.editArea.steps.general.${key}`)
+  const translate = ( key: string) => t(`pages.areas.editArea.${key}`)
 
   return (
     <form className="mt-6 flex flex-col gap-6">

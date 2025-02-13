@@ -4,8 +4,8 @@ import { capitalize } from '@nexus-ui/utils'
 import { Control, FieldErrors } from 'react-hook-form'
 
 import { AREA_STATUSES } from '@/entities/area'
+import { useLoadCountries } from '@/entities/country'
 
-import { useLoadCountries } from '../../../../entities/country/lib/useLoadCountries'
 import { CreateAreaFormSchema } from '../model/formSchema'
 import { CreateAreaFormStep } from '../model/types'
 
