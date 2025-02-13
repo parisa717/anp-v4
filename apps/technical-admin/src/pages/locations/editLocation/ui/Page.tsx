@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslation } from '@nexus-ui/i18n'
 import { FormModal, InputTextFormField, SelectBoxFormField } from '@nexus-ui/ui'
 import { Button } from 'primereact/button'
-import {  useFieldArray, useForm } from 'react-hook-form'
+import { useFieldArray, useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router'
 
 import { useGetAreasQuery } from '@/entities/area'
@@ -32,11 +32,10 @@ const EditLocationList = () => {
   const { id = '' } = useParams<{ id: string }>()
 
   const { data: locationData } = useGetLocationQuery({ id })
- 
+
   const navigate = useNavigate()
 
-    const [updateLocation, { isLoading: isUpdating }] = useUpdateLocationMutation()
-  
+  const [updateLocation, { isLoading: isUpdating }] = useUpdateLocationMutation()
 
   const {
     formState: { errors },
@@ -47,10 +46,11 @@ const EditLocationList = () => {
     resolver: zodResolver(editLocationFormSchema(t)),
     defaultValues: {
       area: locationData?.area.id,
-      code: locationData?.code ,
+      code: locationData?.code,
       name: locationData?.name,
       zipCode: locationData?.address?.postCode,
       city: locationData?.address?.city,
+      country: locationData?.address?.country.id,
       address: locationData?.address?.address,
       brands: [{ id: locationData?.brands[0].id }],
     },
@@ -62,9 +62,11 @@ const EditLocationList = () => {
   const watchBrandIds = watch('brands')
 
   const onSubmitHandler = async (data: EditLocationFormSchema) => {
+    console.log(data)
     await updateLocation({
       location: {
-        ...data,
+        name: data.name,
+        code: data.code,
         id: id,
         brands: data.brands.map(({ id }) => ({ id })),
         address: {
@@ -73,11 +75,10 @@ const EditLocationList = () => {
           country: { id: data.country },
           postCode: data.zipCode,
         },
-        area: { id: data.area },
+        area: { id: data.area},
       },
     })
     navigate(pageUrls.locations.root())
-
   }
 
   const handleCancelClick = () => {
@@ -87,8 +88,6 @@ const EditLocationList = () => {
   const handleSaveClick = () => {
     handleSubmit(onSubmitHandler)()
   }
-
-
 
   if (isAreasError || isBrandsError || isCountriesError) {
     // TODO: Add proper error handling
@@ -101,7 +100,7 @@ const EditLocationList = () => {
       onSaveClick={handleSaveClick}
       width="28%"
       minWidth={632}
-      title={"Standort bearbeiten"}
+      title={'Standort bearbeiten'}
       isUpdating={isUpdating}
     >
       <form className="mt-10 flex flex-col gap-8">
@@ -118,7 +117,6 @@ const EditLocationList = () => {
             error={errors.area}
             loading={isLoadingAreas}
           />
-         
         </div>
         <div className="flex flex-row items-center gap-2">
           <InputTextFormField
@@ -228,11 +226,9 @@ const EditLocationList = () => {
             disabled={activeBrands && watchBrandIds.length >= activeBrands.length}
           />
         </div>
-      
       </form>
     </FormModal>
   )
 }
 
 export default EditLocationList
-

@@ -66,7 +66,7 @@ describe('EditLocationPage', () => {
     cy.wait('@gqlGetBrandsQuery')
 
     cy.get('[data-pc-name="dropdown"]').first().click()
-    cy.get(`[data-pc-section="item"]:contains(${GET_AREAS_OPERATION_DEFAULT_RESPONSE.getAreas.areas[0]?.name})`).click()
+    cy.get(`[data-pc-section="item"]:contains(${GET_AREAS_OPERATION_DEFAULT_RESPONSE.getAreas.areas?.[0]?.name})`).click()
     cy.get('input[name="code"]').type('001')
     cy.get('input[name="name"]').type('Test Location')
     cy.get('input[name="zipCode"]').type('12345')
@@ -87,8 +87,6 @@ describe('EditLocationPage', () => {
           },
           code: '001',
           name: 'Test Location',
-          zipCode: '12345',
-          city: 'Test City',
           address: {
             address: '123 Test St',
             city: 'Test City',
@@ -97,7 +95,6 @@ describe('EditLocationPage', () => {
             },
             postCode: '12345',
           },
-          country: '2',
           brands: [
             {
               id: 'brand_1',
@@ -105,7 +102,6 @@ describe('EditLocationPage', () => {
           ],
           id: locationId,
         })
-
         successResponse(req, {
           location: CREATE_LOCATION_OPERATION_DEFAULT_RESPONSE,
         })
