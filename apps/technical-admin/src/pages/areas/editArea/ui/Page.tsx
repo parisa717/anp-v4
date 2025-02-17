@@ -84,17 +84,9 @@ const EditAreaPage = () => {
       isUpdating={isUpdating}
       isLoading={isAreaDataLoading}
     >
-      <div >
-        <div className="basis-1/3">
-          <h1 className="text-text-4xl-regular-lineheight-100 leading-text-4xl-regular-lineheight-100 m-0">
-            {t('pages.areas.editArea.title')}
-          </h1>
-        </div>
-        <div className="basis-2/3 mt-4">
-         
+     
           <EditAreaForm control={control} errors={errors} />
-        </div>
-      </div>
+     
     </FormModal>
   )
 }

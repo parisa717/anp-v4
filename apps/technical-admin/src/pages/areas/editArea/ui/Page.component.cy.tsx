@@ -1,4 +1,4 @@
-import { GET_COUNTRIES_DEFAULT_RESPONSE, UPDATE_AREA_OPERATION_DEFAULT_RESPONSE } from '@cypress-fixtures'
+import {GET_COUNTRIES_DEFAULT_RESPONSE, UPDATE_AREA_OPERATION_DEFAULT_RESPONSE } from '@cypress-fixtures'
 import { aliasMutation, aliasQuery, hasOperationName, successResponse } from '@nexus-ui/utils'
 
 import EditAreaPage from './Page'
@@ -15,6 +15,17 @@ describe('EditAreaPage', () => {
     cy.mountWithProviders(<EditAreaPage />)
     cy.wait('@gqlGetCountriesQuery')
   })
+
+
+  it('renders the page', () => {
+    cy.get('input[name="code"]').should('be.visible')
+    cy.get('input[name="name"]').should('be.visible')
+    cy.get('input[name="address.country.id"]').should('be.visible')
+    cy.get('input[name="address.postCode"]').should('be.visible')
+    cy.get('input[name="address.city"]').should('be.visible')
+    cy.get('input[name="address.address"]').should('be.visible')
+  })
+
   it('submits the form with valid data', () => {
     const areaId = '1'
     cy.mountWithProviders(<EditAreaPage />, {
