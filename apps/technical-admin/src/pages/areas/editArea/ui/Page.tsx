@@ -16,7 +16,6 @@ const EditAreaPage = () => {
   const navigate = useNavigate()
   const [updateArea, { isLoading: isUpdating }] = useUpdateAreaMutation()
 
-
   const { id = '' } = useParams<{ id: string }>()
   const defaultValues: EditAreaFormSchema = {
     code: '',
@@ -30,26 +29,26 @@ const EditAreaPage = () => {
       },
     },
   }
-  const { data: areaData ,isLoading: isAreaDataLoading } = useGetAreaQuery({ id })
+  const { data: areaData, isLoading: isAreaDataLoading } = useGetAreaQuery({ id })
   const {
     formState: { errors },
     handleSubmit,
     control,
   } = useForm<EditAreaFormSchema>({
     resolver: zodResolver(EditAreaFormSchema(t)),
-    values:  {
-          code: areaData?.code || '',
-          name: areaData?.name || '',
-          address: {
-            postCode: areaData?.address.postCode || '',
-            city: areaData?.address.city || '',
-            address: areaData?.address.address || '',
-            country: {
-              id: areaData?.address.country.id || '',
-            },
-          },
-        }
-      , defaultValues,
+    values: {
+      code: areaData?.code || '',
+      name: areaData?.name || '',
+      address: {
+        postCode: areaData?.address.postCode || '',
+        city: areaData?.address.city || '',
+        address: areaData?.address.address || '',
+        country: {
+          id: areaData?.address.country.id || '',
+        },
+      },
+    },
+    defaultValues,
   })
 
   const onSubmitHandler = async (data: EditAreaFormSchema) => {
@@ -78,15 +77,14 @@ const EditAreaPage = () => {
   return (
     <FormModal
       minWidth={896}
-      width={"50%"}
+      width={'50%'}
+      title={t('pages.areas.editArea.title')}
       onCancelClick={handleCancelClick}
       onSaveClick={handleSaveClick}
       isUpdating={isUpdating}
       isLoading={isAreaDataLoading}
     >
-     
-          <EditAreaForm control={control} errors={errors} />
-     
+      <EditAreaForm control={control} errors={errors} />
     </FormModal>
   )
 }

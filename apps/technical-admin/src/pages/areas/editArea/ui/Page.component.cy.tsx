@@ -1,10 +1,21 @@
-import {GET_COUNTRIES_DEFAULT_RESPONSE, UPDATE_AREA_OPERATION_DEFAULT_RESPONSE } from '@cypress-fixtures'
+import {
+  GET_AREA_OPERATION_DEFAULT_RESPONSE,
+  GET_COUNTRIES_DEFAULT_RESPONSE,
+  UPDATE_AREA_OPERATION_DEFAULT_RESPONSE,
+} from '@cypress-fixtures'
 import { aliasMutation, aliasQuery, hasOperationName, successResponse } from '@nexus-ui/utils'
 
 import EditAreaPage from './Page'
 
 describe('EditAreaPage', () => {
   beforeEach(() => {
+    cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
+      if (hasOperationName(req, 'GetArea')) {
+        aliasQuery(req, 'GetArea')
+        successResponse(req, GET_AREA_OPERATION_DEFAULT_RESPONSE)
+      }
+    })
+
     cy.intercept('POST', import.meta.env.VITE_API_ENDPOINT, (req) => {
       if (hasOperationName(req, 'GetCountries')) {
         aliasQuery(req, 'GetCountries')
@@ -13,17 +24,21 @@ describe('EditAreaPage', () => {
     })
 
     cy.mountWithProviders(<EditAreaPage />)
+    cy.wait('@gqlGetAreaQuery')
     cy.wait('@gqlGetCountriesQuery')
   })
 
+  it.only('renders the form with default fields and checks default values', () => {
+    cy.wait(3000)
 
-  it('renders the page', () => {
-    cy.get('input[name="code"]').should('be.visible')
-    cy.get('input[name="name"]').should('be.visible')
-    cy.get('input[name="address.country.id"]').should('be.visible')
-    cy.get('input[name="address.postCode"]').should('be.visible')
-    cy.get('input[name="address.city"]').should('be.visible')
-    cy.get('input[name="address.address"]').should('be.visible')
+    cy.get('input[name="code"]')
+      .should('be.visible')
+      .should('have.value', GET_AREA_OPERATION_DEFAULT_RESPONSE.getArea.code)
+    cy.get('input[name="name"]').should('be.visible').should('have.value', GET_AREA_OPERATION_DEFAULT_RESPONSE.getArea.name)
+    cy.get('input[name="address.country.id"]').should('be.visible').should('have.value', GET_AREA_OPERATION_DEFAULT_RESPONSE.getArea.address.country.id)
+    cy.get('input[name="address.postCode"]').should('be.visible').should('have.value', GET_AREA_OPERATION_DEFAULT_RESPONSE.getArea.address.postCode)
+    cy.get('input[name="address.city"]').should('be.visible').should('have.value', GET_AREA_OPERATION_DEFAULT_RESPONSE.getArea.address.city)
+    cy.get('input[name="address.address"]').should('be.visible').should('have.value', GET_AREA_OPERATION_DEFAULT_RESPONSE.getArea.address.address)
   })
 
   it('submits the form with valid data', () => {
@@ -32,7 +47,6 @@ describe('EditAreaPage', () => {
       initialRouteEntries: [`/areas/${areaId}/edit`],
       route: '/areas/:id/edit',
     })
-
 
     cy.get('input[name="code"]').type('007')
 
@@ -76,9 +90,7 @@ describe('EditAreaPage', () => {
         })
       }
     })
-
   })
-
 
   it('Displays error message when form is submitted with invalid data', () => {
     cy.mountWithProviders(<EditAreaPage />)
